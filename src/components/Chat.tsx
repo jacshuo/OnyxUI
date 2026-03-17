@@ -90,7 +90,7 @@ function ChatBubble({ msg, alignRight }: { msg: ChatMessage; alignRight: boolean
           className={cn(
             'rounded-xl px-3 py-2 text-sm leading-relaxed',
             alignRight
-              ? 'rounded-tr-sm bg-blue-500 text-white dark:bg-blue-600'
+              ? 'rounded-tr-sm bg-primary-500 text-white dark:bg-primary-600'
               : 'bg-primary-100 text-primary-800 dark:bg-primary-800 dark:text-primary-200 rounded-tl-sm',
           )}
         >

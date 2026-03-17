@@ -15,7 +15,7 @@ describe('Alert (static)', () => {
 
   it('applies intent variant', () => {
     const { container } = render(<Alert intent="error">Oops</Alert>);
-    expect(container.firstChild).toHaveClass('border-red-200');
+    expect(container.firstChild).toHaveClass('border-danger-200');
   });
 
   it('merges custom className', () => {

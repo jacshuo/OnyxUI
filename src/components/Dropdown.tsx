@@ -240,8 +240,8 @@ function FlatMenu({
                 className={cn(
                   'flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors',
                   isSelected
-                    ? 'border-blue-600 bg-blue-600 text-white dark:border-blue-500 dark:bg-blue-500'
-                    : 'border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-800',
+                    ? 'border-primary-600 bg-primary-600 text-white dark:border-primary-500 dark:bg-primary-500'
+                    : 'border-secondary-300 bg-white dark:border-secondary-600 dark:bg-secondary-800',
                 )}
               >
                 {isSelected && <Check className="h-3 w-3" />}
@@ -263,7 +263,7 @@ function FlatMenu({
         <div
           className={cn(
             'flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left text-sm transition-colors',
-            'text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30',
+            'text-primary-600 hover:bg-primary-50 dark:text-primary-400 dark:hover:bg-primary-900/30',
           )}
           onClick={onAdd}
         >
@@ -437,7 +437,7 @@ export function Dropdown(props: DropdownProps) {
         {editable ? (
           <input
             ref={inputRef}
-            className="min-w-0 flex-1 bg-transparent outline-none placeholder:text-gray-400 dark:placeholder:text-gray-600"
+            className="min-w-0 flex-1 bg-transparent outline-none placeholder:text-secondary-400 dark:placeholder:text-secondary-600"
             value={open ? search : displayLabel}
             placeholder={placeholder}
             disabled={disabled}
@@ -452,7 +452,7 @@ export function Dropdown(props: DropdownProps) {
             }}
           />
         ) : (
-          <span className={cn('flex-1 truncate', !displayLabel && 'text-gray-400 dark:text-gray-600')}>
+          <span className={cn('flex-1 truncate', !displayLabel && 'text-secondary-400 dark:text-secondary-600')}>
             {displayLabel || placeholder}
           </span>
         )}
@@ -460,7 +460,7 @@ export function Dropdown(props: DropdownProps) {
           <span className="flex h-4 w-4 shrink-0 items-center justify-center">{singleSelected.icon}</span>
         )}
         {multiple && selectedValues.length > 0 && (
-          <span className="rounded-full bg-blue-100 px-1.5 text-xs font-semibold text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+          <span className="rounded-full bg-primary-100 px-1.5 text-xs font-semibold text-primary-700 dark:bg-primary-900 dark:text-primary-300">
             {selectedValues.length}
           </span>
         )}

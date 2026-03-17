@@ -32,15 +32,15 @@ describe('CVA theme variants', () => {
 
   describe('badgeVariants', () => {
     it('returns default (primary)', () => {
-      expect(badgeVariants()).toContain('bg-gray-100');
+      expect(badgeVariants()).toContain('bg-secondary-100');
     });
 
     it('applies success intent', () => {
-      expect(badgeVariants({ intent: 'success' })).toContain('bg-green-100');
+      expect(badgeVariants({ intent: 'success' })).toContain('bg-success-100');
     });
 
     it('applies error intent', () => {
-      expect(badgeVariants({ intent: 'error' })).toContain('bg-red-100');
+      expect(badgeVariants({ intent: 'error' })).toContain('bg-danger-100');
     });
   });
 
@@ -52,7 +52,7 @@ describe('CVA theme variants', () => {
     });
 
     it('applies error state', () => {
-      expect(inputVariants({ state: 'error' })).toContain('border-red');
+      expect(inputVariants({ state: 'error' })).toContain('border-danger');
     });
   });
 
@@ -68,15 +68,15 @@ describe('CVA theme variants', () => {
 
   describe('alertVariants', () => {
     it('returns default (info)', () => {
-      expect(alertVariants()).toContain('border-blue');
+      expect(alertVariants()).toContain('border-primary');
     });
 
     it('applies success', () => {
-      expect(alertVariants({ intent: 'success' })).toContain('border-green');
+      expect(alertVariants({ intent: 'success' })).toContain('border-success');
     });
 
     it('applies error', () => {
-      expect(alertVariants({ intent: 'error' })).toContain('border-red');
+      expect(alertVariants({ intent: 'error' })).toContain('border-danger');
     });
   });
 

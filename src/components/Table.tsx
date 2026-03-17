@@ -287,12 +287,12 @@ function EditableCell({
           if (e.key === 'Escape') onCancel();
         }}
         aria-label="Edit cell"
-        className="min-w-0 flex-1 rounded border border-blue-400 bg-white px-1.5 py-0.5 text-sm outline-none focus:ring-1 focus:ring-blue-400 dark:border-blue-600 dark:bg-gray-800"
+        className="min-w-0 flex-1 rounded border border-primary-400 bg-white px-1.5 py-0.5 text-sm outline-none focus:ring-1 focus:ring-primary-400 dark:border-primary-600 dark:bg-secondary-800"
       />
       <button
         type="button"
         onClick={commit}
-        className="text-green-600 hover:text-green-700 dark:text-green-400"
+        className="text-success-600 hover:text-success-700 dark:text-success-400"
         aria-label="Confirm"
       >
         <Check className="h-3.5 w-3.5" />
@@ -300,7 +300,7 @@ function EditableCell({
       <button
         type="button"
         onClick={onCancel}
-        className="text-red-500 hover:text-red-600 dark:text-red-400"
+        className="text-danger-500 hover:text-danger-600 dark:text-danger-400"
         aria-label="Cancel"
       >
         <X className="h-3.5 w-3.5" />
@@ -426,7 +426,7 @@ export function DataTable<T, K extends string = string>({
             <button
               type="button"
               onClick={onAdd}
-              className="inline-flex items-center gap-1.5 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+              className="inline-flex items-center gap-1.5 rounded-md border border-secondary-300 bg-white px-3 py-1.5 text-sm font-medium text-secondary-700 transition-colors hover:bg-secondary-50 dark:border-secondary-600 dark:bg-secondary-800 dark:text-secondary-300 dark:hover:bg-secondary-700"
             >
               <Plus className="h-3.5 w-3.5" /> Add
             </button>
@@ -436,7 +436,7 @@ export function DataTable<T, K extends string = string>({
               type="button"
               onClick={() => onDelete(selected)}
               disabled={selected.length === 0}
-              className="inline-flex items-center gap-1.5 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 disabled:opacity-40 disabled:pointer-events-none dark:border-gray-600 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-red-900/20"
+              className="inline-flex items-center gap-1.5 rounded-md border border-secondary-300 bg-white px-3 py-1.5 text-sm font-medium text-danger-600 transition-colors hover:bg-danger-50 disabled:opacity-40 disabled:pointer-events-none dark:border-secondary-600 dark:bg-secondary-800 dark:text-danger-400 dark:hover:bg-danger-900/20"
             >
               <Trash2 className="h-3.5 w-3.5" /> Delete{selected.length > 0 && ` (${selected.length})`}
             </button>
@@ -450,13 +450,13 @@ export function DataTable<T, K extends string = string>({
                   setEditingCell({ rowKey: selected[0], colKey: firstEditableCol.key });
                 }
               }}
-              className="inline-flex items-center gap-1.5 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+              className="inline-flex items-center gap-1.5 rounded-md border border-secondary-300 bg-white px-3 py-1.5 text-sm font-medium text-secondary-700 transition-colors hover:bg-secondary-50 dark:border-secondary-600 dark:bg-secondary-800 dark:text-secondary-300 dark:hover:bg-secondary-700"
             >
               <Pencil className="h-3.5 w-3.5" /> Edit
             </button>
           )}
           {selected.length > 0 && (
-            <span className="ml-auto text-sm text-gray-500 dark:text-gray-400">
+            <span className="ml-auto text-sm text-secondary-500 dark:text-secondary-400">
               {selected.length} row{selected.length > 1 ? 's' : ''} selected
             </span>
           )}
@@ -475,7 +475,7 @@ export function DataTable<T, K extends string = string>({
                     if (el) el.indeterminate = someSelected;
                   }}
                   onChange={toggleAll}
-                  className="h-4 w-4 cursor-pointer rounded border-gray-300 accent-blue-600"
+                  className="h-4 w-4 cursor-pointer rounded border-secondary-300 accent-primary-600"
                   aria-label="Select all"
                 />
               </TableHead>
@@ -512,7 +512,7 @@ export function DataTable<T, K extends string = string>({
             return (
               <TableRow
                 key={rKey}
-                className={cn(isSelected && 'bg-blue-50/60 dark:bg-blue-900/20')}
+                className={cn(isSelected && 'bg-primary-50/60 dark:bg-primary-900/20')}
                 onClick={() => {
                   if (selectionMode !== 'none') toggleRow(rKey);
                 }}
@@ -524,7 +524,7 @@ export function DataTable<T, K extends string = string>({
                       checked={isSelected}
                       onChange={() => toggleRow(rKey)}
                       onClick={(e) => e.stopPropagation()}
-                      className="h-4 w-4 cursor-pointer rounded border-gray-300 accent-blue-600"
+                      className="h-4 w-4 cursor-pointer rounded border-secondary-300 accent-primary-600"
                       aria-label="Select row"
                     />
                   </TableCell>
@@ -536,7 +536,7 @@ export function DataTable<T, K extends string = string>({
                       checked={isSelected}
                       onChange={() => toggleRow(rKey)}
                       onClick={(e) => e.stopPropagation()}
-                      className="h-4 w-4 cursor-pointer accent-blue-600"
+                      className="h-4 w-4 cursor-pointer accent-primary-600"
                       aria-label="Select row"
                     />
                   </TableCell>

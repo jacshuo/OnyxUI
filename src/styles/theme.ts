@@ -32,14 +32,14 @@ export const badgeVariants = cva(
     variants: {
       intent: {
         success:
-          'border-green-200 bg-green-100 text-green-800 dark:border-green-800 dark:bg-green-900/30 dark:text-green-400',
+          'border-success-200 bg-success-100 text-success-800 dark:border-success-800 dark:bg-success-900/30 dark:text-success-400',
         warning:
-          'border-amber-200 bg-amber-100 text-amber-800 dark:border-amber-800 dark:bg-amber-900/30 dark:text-amber-400',
+          'border-warning-200 bg-warning-100 text-warning-800 dark:border-warning-800 dark:bg-warning-900/30 dark:text-warning-400',
         error:
-          'border-red-200 bg-red-100 text-red-800 dark:border-red-800 dark:bg-red-900/30 dark:text-red-400',
-        info: 'border-blue-200 bg-blue-100 text-blue-800 dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
+          'border-danger-200 bg-danger-100 text-danger-800 dark:border-danger-800 dark:bg-danger-900/30 dark:text-danger-400',
+        info: 'border-primary-200 bg-primary-100 text-primary-800 dark:border-primary-800 dark:bg-primary-900/30 dark:text-primary-400',
         primary:
-          'border-gray-200 bg-gray-100 text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300',
+          'border-secondary-200 bg-secondary-100 text-secondary-700 dark:border-secondary-700 dark:bg-secondary-800 dark:text-secondary-300',
       },
     },
     defaultVariants: { intent: 'primary' },
@@ -48,13 +48,13 @@ export const badgeVariants = cva(
 
 // ─── Input
 export const inputVariants = cva(
-  'w-full rounded-md border bg-white text-gray-900 transition-colors placeholder:text-gray-400 focus:outline-none focus:ring-2 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-600',
+  'w-full rounded-md border bg-white text-secondary-900 transition-colors placeholder:text-secondary-400 focus:outline-none focus:ring-2 dark:bg-secondary-900 dark:text-secondary-100 dark:placeholder:text-secondary-600',
   {
     variants: {
       state: {
         default:
-          'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 dark:border-gray-600',
-        error: 'border-red-400 focus:border-red-500 focus:ring-red-500/20',
+          'border-secondary-300 focus:border-primary-500 focus:ring-primary-500/20 dark:border-secondary-600',
+        error: 'border-danger-400 focus:border-danger-500 focus:ring-danger-500/20',
       },
       size: {
         sm: 'h-7 px-2 text-xs',
@@ -224,12 +224,12 @@ export const alertVariants = cva(
     variants: {
       intent: {
         success:
-          'border-green-200 bg-green-50 text-green-800 dark:border-green-800 dark:bg-green-900/80 dark:text-green-200',
+          'border-success-200 bg-success-50 text-success-800 dark:border-success-800 dark:bg-success-900/80 dark:text-success-200',
         warning:
-          'border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-900/80 dark:text-amber-200',
+          'border-warning-200 bg-warning-50 text-warning-800 dark:border-warning-800 dark:bg-warning-900/80 dark:text-warning-200',
         error:
-          'border-red-200 bg-red-50 text-red-800 dark:border-red-800 dark:bg-red-900/80 dark:text-red-200',
-        info: 'border-blue-200 bg-blue-50 text-blue-800 dark:border-blue-800 dark:bg-blue-900/80 dark:text-blue-200',
+          'border-danger-200 bg-danger-50 text-danger-800 dark:border-danger-800 dark:bg-danger-900/80 dark:text-danger-200',
+        info: 'border-primary-200 bg-primary-50 text-primary-800 dark:border-primary-800 dark:bg-primary-900/80 dark:text-primary-200',
       },
     },
     defaultVariants: { intent: 'info' },

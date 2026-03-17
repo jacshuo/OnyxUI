@@ -51,7 +51,7 @@ describe('Input', () => {
   it('applies error state styling', () => {
     const { container } = render(<Input state="error" />);
     const input = container.querySelector('input');
-    expect(input?.className).toContain('red');
+    expect(input?.className).toContain('danger');
   });
 
   it('applies custom className', () => {

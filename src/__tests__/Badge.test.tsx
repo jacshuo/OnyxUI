@@ -15,12 +15,12 @@ describe('Badge', () => {
 
   it('applies intent variant', () => {
     const { container } = render(<Badge intent="success">OK</Badge>);
-    expect(container.firstChild).toHaveClass('bg-green-100');
+    expect(container.firstChild).toHaveClass('bg-success-100');
   });
 
   it('applies default intent when none specified', () => {
     const { container } = render(<Badge>Default</Badge>);
-    expect(container.firstChild).toHaveClass('bg-gray-100');
+    expect(container.firstChild).toHaveClass('bg-secondary-100');
   });
 
   it('merges custom className', () => {

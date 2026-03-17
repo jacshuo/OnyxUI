@@ -204,7 +204,7 @@ export function DropdownButton({
                 onChange={(e) => setFilter(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Type to filter or add…"
-                className="w-full bg-transparent text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none dark:text-gray-100 dark:placeholder:text-gray-600"
+                className="w-full bg-transparent text-sm text-secondary-900 placeholder:text-secondary-400 focus:outline-none dark:text-secondary-100 dark:placeholder:text-secondary-600"
               />
             </div>
           )}
@@ -245,8 +245,8 @@ export function DropdownButton({
                         className={cn(
                           'flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors',
                           isSelected
-                            ? 'border-blue-600 bg-blue-600 text-white dark:border-blue-500 dark:bg-blue-500'
-                            : 'border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-800',
+                          ? 'border-primary-600 bg-primary-600 text-white dark:border-primary-500 dark:bg-primary-500'
+                          : 'border-secondary-300 bg-white dark:border-secondary-600 dark:bg-secondary-800',
                         )}
                       >
                         {isSelected && <Check className="h-3 w-3" />}
@@ -269,7 +269,7 @@ export function DropdownButton({
                 type="button"
                 className={cn(
                   'flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left text-sm transition-colors',
-                  'text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30',
+                  'text-primary-600 hover:bg-primary-50 dark:text-primary-400 dark:hover:bg-primary-900/30',
                 )}
                 onClick={handleAdd}
               >

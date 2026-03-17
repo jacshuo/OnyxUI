@@ -27,8 +27,8 @@ const sizeMap = {
 } as const;
 
 const stateMap = {
-  default: 'border-gray-300 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 dark:border-gray-600',
-  error: 'border-red-400 focus-within:border-red-500 focus-within:ring-2 focus-within:ring-red-500/20',
+  default: 'border-secondary-300 focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500/20 dark:border-secondary-600',
+  error: 'border-danger-400 focus-within:border-danger-500 focus-within:ring-2 focus-within:ring-danger-500/20',
 } as const;
 
 export function Input({
@@ -51,7 +51,7 @@ export function Input({
   return (
     <div
       className={cn(
-        'flex w-full items-center overflow-hidden rounded-md border bg-white transition-colors dark:bg-gray-900',
+        'flex w-full items-center overflow-hidden rounded-md border bg-white transition-colors dark:bg-secondary-900',
         sz.wrapper,
         st,
         className,
@@ -60,7 +60,7 @@ export function Input({
       {prefix && (
         <span
           className={cn(
-            'flex shrink-0 items-center gap-1.5 self-stretch border-r border-gray-300 bg-gray-50 font-medium text-gray-600 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300',
+            'flex shrink-0 items-center gap-1.5 self-stretch border-r border-secondary-300 bg-secondary-50 font-medium text-secondary-600 dark:border-secondary-600 dark:bg-secondary-800 dark:text-secondary-300',
             sz.prefix,
           )}
         >
@@ -69,7 +69,7 @@ export function Input({
       )}
       <input
         className={cn(
-          'min-w-0 flex-1 bg-transparent text-gray-900 placeholder:text-gray-400 focus:outline-none dark:text-gray-100 dark:placeholder:text-gray-600',
+          'min-w-0 flex-1 bg-transparent text-secondary-900 placeholder:text-secondary-400 focus:outline-none dark:text-secondary-100 dark:placeholder:text-secondary-600',
           sz.input,
           prefix && 'pl-2',
         )}
@@ -78,7 +78,7 @@ export function Input({
       {suffix && (
         <span
           className={cn(
-            'pointer-events-none flex shrink-0 items-center text-gray-400 dark:text-gray-500',
+            'pointer-events-none flex shrink-0 items-center text-secondary-400 dark:text-secondary-500',
             sz.icon,
           )}
         >
@@ -91,7 +91,7 @@ export function Input({
           onClick={action.onClick}
           aria-label={action['aria-label'] ?? 'Action'}
           className={cn(
-            'flex shrink-0 items-center text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400',
+            'flex shrink-0 items-center text-secondary-500 transition-colors hover:text-primary-600 dark:text-secondary-400 dark:hover:text-primary-400',
             sz.icon,
           )}
         >
