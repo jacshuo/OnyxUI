@@ -148,7 +148,7 @@ export default function App() {
       <header className="flex h-12 shrink-0 items-center justify-between border-b border-primary-200 bg-white px-5 dark:border-primary-700 dark:bg-primary-900">
         <div className="flex items-center gap-6">
           <span className="text-lg font-bold text-primary-800 dark:text-primary-100">
-            @jac/ui
+            @jacshuo/onyx
           </span>
           <nav className="flex items-center gap-4 text-sm">
             <NavLink

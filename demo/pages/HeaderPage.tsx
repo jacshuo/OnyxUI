@@ -72,7 +72,7 @@ export default function HeaderPage() {
       <Section title="Full-featured — theme, language, GitHub, login">
         <div className="overflow-hidden rounded-lg border border-primary-200 dark:border-primary-700">
           <Header
-            brand="@jac/ui"
+            brand="@jacshuo/onyx"
             onBrandClick={() => alert('Navigate home')}
             navItems={navItems}
             actions={[

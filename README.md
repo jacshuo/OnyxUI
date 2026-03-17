@@ -7,9 +7,20 @@
 
 # @jacshuo/onyx
 
-A cross-platform **React UI component library** built with Tailwind CSS v4 — works in web browsers and Electron. Ships ESM + CJS bundles with full TypeScript declarations.
+A cross-platform **React UI component library** built with Tailwind CSS v4 — designed for web browsers and Electron desktop apps. Ships ESM + CJS bundles with full TypeScript declarations.
+
+Born out of a personal passion for **cross-platform desktop development**, Onyx focuses on delivering a polished, consistent look and feel across Electron and web — the kind of UI toolkit I always wished existed when building desktop apps with web technologies.
 
 > **Live Demo →** [jacshuo.github.io/jac-ui](https://jacshuo.github.io/jac-ui)
+
+---
+
+## Why Onyx?
+
+- **Desktop-first philosophy** — Unlike most React UI libraries that target mobile or generic web, Onyx is crafted with desktop and Electron apps as a first-class concern. Components are optimized for pointer interactions, keyboard navigation, and desktop-sized viewports.
+- **Production-ready out of the box** — Dark mode, design tokens, accessibility, and keyboard shortcuts are built in from day one — not bolted on as an afterthought.
+- **Minimal footprint, maximum control** — No runtime CSS-in-JS. Just Tailwind CSS v4 utility classes and CSS custom properties. Override any token without ejecting or fighting specificity wars.
+- **Rich, specialized components** — Beyond the usual buttons and inputs, Onyx includes `CinePlayer`, `MiniPlayer`, `FileExplorer`, and `DataTable` — components that are hard to find in general-purpose libraries but essential for desktop-class applications.
 
 ---
 
@@ -20,8 +31,10 @@ A cross-platform **React UI component library** built with Tailwind CSS v4 — w
 - 🎯 **CSS variable design tokens** — override any color via `--cp-*`, `--mp-*`, `--fe-*` custom properties
 - ⚡ **Tailwind CSS v4** — zero config, `@theme` tokens, `color-mix()` accent support
 - 📦 **Tree-shakeable** — ESM + CJS dual output, `sideEffects: ["*.css"]`
-- 🖥️ **Cross-platform** — built with web & Electron in mind
+- 🖥️ **Cross-platform** — built for web & Electron desktop apps
+- ⌨️ **Keyboard-first** — comprehensive keyboard shortcuts for CinePlayer, FileExplorer, and more
 - 🔤 **Full TypeScript** — every prop, event, and variant is typed
+- 🧩 **Composable API** — compound component patterns (e.g., `Dialog` → `DialogContent` + `DialogHeader` + `DialogFooter`) let you assemble exactly what you need
 
 ---
 
@@ -479,6 +492,29 @@ jac-ui/
 ├── dist/                # Library build output
 └── dist-demo/           # Demo build output
 ```
+
+---
+
+## Roadmap
+
+### Responsiveness & Mobile Support
+
+> **Current status: not supported**
+
+Onyx is a **desktop-first** library. All components are currently designed for desktop-sized viewports and pointer-based interactions. Responsive / mobile layouts are **not yet available**.
+
+This is a personal side project, and my day job keeps me quite busy. My primary interest lies in **cross-platform desktop application development** (Electron + web), which is where I spend most of my limited spare time. As a result, responsive design and mobile device support have not been prioritized — and there is **no concrete timeline** for adding them.
+
+That said, responsiveness is absolutely a worthwhile direction. If this is something you need, **pull requests are very welcome!** The rough areas that would benefit from community contributions include:
+
+- **Fluid layouts** — Making `Card`, `DataTable`, `Dialog`, etc. adapt to narrow viewports via container queries or relative units.
+- **Responsive typography** — Auto-scaling font sizes and spacing based on viewport width.
+- **Touch-friendly interactions** — Larger tap targets, swipe gestures for `CinePlayer` / `MiniPlayer`, touch-optimized drag handles.
+- **Adaptive component variants** — `DataTable` → card list on mobile, `SideNav` → slide-over drawer, `Header` → hamburger menu.
+- **Breakpoint-aware props** — e.g., `<Button size={{ base: 'sm', md: 'lg' }}>` aligned with Tailwind CSS v4 breakpoints.
+- **Mobile-first CSS refactor** — Layering complexity at wider breakpoints instead of overriding desktop defaults.
+
+If you're interested in contributing any of these, check out the [Contributing](#contributing) section — I'd love the help! 🙌
 
 ---
 

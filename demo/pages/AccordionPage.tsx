@@ -12,7 +12,7 @@ export default function AccordionPage() {
       <Section title="Single (default)">
         <Accordion defaultValue={['a1']}>
           <AccordionItem value="a1">
-            <AccordionTrigger><HelpCircle /> What is @jac/ui?</AccordionTrigger>
+            <AccordionTrigger><HelpCircle /> What is @jacshuo/onyx?</AccordionTrigger>
             <AccordionContent>
               A cross-platform React component library built with Tailwind CSS v4 and CVA.
             </AccordionContent>
