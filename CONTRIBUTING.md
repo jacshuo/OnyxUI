@@ -1,4 +1,4 @@
-# Contributing to @jac-ui/react
+# Contributing to @jacshuo/onyx
 
 Thank you for considering a contribution! This document explains how to get started, the project conventions, and how to submit changes.
 

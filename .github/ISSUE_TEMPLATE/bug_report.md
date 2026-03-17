@@ -33,7 +33,7 @@ If applicable, add screenshots to help explain.
 - **OS**: [e.g. Windows 11, macOS 15]
 - **Browser**: [e.g. Chrome 130, Firefox 135]
 - **Node.js**: [e.g. 22.x]
-- **@jac-ui/react version**: [e.g. 0.2.0]
+- **@jacshuo/onyx version**: [e.g. 0.2.0]
 
 ## Additional Context
 

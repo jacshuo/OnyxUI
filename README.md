@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="https://img.shields.io/npm/v/@jac-ui/react?color=8b5cf6&style=flat-square" alt="npm version" />
-  <img src="https://img.shields.io/npm/l/@jac-ui/react?style=flat-square" alt="license" />
+  <img src="https://img.shields.io/npm/v/@jacshuo/onyx?color=8b5cf6&style=flat-square" alt="npm version" />
+  <img src="https://img.shields.io/npm/l/@jacshuo/onyx?style=flat-square" alt="license" />
   <img src="https://img.shields.io/github/actions/workflow/status/jacshuo/jac-ui/ci.yml?branch=main&style=flat-square&label=CI" alt="CI" />
-  <img src="https://img.shields.io/npm/dm/@jac-ui/react?color=10b981&style=flat-square" alt="downloads" />
+  <img src="https://img.shields.io/npm/dm/@jacshuo/onyx?color=10b981&style=flat-square" alt="downloads" />
 </p>
 
-# @jac-ui/react
+# @jacshuo/onyx
 
 A cross-platform **React UI component library** built with Tailwind CSS v4 — works in web browsers and Electron. Ships ESM + CJS bundles with full TypeScript declarations.
 
@@ -28,11 +28,11 @@ A cross-platform **React UI component library** built with Tailwind CSS v4 — w
 ## Installation
 
 ```bash
-npm install @jac-ui/react
+npm install @jacshuo/onyx
 # or
-pnpm add @jac-ui/react
+pnpm add @jacshuo/onyx
 # or
-yarn add @jac-ui/react
+yarn add @jacshuo/onyx
 ```
 
 ### Peer Dependencies
@@ -51,13 +51,13 @@ npm install react react-dom
 
 ```tsx
 // main.tsx or App.tsx
-import '@jac-ui/react/styles.css';
+import '@jacshuo/onyx/styles.css';
 ```
 
 **2. Use components:**
 
 ```tsx
-import { Button, Card, CardHeader, CardTitle, CardContent } from '@jac-ui/react';
+import { Button, Card, CardHeader, CardTitle, CardContent } from '@jacshuo/onyx';
 
 function App() {
   return (
@@ -242,7 +242,7 @@ All component colors are defined as CSS custom properties in `:root` and `.dark`
 ### Button
 
 ```tsx
-import { Button } from '@jac-ui/react';
+import { Button } from '@jacshuo/onyx';
 
 <Button intent="primary" size="lg">Save</Button>
 <Button intent="danger">Delete</Button>
@@ -254,7 +254,7 @@ import { Button } from '@jac-ui/react';
 
 ```tsx
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, Button } from '@jac-ui/react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, Button } from '@jacshuo/onyx';
 
 function ConfirmDialog() {
   const [open, setOpen] = useState(false);
@@ -282,7 +282,7 @@ function ConfirmDialog() {
 ### DataTable
 
 ```tsx
-import { DataTable, type ColumnDef } from '@jac-ui/react';
+import { DataTable, type ColumnDef } from '@jacshuo/onyx';
 
 type User = { id: number; name: string; email: string };
 
@@ -298,7 +298,7 @@ const columns: ColumnDef<User>[] = [
 ### Tabs
 
 ```tsx
-import { Tabs, TabList, TabTrigger, TabPanels, TabContent } from '@jac-ui/react';
+import { Tabs, TabList, TabTrigger, TabPanels, TabContent } from '@jacshuo/onyx';
 
 <Tabs defaultValue="overview">
   <TabList>
@@ -315,7 +315,7 @@ import { Tabs, TabList, TabTrigger, TabPanels, TabContent } from '@jac-ui/react'
 ### Alert (Toast)
 
 ```tsx
-import { useAlert, Button } from '@jac-ui/react';
+import { useAlert, Button } from '@jacshuo/onyx';
 
 function NotifyButton() {
   const alert = useAlert();
@@ -331,7 +331,7 @@ function NotifyButton() {
 ### MiniPlayer
 
 ```tsx
-import { MiniPlayer } from '@jac-ui/react';
+import { MiniPlayer } from '@jacshuo/onyx';
 
 const tracks = [
   { title: 'Midnight City', artist: 'M83', src: '/audio/midnight.mp3', cover: '/covers/m83.jpg' },
@@ -350,7 +350,7 @@ const tracks = [
 ### CinePlayer
 
 ```tsx
-import { CinePlayer } from '@jac-ui/react';
+import { CinePlayer } from '@jacshuo/onyx';
 
 const videos = [
   { title: 'Big Buck Bunny', src: 'https://example.com/bunny.mp4', subtitle: 'Open source' },
@@ -366,7 +366,7 @@ const videos = [
 ### FileExplorer
 
 ```tsx
-import { FileExplorer, type FileExplorerItem } from '@jac-ui/react';
+import { FileExplorer, type FileExplorerItem } from '@jacshuo/onyx';
 
 const files: FileExplorerItem[] = [
   { name: 'src', path: '/src', type: 'directory' },

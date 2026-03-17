@@ -1,5 +1,5 @@
 {
-  "name": "@jac-ui/react",
+  "name": "@jacshuo/onyx",
   "version": "0.1.2",
   "description": "Cross-platform React UI component library — works in web & Electron",
   "type": "module",
