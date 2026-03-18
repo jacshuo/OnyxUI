@@ -1,6 +1,6 @@
 {
   "name": "@jacshuo/onyx",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Cross-platform React UI component library — works in web & Electron",
   "type": "module",
   "main": "dist/index.cjs",
