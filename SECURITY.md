@@ -2,12 +2,12 @@
 
 ## Supported Versions
 
-We currently provide security updates for the latest release line.
+The first formal release line is currently supported for security updates.
 
 | Version | Supported |
 | --- | --- |
-| Latest | ✅ |
-| Older releases | ❌ |
+| 1.0.x | ✅ |
+| < 1.0.0 | ❌ |
 
 ## Reporting a Vulnerability
 
