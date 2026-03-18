@@ -39,10 +39,12 @@ import DialogPage from "./pages/DialogPage";
 import TooltipPage from "./pages/TooltipPage";
 import AlertPage from "./pages/AlertPage";
 import HeaderPage from "./pages/HeaderPage";
+import NavLinkPage from "./pages/NavLinkPage";
 import FilmReelPage from "./pages/FilmReelPage";
 import MiniPlayerPage from "./pages/MiniPlayerPage";
 import CinePlayerPage from "./pages/CinePlayerPage";
 import FileExplorerPage from "./pages/FileExplorerPage";
+import CodeBlockPage from "./pages/CodeBlockPage";
 
 /* ── Sidebar nav items ───────────────────────────────── */
 
@@ -75,6 +77,7 @@ const navItems: SideNavItem[] = [
       { label: "List", path: "list" },
       { label: "Tree", path: "tree" },
       { label: "Chat", path: "chat" },
+      { label: "CodeBlock", path: "code-block" },
     ],
   },
   {
@@ -83,6 +86,7 @@ const navItems: SideNavItem[] = [
     children: [
       { label: "Header", path: "header" },
       { label: "SideNav", path: "sidenav" },
+      { label: "NavLink", path: "nav-link" },
     ],
   },
   {
@@ -234,8 +238,10 @@ export default function App() {
             <Route path="/list" element={<ListPage />} />
             <Route path="/tree" element={<TreePage />} />
             <Route path="/chat" element={<ChatPage />} />
+            <Route path="/code-block" element={<CodeBlockPage />} />
             <Route path="/header" element={<HeaderPage />} />
             <Route path="/sidenav" element={<SideNavPage />} />
+            <Route path="/nav-link" element={<NavLinkPage />} />
             <Route path="/accordion" element={<AccordionPage />} />
             <Route path="/tabs" element={<TabsPage />} />
             <Route path="/dialog" element={<DialogPage />} />

@@ -26,7 +26,7 @@ Born out of a personal passion for **cross-platform desktop development**, Onyx 
 
 ## Features
 
-- 🎨 **30+ components** — from Button → DataTable → CinePlayer
+- 🎨 **30+ components** — from Button → DataTable → CinePlayer → CodeBlock
 - 🌗 **Dark / Light mode** — class-based, works out of the box
 - 🎯 **CSS variable design tokens** — override any color via `--cp-*`, `--mp-*`, `--fe-*` custom properties
 - ⚡ **Tailwind CSS v4** — zero config, `@theme` tokens, `color-mix()` accent support
@@ -185,6 +185,7 @@ import { CinePlayer } from '@jacshuo/onyx/CinePlayer';
 | **List / ListItem** | Styled list component |
 | **Tree / TreeItem** | Expandable tree view |
 | **Chat** | Chat message list with sent/received styling |
+| **CodeBlock** | Syntax-highlighted code block powered by Shiki, supports 20+ languages, line numbers, and live editable mode |
 
 ### Navigation
 
@@ -192,6 +193,7 @@ import { CinePlayer } from '@jacshuo/onyx/CinePlayer';
 |---|---|
 | **SideNav** | Collapsible sidebar with icons, sections, and multiple collapse modes |
 | **Header** | App header with nav items and action buttons |
+| **NavLink** | Semantic text link (`<a>`) with auto external-link detection, intent/size/underline variants |
 | **Tabs** | Tab bar with sliding indicator animation |
 
 ### Disclosure
@@ -402,6 +404,50 @@ function NotifyButton() {
     <Button onClick={() => alert({ title: 'Saved!', description: 'Your changes have been saved.', variant: 'success' })}>
       Save
     </Button>
+  );
+}
+```
+
+### NavLink
+
+```tsx
+import { NavLink } from '@jacshuo/onyx';
+
+{/* Internal link */}
+<NavLink href="/about">About</NavLink>
+
+{/* Auto-detected external — shows icon + sets target="_blank" automatically */}
+<NavLink href="https://github.com">GitHub</NavLink>
+
+{/* Suppress external icon */}
+<NavLink href="https://example.com" external={false}>Example</NavLink>
+
+{/* Variants */}
+<NavLink href="/docs" intent="secondary" size="lg" underline="always">Docs</NavLink>
+```
+
+### CodeBlock
+
+```tsx
+import { CodeBlock } from '@jacshuo/onyx';
+
+{/* Basic syntax highlighting */}
+<CodeBlock code={`const x = 42;`} language="typescript" />
+
+{/* With line numbers */}
+<CodeBlock code={sourceCode} language="tsx" lineNumbers />
+
+{/* Live editable editor */}
+function Editor() {
+  const [code, setCode] = useState('console.log("hello")');
+  return (
+    <CodeBlock
+      code={code}
+      language="typescript"
+      editable
+      onCodeChange={setCode}
+      lineNumbers
+    />
   );
 }
 ```

@@ -20,6 +20,8 @@ export {
   dialogContentVariants,
   tooltipVariants,
   alertVariants,
+  navLinkVariants,
+  codeBlockVariants,
 } from "./styles/theme";
 
 // ─── Primitives
@@ -78,6 +80,7 @@ export {
 export { List, ListItem } from "./components/List";
 export { Tree, TreeItem } from "./components/Tree";
 export { Chat, type ChatMessage, type ChatProps } from "./components/Chat";
+export { CodeBlock, type CodeBlockLanguage, type CodeBlockProps } from "./components/CodeBlock";
 
 // ─── Navigation
 export {
@@ -93,6 +96,7 @@ export {
   type HeaderNavItem,
   type HeaderAction,
 } from "./components/Header";
+export { NavLink } from "./components/NavLink";
 
 // ─── Disclosure
 export {
