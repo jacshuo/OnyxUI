@@ -6,8 +6,8 @@ The first formal release line is currently supported for security updates.
 
 | Version | Supported |
 | --- | --- |
-| 1.0.x | ✅ |
-| < 1.0.0 | ❌ |
+| 1.1.x | ✅ |
+| < 1.1.0 | ❌ |
 
 ## Reporting a Vulnerability
 
