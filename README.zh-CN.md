@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://img.shields.io/npm/v/@jacshuo/onyx?color=8b5cf6&style=flat-square" alt="npm version" />
   <img src="https://img.shields.io/npm/l/@jacshuo/onyx?style=flat-square" alt="license" />
-  <img src="https://img.shields.io/github/actions/workflow/status/jacshuo/jac-ui/ci.yml?branch=main&style=flat-square&label=CI" alt="CI" />
+  <img src="https://img.shields.io/github/actions/workflow/status/jacshuo/OnyxUI/ci.yml?branch=main&style=flat-square&label=CI" alt="CI" />
   <img src="https://img.shields.io/npm/dm/@jacshuo/onyx?color=10b981&style=flat-square" alt="downloads" />
 </p>
 
@@ -15,7 +15,7 @@
 
 源自对**精致跨端体验**的热忱，Onyx 在手机屏幕到 4K 显示器之间提供一致的视觉表现 —— 暗色模式、键盘导航与触摸交互，从第一天起就已内置，绝非事后补丁。
 
-> **在线演示 →** [jacshuo.github.io/jac-ui](https://jacshuo.github.io/jac-ui)
+> **在线演示 →** [jacshuo.github.io/OnyxUI](https://jacshuo.github.io/OnyxUI)
 
 ---
 
@@ -238,7 +238,7 @@ import { CinePlayer } from '@jacshuo/onyx/CinePlayer';
 
 ```html
 <html class="dark">
-  <!-- 所有 jac-ui 组件将以暗色模式渲染 -->
+  <!-- 所有 OnyxUI 组件将以暗色模式渲染 -->
 </html>
 ```
 
@@ -699,7 +699,7 @@ npm run typecheck
 ## 项目结构
 
 ```
-jac-ui/
+OnyxUI/
 ├── src/
 │   ├── components/      # 所有 React 组件
 │   ├── lib/utils.ts     # cn() 工具函数（clsx + tailwind-merge）

@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://img.shields.io/npm/v/@jacshuo/onyx?color=8b5cf6&style=flat-square" alt="npm version" />
   <img src="https://img.shields.io/npm/l/@jacshuo/onyx?style=flat-square" alt="license" />
-  <img src="https://img.shields.io/github/actions/workflow/status/jacshuo/jac-ui/ci.yml?branch=main&style=flat-square&label=CI" alt="CI" />
+  <img src="https://img.shields.io/github/actions/workflow/status/jacshuo/OnyxUI/ci.yml?branch=main&style=flat-square&label=CI" alt="CI" />
   <img src="https://img.shields.io/npm/dm/@jacshuo/onyx?color=10b981&style=flat-square" alt="downloads" />
 </p>
 
@@ -15,7 +15,7 @@ A **React UI component library** built with Tailwind CSS v4 — crafted for resp
 
 Born from a passion for **polished cross-platform experiences**, Onyx delivers a consistent look and feel from mobile screens to 4K displays — with dark mode, keyboard navigation, and touch interactions built in from day one.
 
-> **Live Demo →** [jacshuo.github.io/jac-ui](https://jacshuo.github.io/jac-ui)
+> **Live Demo →** [jacshuo.github.io/OnyxUI](https://jacshuo.github.io/OnyxUI)
 
 ---
 
@@ -237,7 +237,7 @@ The library uses Tailwind's **class-based** dark mode. Add `class="dark"` to you
 
 ```html
 <html class="dark">
-  <!-- all jac-ui components render in dark mode -->
+  <!-- all OnyxUI components render in dark mode -->
 </html>
 ```
 
@@ -698,7 +698,7 @@ npm run typecheck
 ## Project Structure
 
 ```
-jac-ui/
+OnyxUI/
 ├── src/
 │   ├── components/      # All React components
 │   ├── lib/utils.ts     # cn() utility (clsx + tailwind-merge)

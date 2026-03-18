@@ -18,7 +18,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist-demo'),
     filename: 'assets/[name].[contenthash:8].js',
-    publicPath: '/jac-ui/',
+    publicPath: '/OnyxUI/',
     clean: true,
   },
 
@@ -60,7 +60,7 @@ module.exports = {
       inject: false,
     }),
     {
-      // Inject <base href="/jac-ui/"> and SPA redirect handler into index.html
+      // Inject <base href="/OnyxUI/"> and SPA redirect handler into index.html
       apply(compiler) {
         compiler.hooks.compilation.tap('InjectBase', (compilation) => {
           HtmlWebpackPlugin.getCompilationHooks(compilation).beforeEmit.tapAsync(
@@ -68,9 +68,9 @@ module.exports = {
             (data, cb) => {
               if (data.outputName === 'index.html') {
                 // Add <base> tag
-                data.html = data.html.replace('<head>', '<head>\n    <base href="/jac-ui/" />');
+                data.html = data.html.replace('<head>', '<head>\n    <base href="/OnyxUI/" />');
                 // Add SPA redirect handler (receives path from 404.html redirect)
-                const spaScript = `<script>(function(){var r=window.location.search.match(/^\?\/(.+)$/);if(r){window.history.replaceState(null,null,'/jac-ui/'+r[1].replace(/~and~/g,'&'))}})()</script>`;
+                const spaScript = `<script>(function(){var r=window.location.search.match(/^\?\/(.+)$/);if(r){window.history.replaceState(null,null,'/OnyxUI/'+r[1].replace(/~and~/g,'&'))}})()</script>`;
                 data.html = data.html.replace('</head>', spaScript + '\n  </head>');
               }
               cb(null, data);

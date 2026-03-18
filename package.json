@@ -34,12 +34,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jacshuo/jac-ui.git"
+    "url": "git+https://github.com/jacshuo/OnyxUI.git"
   },
   "bugs": {
-    "url": "https://github.com/jacshuo/jac-ui/issues"
+    "url": "https://github.com/jacshuo/OnyxUI/issues"
   },
-  "homepage": "https://jacshuo.github.io/jac-ui",
+  "homepage": "https://jacshuo.github.io/OnyxUI",
   "scripts": {
     "dev": "webpack serve --config webpack.dev.config.cjs",
     "build": "npm run clean && npm run build:js && npm run build:css",

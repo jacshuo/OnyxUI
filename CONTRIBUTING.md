@@ -247,7 +247,7 @@ fix(ComponentName): short description
 
 ## Reporting Bugs
 
-Open an [issue](https://github.com/jacshuo/jac-ui/issues/new?template=bug_report.md) with:
+Open an [issue](https://github.com/jacshuo/OnyxUI/issues/new?template=bug_report.md) with:
 
 - **Description**: What happened vs. what you expected ?
 - **Steps to reproduce**: Minimal example
@@ -258,7 +258,7 @@ Open an [issue](https://github.com/jacshuo/jac-ui/issues/new?template=bug_report
 
 ## Suggesting Features
 
-Open an [issue](https://github.com/jacshuo/jac-ui/issues/new?template=feature_request.md) with:
+Open an [issue](https://github.com/jacshuo/OnyxUI/issues/new?template=feature_request.md) with:
 
 - **Use case**: What problem does this solve?
 - **Proposed solution**: Your idea for the API/behavior

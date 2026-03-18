@@ -16,7 +16,7 @@ Please **do not** report security vulnerabilities through public GitHub issues.
 Instead, use one of the following private channels:
 
 1. **GitHub Security Advisories (preferred):**
-   - https://github.com/jacshuo/jac-ui/security/advisories/new
+   - https://github.com/jacshuo/OnyxUI/security/advisories/new
 2. **Email:**
    - jacshuo@gmail.com
 
