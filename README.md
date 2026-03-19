@@ -114,10 +114,17 @@ import '@jacshuo/onyx/styles.css';
 
 Import each component from its own subpath. This guarantees only the code you use is included, even with bundlers that don't tree-shake well.
 
+Components are organized under category subpaths (`Primitives`, `Overlay`, `Disclosure`, `DataDisplay`, `Navigation`, `Layout`, `Feedback`, `Forms`, `Extras`):
+
 ```tsx
-import { Button } from '@jacshuo/onyx/Button';
-import { Dialog, DialogContent } from '@jacshuo/onyx/Dialog';
-import { Tabs, TabList, TabTrigger } from '@jacshuo/onyx/Tabs';
+// Individual component
+import { Button } from '@jacshuo/onyx/Primitives/Button';
+import { Dialog, DialogContent } from '@jacshuo/onyx/Overlay/Dialog';
+import { Tabs, TabList, TabTrigger } from '@jacshuo/onyx/Disclosure/Tabs';
+
+// Or import everything from a category at once
+import { Button, Input, Badge } from '@jacshuo/onyx/Primitives';
+import { Alert } from '@jacshuo/onyx/Feedback';
 ```
 
 ### CSS options
@@ -155,7 +162,7 @@ If your project already runs Tailwind CSS v4 and you want to import only the tok
 ```tsx
 import '@jacshuo/onyx/styles/base.css';
 import '@jacshuo/onyx/styles/CinePlayer.css';
-import { CinePlayer } from '@jacshuo/onyx/CinePlayer';
+import { CinePlayer } from '@jacshuo/onyx/Extras/CinePlayer';
 ```
 
 ---
@@ -338,14 +345,15 @@ import { Header } from '@jacshuo/onyx';
 // On ≥md screens: full nav bar + action buttons
 // On <md screens:  hamburger menu (nav) + overflow menu (actions) — automatic
 <Header
-  title="My App"
+  brand="My App"
+  mobileMenu
   navItems={[
     { label: 'Home', href: '/' },
     { label: 'Docs', href: '/docs' },
     { label: 'Changelog', href: '/changelog' },
   ]}
   actions={[
-    <Button size="sm" intent="primary">Sign In</Button>,
+    { icon: <UserIcon />, 'aria-label': 'Sign in', onClick: () => navigate('/login') },
   ]}
 />
 ```
@@ -565,6 +573,11 @@ import { NavLink } from '@jacshuo/onyx';
 ```
 
 ### CodeBlock
+
+> **Note:** `CodeBlock` uses [Shiki](https://shiki.style/) for syntax highlighting. Install it as a peer dependency if you use this component:
+> ```sh
+> npm install shiki
+> ```
 
 ```tsx
 import { CodeBlock } from '@jacshuo/onyx';
