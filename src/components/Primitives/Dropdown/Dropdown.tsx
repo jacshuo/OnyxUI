@@ -102,9 +102,12 @@ function flattenOptions(options: DropdownOption[]): DropdownOption[] {
 /* ── Animation helpers ─────────────────────────────────── */
 
 const ITEM_STEP_MS = 40; // stagger between items
+const ITEM_IN_MS = 200; // must match --animate-dropdown-item-in duration
 const ITEM_OUT_MS = 150; // must match --animate-dropdown-item-out duration
 const CONTAINER_OUT_MS = 120; // must match --animate-dropdown-container-out duration
 
+// Note: delay is inlined into the shorthand to avoid mixing `animation` shorthand
+// with the `animationDelay` longhand, which triggers a React style-conflict warning.
 function itemStyle(
   index: number,
   total: number,
@@ -113,16 +116,11 @@ function itemStyle(
 ): React.CSSProperties {
   if (!animated) return {};
   if (closing) {
-    const reverseIndex = total - 1 - index;
-    return {
-      animation: `var(--animate-dropdown-item-out)`,
-      animationDelay: `${reverseIndex * ITEM_STEP_MS}ms`,
-    };
+    const delay = (total - 1 - index) * ITEM_STEP_MS;
+    return { animation: `dropdown-item-out ${ITEM_OUT_MS}ms ease-in both ${delay}ms` };
   }
-  return {
-    animation: `var(--animate-dropdown-item-in)`,
-    animationDelay: `${index * ITEM_STEP_MS}ms`,
-  };
+  const delay = index * ITEM_STEP_MS;
+  return { animation: `dropdown-item-in ${ITEM_IN_MS}ms ease-out both ${delay}ms` };
 }
 
 function containerAnimStyle(
@@ -132,11 +130,8 @@ function containerAnimStyle(
 ): React.CSSProperties {
   if (!animated) return {};
   if (closing) {
-    const itemsFinishMs = Math.max(total - 1, 0) * ITEM_STEP_MS + ITEM_OUT_MS;
-    return {
-      animation: `dropdown-container-out ${CONTAINER_OUT_MS}ms ease-in both`,
-      animationDelay: `${itemsFinishMs}ms`,
-    };
+    const delay = Math.max(total - 1, 0) * ITEM_STEP_MS + ITEM_OUT_MS;
+    return { animation: `dropdown-container-out ${CONTAINER_OUT_MS}ms ease-in both ${delay}ms` };
   }
   return { animation: `var(--animate-dropdown-container-in)` };
 }

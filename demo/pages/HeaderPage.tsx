@@ -67,8 +67,9 @@ export default function HeaderPage() {
       <PageTitle>Header</PageTitle>
 
       <Section title="Basic — brand + nav + actions">
-        <div className="overflow-hidden rounded-lg border border-primary-200 dark:border-primary-700">
+        <div className="rounded-lg border border-primary-200 dark:border-primary-700">
           <Header
+            className="rounded-lg"
             brand={
               <span className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-violet-500" />
@@ -96,8 +97,9 @@ export default function HeaderPage() {
       </Section>
 
       <Section title="With logo element &amp; search bar">
-        <div className="overflow-hidden rounded-lg border border-primary-200 dark:border-primary-700">
+        <div className="rounded-lg border border-primary-200 dark:border-primary-700">
           <Header
+            className="rounded-lg"
             brand={
               <span className="flex items-center gap-2">
                 <Zap className="h-5 w-5 text-amber-400" />
@@ -125,8 +127,9 @@ export default function HeaderPage() {
       </Section>
 
       <Section title="Full-featured — theme, language, GitHub, login">
-        <div className="overflow-hidden rounded-lg border border-primary-200 dark:border-primary-700">
+        <div className="rounded-lg border border-primary-200 dark:border-primary-700">
           <Header
+            className="rounded-lg"
             brand="@jacshuo/onyx"
             onBrandClick={() => alert("Navigate home")}
             navItems={navItems}
@@ -163,8 +166,9 @@ export default function HeaderPage() {
       </Section>
 
       <Section title="Minimal — brand + single action">
-        <div className="overflow-hidden rounded-lg border border-primary-200 dark:border-primary-700">
+        <div className="rounded-lg border border-primary-200 dark:border-primary-700">
           <Header
+            className="rounded-lg"
             brand="SimpleApp"
             actions={[
               {
@@ -179,8 +183,9 @@ export default function HeaderPage() {
       </Section>
 
       <Section title="Authenticated — user actions">
-        <div className="overflow-hidden rounded-lg border border-primary-200 dark:border-primary-700">
+        <div className="rounded-lg border border-primary-200 dark:border-primary-700">
           <Header
+            className="rounded-lg"
             brand={
               <span className="flex items-center gap-2">
                 <GitBranch className="h-5 w-5 text-emerald-500" />
@@ -210,12 +215,14 @@ export default function HeaderPage() {
 
       <Section title="Mobile menu (mobileMenu prop)">
         <p className="mb-3 text-sm text-primary-500 dark:text-primary-400">
-          Below the <code>md</code> breakpoint, nav items collapse into a left hamburger (full-width
-          dropdown) and actions collapse into a right hamburger (right-anchored dropdown with
-          labels). Both close independently on outside click or scroll.
+          Below the <code>md</code> breakpoint, nav items collapse into a left{" "}
+          <strong>DropdownButton</strong> and actions collapse into a right{" "}
+          <strong>DropdownButton</strong> (right-anchored, with icon + label). Both are built on the
+          shared DropdownButton component and close independently on outside click or Escape.
         </p>
-        <div className="overflow-hidden rounded-lg border border-primary-200 dark:border-primary-700">
+        <div className="rounded-lg border border-primary-200 dark:border-primary-700">
           <Header
+            className="rounded-lg"
             brand="MyApp"
             navItems={[
               { label: "Home", href: "#", active: true },
