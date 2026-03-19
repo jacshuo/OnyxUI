@@ -17,6 +17,12 @@
       "import": "./dist/*.js",
       "require": "./dist/*.cjs"
     },
+    "./*/*": {
+      "types": "./dist/*/*.d.ts",
+      "import": "./dist/*/*.js",
+      "require": "./dist/*/*.cjs"
+    },
+    "./*/*.css": "./dist/styles/*/*.css",
     "./styles.css": "./dist/styles.css",
     "./styles/*": "./dist/styles/*"
   },

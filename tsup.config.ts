@@ -19,6 +19,19 @@ const categoryEntries = Object.fromEntries(
         entries.push([categoryName, categoryIndex]);
       }
 
+      const componentEntries = readdirSync(categoryRoot, { withFileTypes: true })
+        .filter((entry) => entry.isDirectory())
+        .flatMap((componentDir) => {
+          const componentIndex = join(categoryRoot, componentDir.name, "index.ts");
+          if (!existsSync(componentIndex)) {
+            return [];
+          }
+
+          return [[`${categoryName}/${componentDir.name}`, componentIndex] as [string, string]];
+        });
+
+      entries.push(...componentEntries);
+
       return entries;
     }),
 );
@@ -32,7 +45,7 @@ export default defineConfig({
   },
   format: ["esm", "cjs"],
   dts: true,
-  splitting: true,
+  splitting: false,
   treeshake: true,
   minify: true,
   sourcemap: false,
