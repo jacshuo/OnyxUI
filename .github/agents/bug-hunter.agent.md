@@ -44,6 +44,9 @@ Your only job is to find and fix application bugs with verified root cause and s
   - `npm run typecheck`
   Fix failures and rerun until all are green.
 11. Stage only relevant files and create local commit using common commit conventions.
+12. **After every successfully resolved issue**, always prompt the user:
+    > "是否将此修复添加到 CHANGELOG.md？如需添加，建议条目为：`- **fix(scope)**: 简要描述` — 请确认或修改后我来写入。"
+    Do NOT write to `CHANGELOG.md` without explicit user confirmation.
 
 ## Proactive Bug Discovery Mode
 - When user asks to "find possible bugs" (or equivalent), start by scanning for likely high-risk areas:

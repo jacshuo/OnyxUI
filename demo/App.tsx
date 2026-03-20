@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, lazy, Suspense } from "react";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
+import { siGithub } from "simple-icons";
 import {
   Sun,
   Moon,
-  Github,
   Box,
   LayoutGrid,
   BarChart3,
@@ -12,13 +12,16 @@ import {
   Square,
   Bell,
   Clapperboard,
+  Gem,
 } from "lucide-react";
 import {
+  Header,
   SideNav,
   type SideNavItem,
   type SideNavLinkComponentProps,
   type SideNavCollapseMode,
 } from "../src";
+import pkg from "../package.json";
 
 const ButtonPage = lazy(() => import("./pages/ButtonPage"));
 const BadgePage = lazy(() => import("./pages/BadgePage"));
@@ -158,6 +161,26 @@ function RouterLink({ to, className, style, children }: SideNavLinkComponentProp
   );
 }
 
+/* ── NavLink adapter for Header ──────────────────────── */
+
+function HeaderLink({
+  href,
+  className,
+  onClick,
+  children,
+}: {
+  href: string;
+  className?: string;
+  onClick?: (e: React.MouseEvent) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <NavLink to={href} className={className} onClick={onClick} end>
+      {children}
+    </NavLink>
+  );
+}
+
 /* ── Theme toggle ────────────────────────────────────── */
 
 function useTheme() {
@@ -184,41 +207,39 @@ export default function App() {
   return (
     <div className="flex h-screen flex-col">
       {/* ── Top bar ──────────────────────── */}
-      <header className="flex h-12 shrink-0 items-center justify-between border-b border-primary-200 bg-white px-5 dark:border-primary-700 dark:bg-primary-900">
-        <div className="flex items-center gap-6">
-          <span className="text-lg font-bold text-primary-800 dark:text-primary-100">
-            @jacshuo/onyx
+      <Header
+        brand={
+          <span className="flex items-center gap-2">
+            <Gem className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+            <span>@jacshuo/onyx</span>
+            <span className="rounded-full bg-primary-100 px-2 py-0.5 text-xs font-normal text-primary-500 dark:bg-primary-800 dark:text-primary-400">
+              v{pkg.version}
+            </span>
           </span>
-          <nav className="flex items-center gap-4 text-sm">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-primary-900 font-medium dark:text-primary-100"
-                  : "text-primary-500 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-200"
-              }
-            >
-              Home
-            </NavLink>
-            <a
-              href="https://github.com/jacshuo"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-500 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-200 flex items-center gap-1"
-            >
-              <Github className="h-4 w-4" /> About
-            </a>
-          </nav>
-        </div>
-        <button
-          type="button"
-          onClick={toggle}
-          className="rounded-md p-1.5 text-primary-500 hover:bg-primary-100 hover:text-primary-700 dark:text-primary-400 dark:hover:bg-primary-800 dark:hover:text-primary-200"
-          aria-label="Toggle theme"
-        >
-          {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-        </button>
-      </header>
+        }
+        navItems={[{ label: "Home", href: "/" }]}
+        actions={[
+          {
+            key: "github",
+            icon: (
+              <svg role="img" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d={siGithub.path} />
+              </svg>
+            ),
+            "aria-label": "GitHub",
+            href: "https://github.com/jacshuo",
+            external: true,
+          },
+          {
+            key: "theme",
+            icon: dark ? <Sun /> : <Moon />,
+            "aria-label": "Toggle theme",
+            onClick: toggle,
+          },
+        ]}
+        linkComponent={HeaderLink}
+        mobileMenu
+      />
 
       <div className="flex flex-1 overflow-hidden">
         {/* ── Sidebar ────────────────────── */}

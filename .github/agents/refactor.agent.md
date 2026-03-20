@@ -66,3 +66,7 @@ Always report:
 - Files changed and architectural rationale.
 - Tree-shaking/maintainability improvements made.
 - Validation evidence and remaining risks.
+
+**After every completed refactor**, always prompt the user:
+> "是否将此次重构添加到 CHANGELOG.md？如需添加，建议条目为：`- **refactor(scope)**: 简要描述` — 请确认或修改后我来写入。"
+Do NOT write to `CHANGELOG.md` without explicit user confirmation.

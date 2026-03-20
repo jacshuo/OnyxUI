@@ -73,3 +73,8 @@ Always provide:
 - approval log for any high-risk/major upgrade decision
 
 If requested scope is ambiguous, ask concise clarifying questions (e.g., security-only vs full refresh, allow majors or not, prod-only vs all deps).
+
+## Changelog Prompt
+**After every completed dependency maintenance session**, always prompt the user:
+> "是否将此次依赖变更添加到 CHANGELOG.md？如需添加，建议条目为：`- **deps**: 简要描述（如：升级 X 至 vY.Z 修复 CVE-XXXX-XXXX）` — 请确认或修改后我来写入。"
+Do NOT write to `CHANGELOG.md` without explicit user confirmation.

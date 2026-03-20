@@ -65,5 +65,8 @@ Your job is to implement **new components end-to-end** so they are production-re
   - Which files were created/updated.
   - Build/test results.
   - Any assumptions or follow-up items.
+- **After every completed component implementation**, always prompt the user:
+  > "是否将此新增组件添加到 CHANGELOG.md？如需添加，建议条目为：`- **ComponentName**: 简要描述` — 请确认或修改后我来写入。"
+  Do NOT write to `CHANGELOG.md` without explicit user confirmation.
 
 If the request lacks required details (component behavior, desired category, or API expectations), ask concise clarifying questions before implementing.
