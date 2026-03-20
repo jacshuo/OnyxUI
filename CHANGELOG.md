@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [1.4.1] — 2026-03-20
+
+### Added
+
+- **FileExplorer**: touch drag support — title bar now responds to `touchstart`/`touchmove` for dragging on mobile
+- **FileExplorer**: touch resize — all 8 resize handles now fire `onTouchStart`, with enlarged hit targets (edges 12 px, corners 24 px) for reliable finger interaction
+
+### Changed
+
+- **FileExplorer**: rolling `vpSize` state tracks live viewport dimensions; `displayW`/`displayH`/`displayX`/`displayY` derived at render time so the window clamps continuously as the browser is resized without destroying the stored `size`/`pos`
+- **FileExplorer**: breakpoint-aware initial size and snap-on-crossing — xs (< 480 px) near-fullscreen, sm (480–639 px) mobile portrait, md (640–1023 px) tablet centered, lg (≥ 1024 px) 720 × 520 centered
+- **FileExplorer**: properties panel in narrow mode (< 500 px wide) now uses frosted-glass style — `backdrop-filter: blur(20px) saturate(160%)` with 82 % opaque background and drop shadow instead of a flat transparent surface
+
+### Fixed
+
+- **FileExplorer**: window reverted to mobile size after switching back to desktop — `vpSize` state now drives clamping at render time so the stored desired size restores correctly when viewport widens
+- **FileExplorer**: viewport narrowing had no effect on window size — continuous clamping via derived `displayW`/`displayH` replaces the breakpoint-only `setSize` approach
+- **MiniPlayer**: expanded demo playlist from 5 to 10 tracks (Mixkit CDN — reliable CORS-friendly sources)
+- **CinePlayer**: expanded demo playlist from 6 to 10 clips (Google gtv-videos-bucket with matching poster images); fixed title toast showing simultaneously with title bar on load
+
+---
+
 ## [1.4.0] — 2026-03-20
 
 ### Added
