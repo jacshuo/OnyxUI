@@ -232,6 +232,42 @@ function clamp(val: number, min: number, max: number) {
   return Math.max(min, Math.min(max, val));
 }
 
+function getBreakpoint(vw: number) {
+  if (vw < 480) return "xs" as const;
+  if (vw < 640) return "sm" as const;
+  if (vw < 1024) return "md" as const;
+  return "lg" as const;
+}
+
+function getBreakpointDefaults(vw: number, vh: number) {
+  // xs < 480: near-fullscreen
+  if (vw < 480) {
+    return { size: { width: vw - 16, height: vh - 48 }, pos: { x: 8, y: 24 } };
+  }
+  // sm 480-639: mobile portrait / narrow
+  if (vw < 640) {
+    const w = vw - 24;
+    const h = Math.min(vh - 64, 540);
+    return { size: { width: w, height: h }, pos: { x: 12, y: 32 } };
+  }
+  // md 640-1023: tablet / medium
+  if (vw < 1024) {
+    const w = Math.min(640, vw - 32);
+    const h = Math.min(480, vh - 64);
+    return {
+      size: { width: w, height: h },
+      pos: { x: Math.max(0, Math.round((vw - w) / 2)), y: Math.max(0, Math.round((vh - h) / 2)) },
+    };
+  }
+  // lg 1024+: desktop
+  const w = 720,
+    h = 520;
+  return {
+    size: { width: w, height: h },
+    pos: { x: Math.max(0, Math.round((vw - w) / 2)), y: Math.max(0, Math.round((vh - h) / 2)) },
+  };
+}
+
 /* ═══════════════════════════════════════════════════════════
    FileExplorer
    ═══════════════════════════════════════════════════════════ */
@@ -270,23 +306,12 @@ export function FileExplorer({
   const [internalVisible, setInternalVisible] = useState(visibleProp);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
 
-  // Position & size – default to viewport center (mobile-aware)
-  const isMobileViewport = window.innerWidth < 640;
-  const defaultSize =
-    initialSize ??
-    (isMobileViewport
-      ? { width: window.innerWidth - 16, height: window.innerHeight - 48 }
-      : { width: 720, height: 520 });
-  const [pos, setPos] = useState(
-    initialPosition ??
-      (isMobileViewport
-        ? { x: 8, y: 24 }
-        : {
-            x: Math.max(0, Math.round((window.innerWidth - defaultSize.width) / 2)),
-            y: Math.max(0, Math.round((window.innerHeight - defaultSize.height) / 2)),
-          }),
-  );
-  const [size, setSize] = useState(defaultSize);
+  // Live viewport size – drives clamping at render time
+  const [vpSize, setVpSize] = useState({ w: window.innerWidth, h: window.innerHeight });
+  // Position & size – breakpoint-aware defaults
+  const _bpInit = getBreakpointDefaults(window.innerWidth, window.innerHeight);
+  const [pos, setPos] = useState(initialPosition ?? _bpInit.pos);
+  const [size, setSize] = useState(initialSize ?? _bpInit.size);
   const [preMaxState, setPreMaxState] = useState<{
     pos: { x: number; y: number };
     size: { width: number; height: number };
@@ -301,7 +326,7 @@ export function FileExplorer({
   const resizing = useRef<string | false>(false);
   const resizeStart = useRef({ x: 0, y: 0, w: 0, h: 0, px: 0, py: 0 });
 
-  // Track whether user has manually moved/resized so viewport changes don't override them
+  // Track whether user has manually moved/resized so breakpoint snaps don't override them
   const userMoved = useRef(false);
   const maximizedRef = useRef(maximized);
   useEffect(() => {
@@ -327,33 +352,23 @@ export function FileExplorer({
 
   const inspectedFile = inspectedIndex != null ? filteredFiles[inspectedIndex] : null;
 
-  /* ── Viewport resize → adapt position & size ── */
+  /* ── Viewport resize → track vpSize + snap on breakpoint crossing ── */
   useEffect(() => {
-    let prevMobile = window.innerWidth < 640;
+    let prevBp = getBreakpoint(window.innerWidth);
     const onResize = () => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      // Always update vpSize — this drives display clamping immediately
+      setVpSize({ w: vw, h: vh });
       if (maximizedRef.current) return;
-      const nowMobile = window.innerWidth < 640;
-      // Always clamp position to keep window fully on screen
-      setPos((p) => ({
-        x: clamp(p.x, 0, Math.max(0, window.innerWidth - 100)),
-        y: clamp(p.y, 0, Math.max(0, window.innerHeight - 40)),
-      }));
-      // Auto-resize when crossing the breakpoint (only if user hasn't manually moved the window)
-      if (nowMobile !== prevMobile && !userMoved.current && !initialSize) {
-        if (nowMobile) {
-          setSize({ width: window.innerWidth - 16, height: window.innerHeight - 48 });
-          setPos({ x: 8, y: 24 });
-        } else {
-          const w = 720,
-            h = 520;
-          setSize({ width: w, height: h });
-          setPos({
-            x: Math.max(0, Math.round((window.innerWidth - w) / 2)),
-            y: Math.max(0, Math.round((window.innerHeight - h) / 2)),
-          });
-        }
+      // Snap size+pos when crossing a breakpoint (only if user hasn't manually repositioned)
+      const nowBp = getBreakpoint(vw);
+      if (nowBp !== prevBp && !userMoved.current && !initialSize) {
+        const d = getBreakpointDefaults(vw, vh);
+        setSize(d.size);
+        setPos(d.pos);
       }
-      prevMobile = nowMobile;
+      prevBp = nowBp;
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -623,8 +638,16 @@ export function FileExplorer({
 
   if (!visible) return null;
 
+  /* ── Responsive display geometry (clamp stored size/pos to live viewport) ──
+     The stored size/pos are the user's desired values and are never destroyed,
+     so the window restores correctly when the viewport widens again.         */
+  const displayW = maximized ? vpSize.w : Math.min(size.width, vpSize.w - 8);
+  const displayH = maximized ? vpSize.h : Math.min(size.height, vpSize.h - 8);
+  const displayX = maximized ? 0 : clamp(pos.x, 0, Math.max(0, vpSize.w - displayW));
+  const displayY = maximized ? 0 : clamp(pos.y, 0, Math.max(0, vpSize.h - 40));
+
   /* narrow: properties panel overlays content instead of shrinking file list */
-  const panelNarrow = size.width < 500;
+  const panelNarrow = displayW < 500;
 
   /* ═══════════════════════════════════════
      Main window
@@ -641,10 +664,10 @@ export function FileExplorer({
       )}
       style={{
         ...cssVars,
-        left: maximized ? 0 : pos.x,
-        top: maximized ? 0 : pos.y,
-        width: maximized ? "100vw" : size.width,
-        height: maximized ? "100vh" : size.height,
+        left: displayX,
+        top: displayY,
+        width: displayW,
+        height: displayH,
         transition: maximized ? "left 0.3s, top 0.3s, width 0.3s, height 0.3s" : undefined,
       }}
       tabIndex={0}
