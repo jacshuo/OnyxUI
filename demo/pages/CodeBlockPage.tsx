@@ -1,6 +1,22 @@
 import { useState } from "react";
 import { CodeBlock, type CodeBlockLanguage } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const basicUsageCode = `<CodeBlock code={myCode} language="typescript" />`;
+const lineNumbersCode = `<CodeBlock code={myCode} language="typescript" lineNumbers />`;
+const sizesApiCode = `<CodeBlock code={myCode} language="typescript" size="sm" />
+<CodeBlock code={myCode} language="typescript" size="md" />  {/* default */}
+<CodeBlock code={myCode} language="typescript" size="lg" />`;
+const editableApiCode = `const [code, setCode] = useState(initialCode);
+
+<CodeBlock
+  code={code}
+  language={lang}
+  editable
+  onCodeChange={setCode}
+  lineNumbers
+  className="min-h-50"
+/>`;
 
 const tsExample = `interface User {
   id: number;
@@ -236,10 +252,12 @@ export default function CodeBlockPage() {
           ))}
         </div>
         <CodeBlock code={current.code} language={current.language} />
+        <CodeExample code={basicUsageCode} />
       </Section>
 
       <Section title="Line Numbers">
         <CodeBlock code={tsExample} language="typescript" lineNumbers />
+        <CodeExample code={lineNumbersCode} />
       </Section>
 
       <Section title="Sizes">
@@ -257,6 +275,7 @@ export default function CodeBlockPage() {
             <CodeBlock code={`const x = 42;\nconsole.log(x);`} language="typescript" size="lg" />
           </div>
         </div>
+        <CodeExample code={sizesApiCode} />
       </Section>
 
       <Section title="Mixed: TSX with HTML + JS">
@@ -295,6 +314,7 @@ export default function CodeBlockPage() {
         <p className="mt-2 text-xs text-secondary-400">
           Click inside the code block and start typing. Tab inserts 2 spaces.
         </p>
+        <CodeExample code={editableApiCode} />
       </Section>
     </div>
   );

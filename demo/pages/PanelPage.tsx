@@ -1,6 +1,21 @@
 import { Panel, PanelHeader, PanelContent } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import { Layout, Layers, ArrowUpCircle } from "lucide-react";
+
+const defaultCode = `<Panel>
+  <PanelHeader><Layout /> Default Panel</PanelHeader>
+  <PanelContent>Panel body content goes here.</PanelContent>
+</Panel>`;
+
+const insetCode = `<Panel intent="inset">
+  <PanelHeader><Layers /> Inset Panel</PanelHeader>
+  <PanelContent>Subtle background, no border.</PanelContent>
+</Panel>`;
+
+const elevatedCode = `<Panel intent="elevated">
+  <PanelHeader><ArrowUpCircle /> Elevated Panel</PanelHeader>
+  <PanelContent>Shadow-based prominence.</PanelContent>
+</Panel>`;
 
 export default function PanelPage() {
   return (
@@ -14,6 +29,7 @@ export default function PanelPage() {
           </PanelHeader>
           <PanelContent>Panel body content goes here.</PanelContent>
         </Panel>
+        <CodeExample code={defaultCode} />
       </Section>
 
       <Section title="Inset">
@@ -23,6 +39,7 @@ export default function PanelPage() {
           </PanelHeader>
           <PanelContent>Subtle background, no border.</PanelContent>
         </Panel>
+        <CodeExample code={insetCode} />
       </Section>
 
       <Section title="Elevated">
@@ -32,6 +49,7 @@ export default function PanelPage() {
           </PanelHeader>
           <PanelContent>Shadow-based prominence.</PanelContent>
         </Panel>
+        <CodeExample code={elevatedCode} />
       </Section>
     </div>
   );

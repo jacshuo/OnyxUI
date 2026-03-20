@@ -1,5 +1,16 @@
 /* ── Viewport lock — prevent body from scrolling ──────── */
-html,
+/*
+ * Use svh (small viewport height) so the shell never taller than the
+ * visible area on mobile browsers.  -webkit-fill-available is the iOS 14
+ * fallback; height: 100% is the final fallback for older browsers.
+ * The JS hook in App.tsx writes --app-height via visualViewport events which
+ * takes priority at runtime and handles the keyboard-dismiss blank-space bug.
+ */
+html {
+  height: -webkit-fill-available;
+  height: 100svh;
+  overflow: hidden;
+}
 body {
   height: 100%;
   overflow: hidden;

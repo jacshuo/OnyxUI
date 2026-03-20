@@ -353,6 +353,7 @@ export function CodeBlock({
         lineNumberClasses,
         className,
       )}
+      style={{ background: "var(--color-syntax-bg)" }}
       {...props}
     >
       <div

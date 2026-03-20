@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Header, type HeaderNavItem, type HeaderAction } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import {
   SunDim,
   MoonStar,
@@ -16,6 +16,67 @@ import {
   Grip,
   Sparkles,
 } from "lucide-react";
+
+const basicCode = `<Header
+  brand={<span><Sparkles /> MyApp</span>}
+  navItems={[
+    { label: "Home", href: "#", active: true },
+    { label: "Docs", href: "#" },
+  ]}
+  actions={[
+    { key: "theme", icon: <MoonStar />, ariaLabel: "Toggle theme", onClick: toggleDark },
+    { key: "login", icon: <KeyRound />, ariaLabel: "Login", onClick: handleLogin },
+  ]}
+  mobileMenu
+/>`;
+
+const searchBarCode = `<Header
+  brand={<span><Zap /> SpaceUI</span>}
+  navItems={[{ label: "Dashboard", href: "#", active: true }, { label: "Projects", href: "#" }]}
+  actions={[
+    { key: "search", icon: <ScanSearch />, ariaLabel: "Search", onClick: openSearch },
+    { key: "bell", icon: <BellDot />, ariaLabel: "Notifications" },
+    { key: "user", icon: <CircleUser />, ariaLabel: "Profile" },
+  ]}
+  mobileMenu
+/>`;
+
+const fullFeaturedCode = `<Header
+  brand="@jacshuo/onyx"
+  onBrandClick={() => navigate("/")}
+  navItems={navItems}
+  actions={[
+    { key: "lang", icon: <Languages />, ariaLabel: "Language", onClick: toggleLang },
+    { key: "github", icon: <Github />, ariaLabel: "GitHub", href: "https://github.com/jacshuo", external: true },
+    { key: "theme", icon: <MoonStar />, ariaLabel: "Toggle theme", onClick: toggleDark },
+    { key: "login", icon: <KeyRound />, ariaLabel: "Login", onClick: handleLogin },
+  ]}
+  mobileMenu
+/>`;
+
+const minimalCode = `<Header
+  brand="SimpleApp"
+  actions={[{ key: "menu", icon: <Grip />, ariaLabel: "Menu", onClick: openMenu }]}
+/>`;
+
+const authenticatedCode = `<Header
+  brand={<span><GitBranch /> DevHub</span>}
+  navItems={[{ label: "Overview", href: "#", active: true }, { label: "Repositories", href: "#" }]}
+  actions={[
+    { key: "bell", icon: <BellDot />, ariaLabel: "Notifications" },
+    { key: "user", icon: <CircleUser />, ariaLabel: "Profile" },
+    { key: "logout", icon: <Power />, ariaLabel: "Logout", onClick: handleLogout },
+  ]}
+  mobileMenu
+/>`;
+
+const mobileMenuCode = `{/* Below md breakpoint, nav and actions collapse into DropdownButtons */}
+<Header
+  brand="MyApp"
+  navItems={[{ label: "Home", href: "#", active: true }, { label: "Docs", href: "#" }]}
+  actions={[{ key: "user", icon: <CircleUser />, ariaLabel: "Profile" }]}
+  mobileMenu
+/>`;
 
 export default function HeaderPage() {
   const [dark, setDark] = useState(false);
@@ -94,6 +155,7 @@ export default function HeaderPage() {
             mobileMenu
           />
         </div>
+        <CodeExample code={basicCode} />
       </Section>
 
       <Section title="With logo element &amp; search bar">
@@ -124,6 +186,7 @@ export default function HeaderPage() {
             mobileMenu
           />
         </div>
+        <CodeExample code={searchBarCode} />
       </Section>
 
       <Section title="Full-featured — theme, language, GitHub, login">
@@ -163,6 +226,7 @@ export default function HeaderPage() {
             mobileMenu
           />
         </div>
+        <CodeExample code={fullFeaturedCode} />
       </Section>
 
       <Section title="Minimal — brand + single action">
@@ -179,7 +243,8 @@ export default function HeaderPage() {
               },
             ]}
           />
-        </div>
+        </div>{" "}
+        <CodeExample code={minimalCode} />{" "}
       </Section>
 
       <Section title="Authenticated — user actions">
@@ -211,6 +276,7 @@ export default function HeaderPage() {
             mobileMenu
           />
         </div>
+        <CodeExample code={authenticatedCode} />
       </Section>
 
       <Section title="Mobile menu (mobileMenu prop)">
@@ -237,6 +303,7 @@ export default function HeaderPage() {
             mobileMenu
           />
         </div>
+        <CodeExample code={mobileMenuCode} />
       </Section>
     </div>
   );

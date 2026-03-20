@@ -1,6 +1,31 @@
 import { useState } from "react";
 import { TextBox } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const defaultCode = `<TextBox placeholder="Type something…" showWordCount />`;
+
+const maxWordsCode = `<TextBox
+  placeholder="Write up to 50 words…"
+  maxWords={50}
+  defaultValue="Lorem ipsum dolor sit amet…"
+/>`;
+
+const sizesCode = `<TextBox size="sm" placeholder="Small" showWordCount />
+<TextBox size="md" placeholder="Medium (default)" showWordCount />
+<TextBox size="lg" placeholder="Large" showWordCount />`;
+
+const errorCode = `<TextBox state="error" placeholder="Something went wrong…" showWordCount />`;
+
+const disabledCode = `<TextBox disabled defaultValue="This textarea is disabled." showWordCount />`;
+
+const controlledCode = `const [value, setValue] = useState("Hello world");
+
+<TextBox
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  showWordCount
+/>
+<button onClick={() => setValue("")}>Clear</button>`;
 
 export default function TextBoxPage() {
   const [controlled, setControlled] = useState("Hello world, this is a controlled text box.");
@@ -12,6 +37,7 @@ export default function TextBoxPage() {
       <div className="grid gap-8 lg:grid-cols-2">
         <Section title="Default">
           <TextBox placeholder="Type something…" showWordCount />
+          <CodeExample code={defaultCode} />
         </Section>
 
         <Section title="With max word limit (50 words)">
@@ -20,6 +46,7 @@ export default function TextBoxPage() {
             maxWords={50}
             defaultValue="Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           />
+          <CodeExample code={maxWordsCode} />
         </Section>
 
         <Section title="Sizes">
@@ -28,14 +55,17 @@ export default function TextBoxPage() {
             <TextBox size="md" placeholder="Medium (default)" showWordCount />
             <TextBox size="lg" placeholder="Large" showWordCount />
           </div>
+          <CodeExample code={sizesCode} />
         </Section>
 
         <Section title="Error state">
           <TextBox state="error" placeholder="Something went wrong…" showWordCount />
+          <CodeExample code={errorCode} />
         </Section>
 
         <Section title="Disabled">
           <TextBox disabled defaultValue="This textarea is disabled." showWordCount />
+          <CodeExample code={disabledCode} />
         </Section>
 
         <Section title="Controlled">
@@ -51,6 +81,7 @@ export default function TextBoxPage() {
           >
             Clear
           </button>
+          <CodeExample code={controlledCode} />
         </Section>
       </div>
     </div>

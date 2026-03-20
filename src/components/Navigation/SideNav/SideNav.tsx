@@ -481,6 +481,42 @@ export function SideNav({
     if ((e.target as HTMLElement).closest("a")) setMobileOpen(false);
   }, []);
 
+  // ── Swipe-to-close (left swipe) ───────────────────────
+  const drawerRef = useRef<HTMLElement>(null);
+  const swipeState = useRef({ startX: 0, startY: 0, dragging: false });
+  const SWIPE_THRESHOLD = 60; // px left to trigger close
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    const t = e.touches[0];
+    swipeState.current = { startX: t.clientX, startY: t.clientY, dragging: true };
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!swipeState.current.dragging || !drawerRef.current) return;
+    const t = e.touches[0];
+    const dx = t.clientX - swipeState.current.startX;
+    const dy = t.clientY - swipeState.current.startY;
+    // Only track primarily-horizontal leftward swipes
+    if (dx >= 0 || Math.abs(dy) > Math.abs(dx)) return;
+    // Clamp: don't move drawer further right than open position
+    drawerRef.current.style.transform = `translateX(${Math.max(dx, -224)}px)`;
+    drawerRef.current.style.transition = "none";
+  }, []);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!swipeState.current.dragging || !drawerRef.current) return;
+    swipeState.current.dragging = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - swipeState.current.startX;
+    const dy = t.clientY - swipeState.current.startY;
+    // Restore CSS transition
+    drawerRef.current.style.transition = "";
+    drawerRef.current.style.transform = "";
+    if (dx < -SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+      setMobileOpen(false);
+    }
+  }, []);
+
   // On mobile, also close drawer when onItemClick fires (button-based navigation)
   const effectiveOnItemClick = useMemo(() => {
     if (!isMobile || !onItemClick) return onItemClick;
@@ -572,6 +608,7 @@ export function SideNav({
   if (responsive && isMobile) {
     return (
       <>
+        {/* Backdrop */}
         {mobileOpen &&
           createPortal(
             <div
@@ -581,30 +618,60 @@ export function SideNav({
             />,
             document.body,
           )}
+
+        {/* Slide-in drawer — close button lives here, no floating overlap */}
         {createPortal(
           <aside
+            ref={drawerRef}
             className={cn(
-              "fixed bottom-0 left-0 z-50 w-56 overflow-y-auto border-r border-primary-200 dark:border-primary-700 bg-white dark:bg-primary-900 shadow-xl transition-transform duration-200 p-3",
+              "fixed bottom-0 left-0 z-50 flex flex-col w-56 border-r border-primary-200 dark:border-primary-700 bg-white dark:bg-primary-900 shadow-xl transition-transform duration-200",
               mobileOpen ? "translate-x-0" : "-translate-x-full",
             )}
             style={{ top: mobileTopOffset }}
             onClick={handleNavClick}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
-            <nav className="flex flex-col gap-0.5">{navBody}</nav>
+            {/* Sticky drawer header with close button */}
+            <div className="flex shrink-0 items-center justify-between border-b border-primary-200 px-3 py-2 dark:border-primary-700">
+              <span className="text-xs font-semibold uppercase tracking-wide text-primary-500 dark:text-primary-400">
+                Navigation
+              </span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMobileOpen(false);
+                }}
+                className={cn(iconBtnCls, "h-7 w-7 p-1")}
+                aria-label="Close navigation"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            {/* Scrollable nav body */}
+            <div className="flex-1 overflow-y-auto overscroll-y-contain p-3">
+              <nav className="flex flex-col gap-0.5">{navBody}</nav>
+            </div>
           </aside>,
           document.body,
         )}
-        {createPortal(
-          <button
-            type="button"
-            className="fixed bottom-5 left-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-primary-800 text-white shadow-lg transition-colors hover:bg-primary-700 dark:bg-primary-100 dark:text-primary-900 dark:hover:bg-primary-200"
-            onClick={() => setMobileOpen((o) => !o)}
-            aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
-          >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>,
-          document.body,
-        )}
+
+        {/* Pull-tab — flush with left edge, never overlaps page content */}
+        {!mobileOpen &&
+          createPortal(
+            <button
+              type="button"
+              className="fixed left-0 z-50 flex h-14 w-5 items-center justify-center rounded-r-xl bg-primary-800/80 text-white shadow-md backdrop-blur-sm transition-colors hover:bg-primary-700/90 dark:bg-primary-200/80 dark:text-primary-900 dark:hover:bg-primary-300/90"
+              style={{ top: `calc(50% + ${mobileTopOffset / 2}px)`, transform: "translateY(-50%)" }}
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open navigation"
+            >
+              <ChevronRight className="h-3.5 w-3.5" />
+            </button>,
+            document.body,
+          )}
       </>
     );
   }

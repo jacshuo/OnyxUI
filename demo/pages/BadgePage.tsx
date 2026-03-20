@@ -1,6 +1,16 @@
 import { Badge } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import { CheckCircle, AlertTriangle, XCircle, Info, Star } from "lucide-react";
+
+const intentsCode = `<Badge intent="success"><CheckCircle /> Success</Badge>
+<Badge intent="warning"><AlertTriangle /> Warning</Badge>
+<Badge intent="error"><XCircle /> Error</Badge>
+<Badge intent="info"><Info /> Info</Badge>
+<Badge intent="primary"><Star /> Primary</Badge>`;
+
+const sizesCode = `<Badge size="sm" intent="success"><CheckCircle /> Small</Badge>
+<Badge size="md" intent="info"><Info /> Medium</Badge>
+<Badge size="lg" intent="warning"><AlertTriangle /> Large</Badge>`;
 
 export default function BadgePage() {
   return (
@@ -25,6 +35,7 @@ export default function BadgePage() {
             <Star /> Primary
           </Badge>
         </div>
+        <CodeExample code={intentsCode} />
       </Section>
 
       <Section title="Sizes">
@@ -39,6 +50,7 @@ export default function BadgePage() {
             <AlertTriangle /> Large
           </Badge>
         </div>
+        <CodeExample code={sizesCode} />
       </Section>
     </div>
   );

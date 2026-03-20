@@ -25,3 +25,18 @@
 @import "./components/Masonry.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  /*
+   * Prevent iOS Safari (and Android Chrome) from auto-zooming the viewport
+   * when an input is focused. The browser only zooms when font-size < 16px.
+   * The media query targets touch-only devices, leaving desktop sizes unchanged.
+   */
+  @media (hover: none) and (pointer: coarse) {
+    input,
+    textarea,
+    select {
+      font-size: 16px !important;
+    }
+  }
+}

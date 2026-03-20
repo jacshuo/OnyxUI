@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { type VariantProps } from "class-variance-authority";
 import { cn } from "../../../lib/utils";
 import { progressBarVariants } from "../../../styles/theme/feedback";
@@ -48,7 +49,7 @@ export function ProgressBar({
 
   const showInlineLabel = showLabel && !indeterminate && size !== "xs" && size !== "sm";
 
-  return (
+  const bar = (
     <div
       role="progressbar"
       aria-valuenow={indeterminate ? undefined : clampedValue}
@@ -79,4 +80,12 @@ export function ProgressBar({
       )}
     </div>
   );
+
+  // Portal edge bars to document.body so they are never inside an overflow
+  // container — iOS treats position:fixed inside overflow:auto as position:absolute.
+  if (edge === "top" || edge === "bottom") {
+    return createPortal(bar, document.body);
+  }
+
+  return bar;
 }

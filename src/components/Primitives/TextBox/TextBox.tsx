@@ -20,7 +20,7 @@ const sizeClasses = {
 
 const stateClasses = {
   default:
-    "border-secondary-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-secondary-600",
+    "border-secondary-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-secondary-600",
   error: "border-danger-400 focus:border-danger-500 focus:ring-2 focus:ring-danger-500/20",
 } as const;
 

@@ -1,4 +1,4 @@
-:root {
+@theme {
   --animate-spin-rotate: spin-rotate 1.4s linear infinite;
   --animate-spin-dash: spin-dash 1.4s ease-in-out infinite;
 }

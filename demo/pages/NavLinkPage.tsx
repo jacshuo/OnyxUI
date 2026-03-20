@@ -1,5 +1,32 @@
 import { NavLink } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const intentsCode = `<NavLink href="#" intent="default">Default</NavLink>
+<NavLink href="#" intent="secondary">Secondary</NavLink>
+<NavLink href="#" intent="muted">Muted</NavLink>`;
+
+const sizesCode = `<NavLink href="#" size="sm">Small</NavLink>
+<NavLink href="#" size="md">Medium</NavLink>
+<NavLink href="#" size="lg">Large</NavLink>`;
+
+const underlineCode = `<NavLink href="#" underline="always">Always underline</NavLink>
+<NavLink href="#" underline="hover">Underline on hover</NavLink>
+<NavLink href="#" underline="none">No underline</NavLink>`;
+
+const externalCode = `{/* auto-detected when href starts with http:// or https:// */}
+<NavLink href="https://github.com">Auto-detected external</NavLink>
+<NavLink href="https://github.com" external={false}>External suppressed</NavLink>
+<NavLink href="#" external>Forced external icon</NavLink>`;
+
+const combinationsCode = `<NavLink href="#" intent="default" size="lg" underline="always">
+  Primary large always
+</NavLink>
+<NavLink href="#" intent="secondary" size="sm" underline="none">
+  Secondary small none
+</NavLink>
+<NavLink href="#" intent="muted" size="md" underline="hover">
+  Muted medium hover
+</NavLink>`;
 
 export default function NavLinkPage() {
   return (
@@ -18,6 +45,7 @@ export default function NavLinkPage() {
             Muted
           </NavLink>
         </div>
+        <CodeExample code={intentsCode} />
       </Section>
 
       <Section title="Sizes">
@@ -32,6 +60,7 @@ export default function NavLinkPage() {
             Large
           </NavLink>
         </div>
+        <CodeExample code={sizesCode} />
       </Section>
 
       <Section title="Underline">
@@ -46,6 +75,7 @@ export default function NavLinkPage() {
             No underline
           </NavLink>
         </div>
+        <CodeExample code={underlineCode} />
       </Section>
 
       <Section title="External (auto-detected)">
@@ -58,6 +88,7 @@ export default function NavLinkPage() {
             Forced external icon
           </NavLink>
         </div>
+        <CodeExample code={externalCode} />
       </Section>
 
       <Section title="Combinations">
@@ -79,6 +110,7 @@ export default function NavLinkPage() {
             </NavLink>
           </div>
         </div>
+        <CodeExample code={combinationsCode} />
       </Section>
     </div>
   );

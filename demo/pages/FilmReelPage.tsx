@@ -1,6 +1,18 @@
 import { useState } from "react";
 import { FilmReel, type FilmReelPhoto } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const stripCode = `<FilmReel photos={photos} layout="strip" onAction={handleAction} />`;
+
+const sheetCode = `<FilmReel
+  photos={photos}
+  layout="sheet"
+  onAction={handleAction}
+  sheetTitle="Landscapes Collection · 10 frames"
+  sheetLabel="Proof Sheet №1"
+/>`;
+
+const stackCode = `<FilmReel photos={photos} layout="stack" onAction={handleAction} />`;
 
 const photos: FilmReelPhoto[] = [
   {
@@ -180,6 +192,7 @@ export default function FilmReelPage() {
           for photo info.
         </p>
         <FilmReel photos={photos} layout="strip" onAction={handleAction} className="mx-auto" />
+        <CodeExample code={stripCode} />
       </Section>
 
       <Section title="Contact Sheet">
@@ -192,7 +205,8 @@ export default function FilmReelPage() {
           onAction={handleAction}
           sheetTitle="Landscapes Collection · 10 frames"
           sheetLabel="Proof Sheet №1"
-        />
+        />{" "}
+        <CodeExample code={sheetCode} />{" "}
       </Section>
 
       <Section title="Photo Stack">
@@ -200,6 +214,7 @@ export default function FilmReelPage() {
           Hover over the pile to fan out the photos. Click any to view.
         </p>
         <FilmReel photos={photos} layout="stack" onAction={handleAction} />
+        <CodeExample code={stackCode} />
       </Section>
 
       {actionLog.length > 0 && (

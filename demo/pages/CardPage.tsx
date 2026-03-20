@@ -8,8 +8,52 @@ import {
   CardFooter,
   HorizontalCard,
 } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import { Rocket, Heart, Share2, ExternalLink, BookOpen, Music, UserCircle } from "lucide-react";
+
+const intentCode = `<Card>
+  <CardHeader>
+    <CardTitle>Default</CardTitle>
+    <CardDescription>Standard bordered card.</CardDescription>
+  </CardHeader>
+  <CardContent>Body content goes here.</CardContent>
+  <CardFooter><Button size="sm">Action</Button></CardFooter>
+</Card>
+// intents: "default" | "elevated" | "outlined" | "ghost"`;
+
+const horizontalLeftCode = `<HorizontalCard
+  media={{ src: "https://example.com/img.jpg", alt: "Alt text", width: "10rem" }}
+>
+  <CardTitle>Mountain Trail</CardTitle>
+  <CardDescription>A scenic hike through alpine meadows.</CardDescription>
+  <CardFooter>
+    <Button size="sm"><Heart /> Like</Button>
+  </CardFooter>
+</HorizontalCard>`;
+
+const horizontalRightCode = `<HorizontalCard
+  mediaPosition="right"
+  media={{ src: "https://example.com/img.jpg", alt: "Alt text", width: "12rem" }}
+>
+  <CardTitle>Live Session</CardTitle>
+  <CardFooter><Button size="sm" intent="ghost"><Music /> Play</Button></CardFooter>
+</HorizontalCard>`;
+
+const horizontalIconCode = `<HorizontalCard
+  className="max-w-md"
+  media={{ icon: <UserCircle className="h-10 w-10" />, width: "5rem" }}
+>
+  <CardTitle>Jane Doe</CardTitle>
+  <CardDescription>Product Designer · San Francisco</CardDescription>
+</HorizontalCard>`;
+
+const stackOnMobileCode = `<HorizontalCard
+  stackOnMobile
+  media={{ src: "https://example.com/img.jpg", alt: "Demo image" }}
+>
+  <CardTitle>Responsive Card</CardTitle>
+  <CardDescription>Stacks on mobile, side-by-side on larger screens.</CardDescription>
+</HorizontalCard>`;
 
 export default function CardPage() {
   return (
@@ -50,6 +94,7 @@ export default function CardPage() {
             <CardContent>Minimal feel.</CardContent>
           </Card>
         </div>
+        <CodeExample code={intentCode} />
       </Section>
 
       <Section title="Horizontal &mdash; image left">
@@ -98,6 +143,7 @@ export default function CardPage() {
             </Button>
           </CardFooter>
         </HorizontalCard>
+        <CodeExample code={horizontalLeftCode} />
       </Section>
 
       <Section title="Horizontal &mdash; image right">
@@ -121,6 +167,7 @@ export default function CardPage() {
             </Button>
           </CardFooter>
         </HorizontalCard>
+        <CodeExample code={horizontalRightCode} />
       </Section>
 
       <Section title="Horizontal &mdash; icon / avatar">
@@ -139,6 +186,7 @@ export default function CardPage() {
             </Button>
           </CardFooter>
         </HorizontalCard>
+        <CodeExample code={horizontalIconCode} />
       </Section>
 
       <Section title="Horizontal &mdash; stacked on mobile">
@@ -163,6 +211,7 @@ export default function CardPage() {
             </Button>
           </CardFooter>
         </HorizontalCard>
+        <CodeExample code={stackOnMobileCode} />
       </Section>
     </div>
   );

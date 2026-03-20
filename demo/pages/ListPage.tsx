@@ -1,7 +1,44 @@
 import { useState } from "react";
 import { List, ListItem } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import { Circle, Disc, MousePointerClick, Pencil, Trash2 } from "lucide-react";
+
+const intentsCode = `<List>{/* Default */}
+  <ListItem><Circle /> Alpha</ListItem>
+</List>
+<List intent="bordered">
+  <ListItem><Disc /> Item A</ListItem>
+</List>
+<List intent="hover">
+  <ListItem><MousePointerClick /> Hoverable</ListItem>
+</List>
+// Available intents: "default" | "bordered" | "hover"`;
+
+const actionsCode = `<List intent="hover" className="max-w-sm">
+  {items.map((item) => (
+    <ListItem
+      key={item.id}
+      actions={
+        <>
+          <button onClick={() => handleEdit(item)}><Pencil /></button>
+          <button onClick={() => handleDelete(item)}><Trash2 /></button>
+        </>
+      }
+    >
+      {item.name}
+    </ListItem>
+  ))}
+</List>`;
+
+const sizesCode = `<List size="sm" intent="bordered">
+  <ListItem>Alpha</ListItem>
+</List>
+<List size="md" intent="bordered">
+  <ListItem>Alpha</ListItem>
+</List>
+<List size="lg" intent="bordered">
+  <ListItem>Alpha</ListItem>
+</List>`;
 
 type Item = { id: number; name: string };
 
@@ -74,6 +111,7 @@ export default function ListPage() {
           </List>
         </Section>
       </div>
+      <CodeExample code={intentsCode} />
 
       <Section title="Row actions (hover to reveal edit / delete)">
         <List intent="hover" className="max-w-sm">
@@ -108,6 +146,7 @@ export default function ListPage() {
             <li className="py-4 text-center text-sm text-primary-400">No items left</li>
           )}
         </List>
+        <CodeExample code={actionsCode} />
       </Section>
 
       <Section title="Sizes">
@@ -131,6 +170,7 @@ export default function ListPage() {
             </div>
           ))}
         </div>
+        <CodeExample code={sizesCode} />
       </Section>
     </div>
   );

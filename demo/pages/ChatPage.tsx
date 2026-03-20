@@ -1,7 +1,21 @@
 import { useState } from "react";
 import { Chat, type ChatMessage, Button, Input } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import { Send } from "lucide-react";
+
+const splitModeCode = `<Chat messages={messages} mode="split" className="h-72" />
+// mode="split" — self messages on right, others on left`;
+
+const leftModeCode = `<Chat messages={messages} mode="left" className="h-72" />
+// mode="left" — all messages on the left side`;
+
+const interactiveCode = `const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
+
+<Chat messages={messages} mode="split" className="h-72" />
+<div className="flex gap-2">
+  <Input placeholder="Type a message…" value={text} onChange={(e) => setText(e.target.value)} />
+  <Button onClick={send}><Send /> Send</Button>
+</div>`;
 
 const splitMessages: ChatMessage[] = [
   {
@@ -80,10 +94,12 @@ export default function ChatPage() {
       <div className="grid gap-8 lg:grid-cols-2">
         <Section title="Split mode (self right, others left)">
           <Chat messages={splitMessages} mode="split" className="h-72" />
+          <CodeExample code={splitModeCode} />
         </Section>
 
         <Section title="Left mode (all on one side)">
           <Chat messages={leftMessages} mode="left" className="h-72" />
+          <CodeExample code={leftModeCode} />
         </Section>
       </div>
 
@@ -102,6 +118,7 @@ export default function ChatPage() {
             </Button>
           </div>
         </div>
+        <CodeExample code={interactiveCode} language="typescript" />
       </Section>
     </div>
   );

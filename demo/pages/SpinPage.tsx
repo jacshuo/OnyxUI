@@ -1,6 +1,43 @@
 import { useState } from "react";
 import { Spin, useSpin, Button, Card } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const standaloneCode = `<Spin size="sm" tip="Small" />
+<Spin size="md" tip="Medium" />
+<Spin size="lg" tip="Large" />`;
+
+const overlayCode = `<Spin spinning size="lg" tip="Loading (lg)">
+  <div className="w-48 rounded-lg border p-6 text-center">Content area</div>
+</Spin>`;
+
+const toggleCode = `const [loading, setLoading] = useState(true);
+
+<Spin spinning={loading} tip="Fetching data…">
+  <Card className="p-5">…card content…</Card>
+</Spin>`;
+
+const tableCode = `<Spin spinning tip="Refreshing…">
+  <table>…table content…</table>
+</Spin>`;
+
+const noTipCode = `<Spin spinning>
+  <div className="h-24 w-64 rounded-lg border" />
+</Spin>`;
+
+const useSpinFullCode = `const setSpin = useSpin();
+
+// Cover full page
+const close = setSpin(document.documentElement, "Loading application…");
+setTimeout(close, 2000);`;
+
+const useSpinElementCode = `const setSpin = useSpin();
+
+// Cover a specific element
+const el = document.getElementById("my-box");
+if (el) {
+  const close = setSpin(el, "Loading…");
+  setTimeout(close, 2000);
+}`;
 
 export default function SpinPage() {
   const [loading, setLoading] = useState(true);
@@ -16,7 +53,8 @@ export default function SpinPage() {
           <Spin size="sm" tip="Small" />
           <Spin size="md" tip="Medium" />
           <Spin size="lg" tip="Large" />
-        </div>
+        </div>{" "}
+        <CodeExample code={standaloneCode} />{" "}
       </Section>
 
       {/* ── Sizes over content ────────────────────────── */}
@@ -30,9 +68,8 @@ export default function SpinPage() {
             </Spin>
           ))}
         </div>
+        <CodeExample code={overlayCode} />
       </Section>
-
-      {/* ── Toggle demo ───────────────────────────────── */}
       <Section title="Toggle loading state">
         <div className="space-y-3 max-w-md">
           <Button intent="primary" size="sm" onClick={() => setLoading((v) => !v)}>
@@ -50,6 +87,7 @@ export default function SpinPage() {
             </Card>
           </Spin>
         </div>
+        <CodeExample code={toggleCode} />
       </Section>
 
       {/* ── Over a table ──────────────────────────────── */}
@@ -85,13 +123,13 @@ export default function SpinPage() {
             </tbody>
           </table>
         </Spin>
+        <CodeExample code={tableCode} />
       </Section>
-
-      {/* ── Without tip ───────────────────────────────── */}
       <Section title="Without tip text">
         <Spin spinning>
           <div className="h-24 w-64 rounded-lg border border-primary-200 bg-primary-50 dark:border-primary-700 dark:bg-primary-800" />
         </Spin>
+        <CodeExample code={noTipCode} />
       </Section>
 
       {/* ── useSpin() — fullscreen ────────────────────── */}
@@ -118,9 +156,8 @@ export default function SpinPage() {
             Fullscreen without tip (2s)
           </Button>
         </div>
+        <CodeExample code={useSpinFullCode} language="typescript" />
       </Section>
-
-      {/* ── useSpin() — cover a specific element ─────── */}
       <Section title="Cover a specific element — useSpin()">
         <div className="flex flex-wrap gap-6">
           <div
@@ -178,6 +215,7 @@ export default function SpinPage() {
             Both (A=1.5s, B=3s)
           </Button>
         </div>
+        <CodeExample code={useSpinElementCode} language="typescript" />
       </Section>
     </div>
   );

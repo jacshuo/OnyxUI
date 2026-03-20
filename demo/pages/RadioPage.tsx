@@ -1,8 +1,46 @@
 import { useState } from "react";
 import { Radio, RadioGroup } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 
 const intents = ["primary", "secondary", "danger", "warning", "success"] as const;
+
+const defaultCode = `<RadioGroup defaultValue="opt1">
+  <Radio value="opt1" label="Option 1" />
+  <Radio value="opt2" label="Option 2" />
+  <Radio value="opt3" label="Option 3" />
+</RadioGroup>`;
+
+const horizontalCode = `<RadioGroup defaultValue="h1" orientation="horizontal">
+  <Radio value="h1" label="Left" />
+  <Radio value="h2" label="Center" />
+  <Radio value="h3" label="Right" />
+</RadioGroup>`;
+
+const sizesCode = `<RadioGroup size="sm" defaultValue="a">
+  <Radio value="a" label="Small A" />
+  <Radio value="b" label="Small B" />
+</RadioGroup>
+<RadioGroup size="md" defaultValue="a">...</RadioGroup>
+<RadioGroup size="lg" defaultValue="a">...</RadioGroup>`;
+
+const intentsCode = `<RadioGroup intent="primary" defaultValue="on">
+  <Radio value="on" label="Primary" />
+</RadioGroup>
+{/* intents: "primary" | "secondary" | "danger" | "warning" | "success" */}`;
+
+const disabledCode = `<RadioGroup disabled defaultValue="d1">
+  <Radio value="d1" label="Disabled selected" />
+  <Radio value="d2" label="Disabled unselected" />
+</RadioGroup>`;
+
+const controlledCode = `const [value, setValue] = useState("b");
+
+<RadioGroup value={value} onValueChange={setValue} intent="success">
+  <Radio value="a" label="Alpha" />
+  <Radio value="b" label="Bravo" />
+  <Radio value="c" label="Charlie" />
+</RadioGroup>
+<span>Selected: {value}</span>`;
 
 export default function RadioPage() {
   const [value, setValue] = useState("b");
@@ -18,6 +56,7 @@ export default function RadioPage() {
           <Radio value="opt2" label="Option 2" />
           <Radio value="opt3" label="Option 3" />
         </RadioGroup>
+        <CodeExample code={defaultCode} />
       </Section>
 
       {/* ── Horizontal layout ────────────────────────── */}
@@ -27,6 +66,7 @@ export default function RadioPage() {
           <Radio value="h2" label="Center" />
           <Radio value="h3" label="Right" />
         </RadioGroup>
+        <CodeExample code={horizontalCode} />
       </Section>
 
       {/* ── Sizes ────────────────────────────────────── */}
@@ -45,6 +85,7 @@ export default function RadioPage() {
             <Radio value="b" label="Large B" />
           </RadioGroup>
         </div>
+        <CodeExample code={sizesCode} />
       </Section>
 
       {/* ── Intents ──────────────────────────────────── */}
@@ -57,6 +98,7 @@ export default function RadioPage() {
             </RadioGroup>
           ))}
         </div>
+        <CodeExample code={intentsCode} />
       </Section>
 
       {/* ── Disabled ─────────────────────────────────── */}
@@ -65,6 +107,7 @@ export default function RadioPage() {
           <Radio value="d1" label="Disabled selected" />
           <Radio value="d2" label="Disabled unselected" />
         </RadioGroup>
+        <CodeExample code={disabledCode} />
       </Section>
 
       {/* ── Controlled ───────────────────────────────── */}
@@ -79,6 +122,7 @@ export default function RadioPage() {
             Selected: <strong>{value}</strong>
           </span>
         </div>
+        <CodeExample code={controlledCode} />
       </Section>
     </div>
   );

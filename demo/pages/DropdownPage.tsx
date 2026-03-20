@@ -1,7 +1,90 @@
 import { useState } from "react";
 import { Inbox, Send, Archive, Star, Trash2 } from "lucide-react";
 import { Dropdown, Form, FormItem, type DropdownOption } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const basicCode = `<Dropdown
+  options={fruits}
+  value={selected}
+  onChange={setSelected}
+  placeholder="Pick a fruit…"
+/>`;
+
+const iconsCode = `const withIcons: DropdownOption[] = [
+  { value: "inbox", label: "Inbox", icon: <Inbox /> },
+  { value: "sent", label: "Sent", icon: <Send /> },
+];
+<Dropdown options={withIcons} value={icon} onChange={setIcon} />`;
+
+const editableCode = `<Dropdown
+  options={fruits}
+  value={selected}
+  onChange={setSelected}
+  placeholder="Type or select…"
+  editable
+/>`;
+
+const alignCode = `<Dropdown
+  options={fruits}
+  value={selected}
+  onChange={setSelected}
+  align="right"
+/>`;
+
+const defaultValueCode = `{/* Uncontrolled with default */}
+<Dropdown options={fruits} defaultValue="cherry" placeholder="Pick a fruit…" />`;
+
+const defaultSelectedCode = `{/* Uncontrolled multi-select with defaults */}
+<Dropdown
+  options={fruits}
+  multiple
+  defaultSelected={["banana", "elderberry"]}
+  placeholder="Pick fruits…"
+/>`;
+
+const multiCode = `<Dropdown
+  options={fruits}
+  multiple
+  selected={selectedFruits}
+  onSelectionChange={setSelectedFruits}
+  placeholder="Pick fruits…"
+/>`;
+
+const multiEditableCode = `<Dropdown
+  options={colors}
+  multiple
+  editable
+  selected={selectedColors}
+  onSelectionChange={setSelectedColors}
+  onAddItem={(value) => {
+    const key = value.toLowerCase().replace(/\\s+/g, "-");
+    setColors((prev) => [...prev, { value: key, label: value }]);
+    setSelectedColors((prev) => [...prev, key]);
+  }}
+/>`;
+
+const editableSingleCode = `<Dropdown
+  options={items}
+  value={selected}
+  onChange={setSelected}
+  editable
+  onAddItem={(value) => {
+    const key = value.toLowerCase().replace(/\\s+/g, "-");
+    setItems((prev) => [...prev, { value: key, label: value }]);
+    setSelected(key);
+  }}
+/>`;
+
+const cascadedCode = `{/* Each dropdown is controlled by the previous */}
+<Dropdown options={keysToOptions(geoData)} value={country} onChange={setCountry} placeholder="Select country…" />
+<Dropdown options={stateOptions} value={state} onChange={setState} disabled={!country} />
+<Dropdown options={countyOptions} value={county} onChange={setCounty} disabled={!state} />
+<Dropdown options={cityOptions} value={city} onChange={setCity} disabled={!county} />`;
+
+const sizesCode = `<Dropdown options={fruits} size="sm" />
+<Dropdown options={fruits} size="md" />
+<Dropdown options={fruits} size="lg" />
+// Available sizes: "sm" | "md" | "lg"`;
 
 const fruits: DropdownOption[] = [
   { value: "apple", label: "Apple" },
@@ -159,11 +242,13 @@ export default function DropdownPage() {
             value={basic}
             onChange={setBasic}
             placeholder="Pick a fruit…"
-          />
+          />{" "}
+          <CodeExample code={basicCode} />{" "}
         </Section>
 
         <Section title="With icons & pre-selected">
           <Dropdown options={withIcons} value={icon} onChange={setIcon} />
+          <CodeExample code={iconsCode} />
         </Section>
 
         <Section title="Editable (type to filter)">
@@ -174,6 +259,7 @@ export default function DropdownPage() {
             placeholder="Type or select…"
             editable
           />
+          <CodeExample code={editableCode} />
         </Section>
 
         <Section title="Right-aligned menu">
@@ -184,6 +270,7 @@ export default function DropdownPage() {
             placeholder="Right align…"
             align="right"
           />
+          <CodeExample code={alignCode} />
         </Section>
 
         <Section title="Default value (uncontrolled)">
@@ -191,6 +278,7 @@ export default function DropdownPage() {
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
             Pre-selects &ldquo;Cherry&rdquo; without controlled state.
           </p>
+          <CodeExample code={defaultValueCode} />
         </Section>
 
         <Section title="Default selected (uncontrolled multi)">
@@ -203,6 +291,7 @@ export default function DropdownPage() {
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
             Pre-selects &ldquo;Banana&rdquo; and &ldquo;Elderberry&rdquo; without controlled state.
           </p>
+          <CodeExample code={defaultSelectedCode} />
         </Section>
 
         <Section title="Multi-select with checkboxes">
@@ -216,6 +305,7 @@ export default function DropdownPage() {
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
             Selected: {selectedFruits.length ? selectedFruits.join(", ") : <em>none</em>}
           </p>
+          <CodeExample code={multiCode} />
         </Section>
 
         <Section title="Multi-select + editable + add items">
@@ -235,6 +325,7 @@ export default function DropdownPage() {
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
             Selected: {selectedColors.length ? selectedColors.join(", ") : <em>none</em>}
           </p>
+          <CodeExample code={multiEditableCode} />
         </Section>
 
         <Section title="Editable + add items (single)">
@@ -253,10 +344,11 @@ export default function DropdownPage() {
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
             Type a name not in the list and press Enter to add it.
           </p>
+          <CodeExample code={editableSingleCode} />
         </Section>
       </div>
 
-      {/* ── Cascaded selection ───────────────────────── */}
+      {/* ── Cascaded selection ─────────────────────── */}
       <Section title="Cascaded selection (Country → State → County → City)">
         <div className="max-w-lg">
           <Form layout="inline">
@@ -337,6 +429,7 @@ export default function DropdownPage() {
             Selected: <strong>{city}</strong>, {county}, {state}, {country}
           </p>
         )}
+        <CodeExample code={cascadedCode} />
       </Section>
 
       <Section title="Sizes">
@@ -350,6 +443,7 @@ export default function DropdownPage() {
             </div>
           ))}
         </div>
+        <CodeExample code={sizesCode} />
       </Section>
     </div>
   );

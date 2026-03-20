@@ -12,7 +12,83 @@ import {
   type ColumnDef,
 } from "../../src";
 import { Pencil, Trash2 } from "lucide-react";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const sortableCode = `const columns: ColumnDef<Person>[] = [
+  { key: "name", header: "Name", cell: (r) => r.name },
+  { key: "age",  header: "Age",  cell: (r) => r.age, compareFn: (a, b) => a.age - b.age },
+  { key: "status", header: "Status", sortable: false, cell: (r) => <Badge>{r.status}</Badge> },
+];
+
+<SortableTable
+  columns={columns}
+  data={people}
+  defaultSort={{ column: "name", direction: "asc" }}
+  rowKey={(r) => r.id}
+/>`;
+
+const singleSelCode = `<DataTable
+  columns={columns} data={people}
+  rowKey={(r) => r.id}
+  selectionMode="single"
+  selected={selected} onSelectionChange={setSelected}
+  defaultSort={{ column: "name", direction: "asc" }}
+/>`;
+
+const multiSelCode = `<DataTable
+  columns={columns} data={people}
+  rowKey={(r) => r.id}
+  selectionMode="multiple"
+  selected={selected} onSelectionChange={setSelected}
+  toolbar
+  onDelete={(keys) => console.log("delete", keys)}
+/>`;
+
+const editableCode = `<DataTable
+  columns={columns} data={people}
+  rowKey={(r) => r.id}
+  selectionMode="multiple"
+  selected={selected} onSelectionChange={setSelected}
+  editable onCellEdit={handleCellEdit}
+  toolbar onAdd={handleAdd} onDelete={handleDelete}
+/>`;
+
+const rowActionsCode = `<SortableTable
+  columns={columns} data={people}
+  rowKey={(r) => r.id}
+  rowActions={(row) => (
+    <>
+      <button onClick={() => editRow(row)}><Pencil /></button>
+      <button onClick={() => deleteRow(row)}><Trash2 /></button>
+    </>
+  )}
+/>`;
+
+const borderedCode = `<Table intent="bordered">
+  <TableHeader>
+    <TableRow>
+      <TableHead>Name</TableHead>
+      <TableHead>Price</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Widget</TableCell>
+      <TableCell>$9.99</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>`;
+
+const densityCode = `{/* density: "compact" | "default" | "relaxed" */}
+<SortableTable columns={columns} data={people} density="compact" rowKey={(r) => r.id} />`;
+
+const hideColumnsCode = `const columns: ColumnDef<Person>[] = [
+  { key: "name",   header: "Name",   cell: (r) => r.name },
+  { key: "role",   header: "Role",   cell: (r) => r.role },
+  { key: "age",    header: "Age",    cell: (r) => r.age,    hideBelow: "md" },
+  { key: "status", header: "Status", sortable: false,       hideBelow: "sm",
+    cell: (r) => <Badge>{r.status}</Badge> },
+];`;
 
 interface Person {
   id: number;
@@ -116,6 +192,7 @@ export default function TablePage() {
           defaultSort={{ column: "name", direction: "asc" }}
           rowKey={(r) => r.id}
         />
+        <CodeExample code={sortableCode} />
       </Section>
 
       <Section title="Single selection (radio)">
@@ -131,6 +208,7 @@ export default function TablePage() {
         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
           Selected: {singleSel.length ? String(singleSel[0]) : <em>none</em>}
         </p>
+        <CodeExample code={singleSelCode} />
       </Section>
 
       <Section title="Multi selection (checkboxes)">
@@ -148,6 +226,7 @@ export default function TablePage() {
           }}
           defaultSort={{ column: "name", direction: "asc" }}
         />
+        <CodeExample code={multiSelCode} />
       </Section>
 
       <Section title="Editable DataTable — double-click a cell to edit">
@@ -169,6 +248,7 @@ export default function TablePage() {
           Double-click a cell to edit inline. Status column is not editable. Use toolbar to
           add/delete rows.
         </p>
+        <CodeExample code={editableCode} />
       </Section>
 
       <Section title="Row actions (edit / delete per row)">
@@ -207,10 +287,12 @@ export default function TablePage() {
             </>
           )}
         />
+        <CodeExample code={rowActionsCode} />
       </Section>
 
       <Section title="Empty state (no data)">
         <SortableTable columns={sortableColumns} data={[]} rowKey={(r) => r.id} />
+        <CodeExample code={`<SortableTable columns={columns} data={[]} rowKey={(r) => r.id} />`} />
       </Section>
 
       <Section title="Bordered variant (manual primitives)">
@@ -235,6 +317,7 @@ export default function TablePage() {
             </TableRow>
           </TableBody>
         </Table>
+        <CodeExample code={borderedCode} />
       </Section>
 
       <Section title="Density variants">
@@ -253,6 +336,7 @@ export default function TablePage() {
             </div>
           ))}
         </div>
+        <CodeExample code={densityCode} />
       </Section>
 
       <Section title="Hide columns below breakpoint">
@@ -276,6 +360,7 @@ export default function TablePage() {
           data={initialPeople}
           rowKey={(r) => r.id}
         />
+        <CodeExample code={hideColumnsCode} />
       </Section>
     </div>
   );

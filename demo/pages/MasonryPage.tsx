@@ -1,6 +1,25 @@
 import type { MasonryItemData } from "../../src";
 import { Masonry, Card, CardHeader, CardTitle, CardDescription, CardContent } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const waterfallCode = `{/* responsive: auto-calculates columns from columnWidth */}
+<Masonry columnWidth={220} gap={12} items={imageItems} onItemClick={handleClick} />`;
+
+const cardWaterfallCode = `{/* fixed column count via columns prop — children API */}
+<Masonry columns={3} gap={16} onItemClick={(_, i) => console.log(i)}>
+  {cards.map((c, i) => (
+    <Card key={i}>
+      <CardHeader><CardTitle>{c.title}</CardTitle></CardHeader>
+      <CardContent>{c.body}</CardContent>
+    </Card>
+  ))}
+</Masonry>`;
+
+const mixedCode = `<Masonry columnWidth={200} gap={20} items={mixedItems} onItemClick={handleClick} />`;
+
+const singleColCode = `<Masonry columns={1} gap={12}>
+  {cards.map((c, i) => <Card key={i}>…</Card>)}
+</Masonry>`;
 
 /* ── Sample data ─────────────────────────────────────── */
 
@@ -554,6 +573,7 @@ export default function MasonryPage() {
           overlay info. Click for a ripple flash. Resize to see columns adjust.
         </p>
         <Masonry columnWidth={220} gap={12} items={imageItems} onItemClick={handleClick} />
+        <CodeExample code={waterfallCode} />
       </Section>
 
       <Section title="Card waterfall (fixed 3 columns, children API)">
@@ -570,6 +590,7 @@ export default function MasonryPage() {
             </Card>
           ))}
         </Masonry>
+        <CodeExample code={cardWaterfallCode} />
       </Section>
 
       <Section title="Mixed content (columnWidth = 200, gap = 20)">
@@ -595,6 +616,7 @@ export default function MasonryPage() {
           ]}
           onItemClick={handleClick}
         />
+        <CodeExample code={mixedCode} />
       </Section>
 
       <Section title="Single column (columns = 1)">
@@ -612,6 +634,7 @@ export default function MasonryPage() {
             ))}
           </Masonry>
         </div>
+        <CodeExample code={singleColCode} />
       </Section>
     </div>
   );

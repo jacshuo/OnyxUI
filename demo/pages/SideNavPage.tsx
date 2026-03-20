@@ -1,8 +1,45 @@
 import { useState } from "react";
 import { SideNav, Button, type SideNavItem, type SideNavCollapseMode } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import { Home, Settings, User, FileText, Mail, FolderOpen, Database, Menu, X } from "lucide-react";
 import { cn } from "../../src/lib/utils";
+
+const withIconsCode = `<SideNav
+  items={[
+    { key: "dashboard", label: "Dashboard", path: "#", icon: <Home /> },
+    { key: "profile",   label: "Profile",   path: "#", icon: <User /> },
+    {
+      label: "Documents", icon: <FileText />,
+      children: [
+        { key: "invoices", label: "Invoices", path: "#" },
+        { key: "reports",  label: "Reports",  path: "#" },
+      ],
+    },
+  ]}
+  title="App Navigation"
+/>`;
+
+const collapsibleCode = `{/* collapseMode: "expanded" | "icons" | "mini" */}
+<SideNav
+  items={items}
+  title="App Navigation"
+  collapsible
+  collapseMode={mode}
+  onCollapseModeChange={setMode}
+/>`;
+
+const noLinesCode = `<SideNav items={items} title="App Navigation" showLines={false} />`;
+
+const programmaticCode = `const [expanded, setExpanded] = useState(new Set(["Documents"]));
+
+<SideNav
+  items={items}
+  expandedKeys={expanded}
+  onExpandedKeysChange={setExpanded}
+/>`;
+
+const responsiveCode = `{/* Renders inline above mobileBreakpoint, slide-in drawer below */}
+<SideNav items={items} mobileBreakpoint={768} />`;
 
 const items: SideNavItem[] = [
   { key: "dashboard", label: "Dashboard", path: "#", icon: <Home className="h-4 w-4" /> },
@@ -51,6 +88,7 @@ export default function SideNavPage() {
         <div className="w-56 rounded-lg border border-primary-200 p-3 dark:border-primary-700">
           <SideNav items={items} title="App Navigation" responsive={false} />
         </div>
+        <CodeExample code={withIconsCode} />
       </Section>
 
       {/* ── Collapsible ───────────────────────────────────── */}
@@ -69,6 +107,7 @@ export default function SideNavPage() {
             responsive={false}
           />
         </div>
+        <CodeExample code={collapsibleCode} />
       </Section>
 
       {/* ── Without indent lines ──────────────────────────── */}
@@ -76,6 +115,7 @@ export default function SideNavPage() {
         <div className="w-56 rounded-lg border border-primary-200 p-3 dark:border-primary-700">
           <SideNav items={items} title="App Navigation" showLines={false} responsive={false} />
         </div>
+        <CodeExample code={noLinesCode} />
       </Section>
 
       {/* ── Programmatic expand / collapse ────────────────── */}
@@ -112,6 +152,7 @@ export default function SideNavPage() {
             responsive={false}
           />
         </div>
+        <CodeExample code={programmaticCode} />
       </Section>
 
       {/* ── Responsive behavior ───────────────────────────── */}
@@ -182,6 +223,7 @@ export default function SideNavPage() {
             </div>
           </div>
         </div>
+        <CodeExample code={responsiveCode} />
       </Section>
     </div>
   );

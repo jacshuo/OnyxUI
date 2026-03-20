@@ -6,7 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [1.4.0] — 2026-03-20
+
+### Added
+
+- **SideNav**: add swipe-to-close gesture for mobile drawer via touch events
+- **ProgressBar**: `edge="top|bottom"` now uses `createPortal` to render at document root, fixing `position:fixed` clipping inside `overflow:auto` containers on iOS
+- Add full inline `CodeExample` code snippets to all 35 demo pages
+- Add complete docs pages for all components (`demo/pages/docs/`)
+
+### Fixed
+
+- **ProgressBar**: apply `right-0` to `edge` variants so the bar spans the full viewport width
+- **CodeBlock**: use `var(--color-syntax-bg)` CSS variable for background color for correct dark-mode theming
+- **TextBox**: change default border from `border-secondary-300` to `border-secondary-400` for improved visibility
+- **Demo site**: add `min-w-0` to `Section` helper to prevent CSS Grid blowout from `<pre>` blocks on mobile
+- **Demo site**: prevent iOS Safari auto-zoom on input focus by setting `font-size: 16px` on touch devices via `hover: none and pointer: coarse` media query in `index.css` and `base.css`
+- **Demo site**: eliminate residual blank space after iOS keyboard dismissal — `useVisualViewportHeight` hook now uses `focusin`/`focusout` events to save and restore `<main>.scrollTop` around keyboard open/close cycles
+
+---
+
 ## [1.3.1] — 2026-03-19
+
+### Changed
+
+- **Demo site**: add inline code-snippet display to all 35 demo pages — every demo section now shows a representative `CodeBlock` powered by the library's own `CodeBlock` component via a shared `CodeExample` helper in `demo/pages/helpers.tsx`. Boilerplate is omitted but API call style is always explicit.
 
 ### Fixed
 

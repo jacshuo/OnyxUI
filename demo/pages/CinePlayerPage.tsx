@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CinePlayer, type CinePlayerMedia } from "../../src";
+import { CodeExample } from "./helpers";
 
 /* ── Sample playlist (free CC0 video clips) ──────────── */
 const samplePlaylist: CinePlayerMedia[] = [
@@ -129,6 +130,26 @@ export default function CinePlayerPage() {
           onPlayChange={(p) => addLog(p ? "▶ Playing" : "⏸ Paused")}
         />
       </div>
+
+      {/* ── Usage example ───────────────────────────── */}
+      <CodeExample
+        code={`<CinePlayer
+  playlist={[
+    {
+      title: "Big Buck Bunny",
+      subtitle: "Blender Foundation",
+      type: "movie",
+      src: "/video/bbb.mp4",
+      poster: "/poster/bbb.jpg",
+      duration: 596,
+    },
+  ]}
+  autoPlay={false}
+  accent="#8b5cf6"
+  onTrackChange={(idx, media) => console.log(idx, media.title)}
+  onPlayChange={(playing) => console.log(playing ? "Playing" : "Paused")}
+/>`}
+      />
 
       {/* ── Event log ───────────────────── */}
       <div>

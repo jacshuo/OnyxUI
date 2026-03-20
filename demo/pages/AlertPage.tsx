@@ -7,7 +7,27 @@ import {
   AlertDescription,
   useAlert,
 } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const staticAlertCode = `<Alert intent="success">
+  <AlertIcon><CheckCircle /></AlertIcon>
+  <AlertContent>
+    <AlertTitle>Success</AlertTitle>
+    <AlertDescription>Operation completed successfully.</AlertDescription>
+  </AlertContent>
+</Alert>
+// Available intents: "success" | "warning" | "error" | "info"`;
+
+const toastCode = `const { addAlert } = useAlert();
+
+addAlert({
+  intent: "success",
+  title: "Saved",
+  message: "Changes saved.",
+  position: "top-right",
+  duration: 3000, // ms, 0 = persistent
+});
+// positions: "top-right" | "top-left" | "top-center" | "bottom-right" | "bottom-left"`;
 import { CheckCircle, AlertTriangle, XCircle, Info, Bell, Pin } from "lucide-react";
 
 export default function AlertPage() {
@@ -56,6 +76,7 @@ export default function AlertPage() {
             </AlertContent>
           </Alert>
         </div>
+        <CodeExample code={staticAlertCode} />
       </Section>
 
       <Section title="Toast notifications (fly-in)">
@@ -126,6 +147,7 @@ export default function AlertPage() {
             <Pin /> Persistent toast
           </Button>
         </div>
+        <CodeExample code={toastCode} language="typescript" />
       </Section>
     </div>
   );

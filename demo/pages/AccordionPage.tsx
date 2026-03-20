@@ -1,6 +1,28 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import { HelpCircle, DollarSign, Moon } from "lucide-react";
+
+const singleCode = `<Accordion defaultValue={["a1"]}>
+  <AccordionItem value="a1">
+    <AccordionTrigger>What is @jacshuo/onyx?</AccordionTrigger>
+    <AccordionContent>A cross-platform React component library.</AccordionContent>
+  </AccordionItem>
+</Accordion>`;
+
+const multipleCode = `<Accordion type="multiple" defaultValue={["b1", "b2"]} intent="bordered">
+  <AccordionItem value="b1">
+    <AccordionTrigger>Section One</AccordionTrigger>
+    <AccordionContent>Multiple items can be open at once.</AccordionContent>
+  </AccordionItem>
+</Accordion>`;
+
+const sizesCode = `<Accordion size="sm" defaultValue={["s-sm"]}>
+  <AccordionItem value="s-sm">
+    <AccordionTrigger>Size "sm" trigger</AccordionTrigger>
+    <AccordionContent>Content area scales with the size prop.</AccordionContent>
+  </AccordionItem>
+</Accordion>
+// Available sizes: "sm" | "md" | "lg"`;
 
 export default function AccordionPage() {
   return (
@@ -32,6 +54,7 @@ export default function AccordionPage() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+        <CodeExample code={singleCode} />
       </Section>
 
       <Section title="Multiple open + bordered">
@@ -45,6 +68,7 @@ export default function AccordionPage() {
             <AccordionContent>This one is also open by default.</AccordionContent>
           </AccordionItem>
         </Accordion>
+        <CodeExample code={multipleCode} />
       </Section>
 
       <Section title="Sizes">
@@ -69,6 +93,7 @@ export default function AccordionPage() {
             </div>
           ))}
         </div>
+        <CodeExample code={sizesCode} />
       </Section>
     </div>
   );

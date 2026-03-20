@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MiniPlayer, Dropdown, type MiniPlayerTrack, type MiniPlayerPosition } from "../../src";
+import { CodeExample } from "./helpers";
 
 /* ── Sample playlist with free CC0 audio ───────────── */
 const samplePlaylist: MiniPlayerTrack[] = [
@@ -66,7 +67,6 @@ export default function MiniPlayerPage() {
           mode and theme control.
         </p>
       </div>
-
       {/* ── Controls ────────────────────── */}
       <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
         {/* Visibility */}
@@ -179,7 +179,6 @@ export default function MiniPlayerPage() {
           </button>
         </div>
       </div>
-
       {/* ── Accent color ────────────────── */}
       <div className="flex items-center gap-2">
         <span className="text-xs font-semibold uppercase tracking-wider text-primary-500 dark:text-primary-400">
@@ -202,7 +201,6 @@ export default function MiniPlayerPage() {
           />
         ))}
       </div>
-
       {/* ── Event log ───────────────────── */}
       <div>
         <h3 className="mb-2 text-sm font-semibold text-primary-700 dark:text-primary-300">
@@ -216,7 +214,6 @@ export default function MiniPlayerPage() {
           )}
         </div>
       </div>
-
       {/* ── Player instance ─────────────── */}
       <MiniPlayer
         playlist={samplePlaylist}
@@ -235,6 +232,21 @@ export default function MiniPlayerPage() {
         onTrackChange={(idx, t) => addLog(`Track → #${idx + 1} "${t.title}"`)}
         onLike={(idx, t, liked) => addLog(`${liked ? "❤️ Liked" : "💔 Unliked"} "${t.title}"`)}
       />
+      {/* ── Usage example ───────────────────────────── */}
+      <CodeExample
+        code={`<MiniPlayer
+  playlist={[
+    { title: "Track 1", artist: "Artist", src: "/audio/track1.mp3", cover: "/cover.jpg" },
+  ]}
+  position="bottom-right"
+  entrance="bottom"
+  visible={visible}
+  autoPlay
+  accent="#8b5cf6"
+  onVisibleChange={setVisible}
+  onTrackChange={(idx, track) => console.log(idx, track.title)}
+/>`}
+      />{" "}
     </div>
   );
 }

@@ -18,8 +18,8 @@ export const progressBarVariants = cva(
       },
       edge: {
         none: "rounded-full",
-        top: "fixed top-0 left-0 z-50 rounded-none",
-        bottom: "fixed bottom-0 left-0 z-50 rounded-none",
+        top: "fixed top-0 left-0 right-0 z-50 rounded-none",
+        bottom: "fixed bottom-0 left-0 right-0 z-50 rounded-none",
       },
     },
     defaultVariants: { size: "md", intent: "primary", edge: "none" },

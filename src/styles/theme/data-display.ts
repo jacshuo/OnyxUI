@@ -60,7 +60,7 @@ export const treeItemVariants = cva(
 );
 
 export const codeBlockVariants = cva(
-  "overflow-x-auto rounded-lg font-mono [&_pre]:m-0 [&_pre]:p-4 [&_code]:bg-transparent",
+  "overflow-x-auto rounded-lg font-mono [background:var(--color-syntax-bg)] [&_pre]:m-0 [&_pre]:p-4 [&_code]:bg-transparent",
   {
     variants: {
       size: {

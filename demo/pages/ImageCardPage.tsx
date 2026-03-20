@@ -7,8 +7,33 @@ import {
   ImageCardDescription,
   ImageCardActions,
 } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import { Heart, Share2, Bookmark, MapPin, Clock, ExternalLink } from "lucide-react";
+
+const galleryCode = `<ImageCard
+  src="https://example.com/image.jpg"
+  alt="Swiss Alps"
+>
+  <ImageCardBody>
+    <ImageCardTitle>Swiss Alps</ImageCardTitle>
+    <ImageCardDescription>Breathtaking panoramic view at golden hour.</ImageCardDescription>
+  </ImageCardBody>
+  <ImageCardActions className="justify-between">
+    <Button size="sm" intent="ghost"><Heart /> Like</Button>
+    <Button size="sm" intent="ghost"><Bookmark /></Button>
+  </ImageCardActions>
+</ImageCard>`;
+
+const squareCode = `<ImageCard
+  src="https://example.com/image.jpg"
+  alt="Enchanted Forest"
+  aspectRatio="1/1"
+>
+  <ImageCardBody>
+    <ImageCardTitle>Enchanted Forest</ImageCardTitle>
+  </ImageCardBody>
+</ImageCard>
+// aspectRatio: "16/9" (default) | "1/1" | "4/3" | "3/2" | "21/9"`;
 
 export default function ImageCardPage() {
   return (
@@ -78,6 +103,7 @@ export default function ImageCardPage() {
             </ImageCardActions>
           </ImageCard>
         </div>
+        <CodeExample code={galleryCode} />
       </Section>
 
       <Section title="Square (1/1)">
@@ -92,6 +118,7 @@ export default function ImageCardPage() {
             </ImageCardBody>
           </ImageCard>
         </div>
+        <CodeExample code={squareCode} />
       </Section>
     </div>
   );

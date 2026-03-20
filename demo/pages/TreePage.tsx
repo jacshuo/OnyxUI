@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Tree, TreeItem, Button } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import {
   Folder,
   FolderOpen,
@@ -16,6 +16,58 @@ const allNodeKeys = new Set(["src", "components", "styles", "demo"]);
 
 const actionBtnClass =
   "rounded p-0.5 text-primary-400 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-800 transition-colors";
+
+const fileBrowserCode = `<Tree>
+  <TreeItem label="src" icon={<FolderOpen />} defaultExpanded>
+    <TreeItem label="components" icon={<FolderOpen />} defaultExpanded>
+      <TreeItem label="Button.tsx" icon={<FileCode />} />
+      <TreeItem label="Card.tsx"   icon={<FileCode />} />
+    </TreeItem>
+    <TreeItem label="index.ts" icon={<FileCode />} />
+  </TreeItem>
+  <TreeItem label="package.json" icon={<File />} />
+</Tree>`;
+
+const programmaticCode = `const [expanded, setExpanded] = useState(new Set(["src"]));
+
+<Tree expandedKeys={expanded} onExpandedKeysChange={setExpanded}>
+  <TreeItem nodeKey="src" label="src" icon={<FolderOpen />}>
+    <TreeItem label="index.ts" icon={<FileCode />} />
+  </TreeItem>
+</Tree>`;
+
+const noLinesCode = `<Tree showLines={false}>
+  <TreeItem label="src" defaultExpanded>
+    <TreeItem label="Button.tsx" />
+  </TreeItem>
+</Tree>`;
+
+const noRootCode = `<Tree showRoot={false}>
+  <TreeItem label="project" defaultExpanded>
+    <TreeItem label="Button.tsx" />
+  </TreeItem>
+</Tree>`;
+
+const rowActionsCode = `<Tree>
+  <TreeItem
+    label="src"
+    actions={<button onClick={() => addFile()}><FilePlus /></button>}
+  >
+    <TreeItem
+      label="index.ts"
+      actions={
+        <>
+          <button onClick={() => editFile()}><Pencil /></button>
+          <button onClick={() => deleteFile()}><Trash2 /></button>
+        </>
+      }
+    />
+  </TreeItem>
+</Tree>`;
+
+const sizesCode = `<Tree size="sm">…</Tree>
+<Tree size="md">…</Tree>
+<Tree size="lg">…</Tree>`;
 
 export default function TreePage() {
   const [expanded, setExpanded] = useState<Set<string>>(new Set(allNodeKeys));
@@ -53,9 +105,10 @@ export default function TreePage() {
           <TreeItem label="package.json" icon={<File className="h-4 w-4 text-green-500" />} />
           <TreeItem label="README.md" icon={<FileText className="h-4 w-4 text-primary-400" />} />
         </Tree>
+        <CodeExample code={fileBrowserCode} />
       </Section>
 
-      <Section title="Programmatic expand / collapse">
+      <Section title="Programmatic control">
         <div className="mb-3 flex flex-wrap gap-2">
           <Button size="sm" onClick={() => setExpanded(new Set(allNodeKeys))}>
             Expand All
@@ -115,6 +168,7 @@ export default function TreePage() {
           <TreeItem label="package.json" icon={<File className="h-4 w-4 text-green-500" />} />
           <TreeItem label="README.md" icon={<FileText className="h-4 w-4 text-primary-400" />} />
         </Tree>
+        <CodeExample code={programmaticCode} />
       </Section>
 
       <Section title="Without indent lines">
@@ -140,6 +194,7 @@ export default function TreePage() {
             <TreeItem label="index.ts" icon={<FileCode className="h-4 w-4 text-blue-500" />} />
           </TreeItem>
         </Tree>
+        <CodeExample code={noLinesCode} />
       </Section>
 
       <Section title="Without root nodes">
@@ -165,6 +220,7 @@ export default function TreePage() {
             <TreeItem label="index.ts" icon={<FileCode className="h-4 w-4 text-blue-500" />} />
           </TreeItem>
         </Tree>
+        <CodeExample code={noRootCode} />
       </Section>
 
       <Section title="Row actions (hover to reveal)">
@@ -274,6 +330,7 @@ export default function TreePage() {
             />
           </TreeItem>
         </Tree>
+        <CodeExample code={rowActionsCode} />
       </Section>
 
       <Section title="Sizes">
@@ -303,6 +360,7 @@ export default function TreePage() {
             </div>
           ))}
         </div>
+        <CodeExample code={sizesCode} />
       </Section>
     </div>
   );

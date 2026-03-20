@@ -1,6 +1,111 @@
 import { useState } from "react";
 import { Form, FormItem, FormSection, Input, Button, Dropdown, Switch, TextBox } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const stackedCode = `<Form>
+  <FormItem label="Username" required>
+    <Input placeholder="john_doe" />
+  </FormItem>
+  <FormItem label="Email" required>
+    <Input type="email" placeholder="you@example.com" />
+  </FormItem>
+  <FormItem label="Website" hint="Include https://">
+    <Input type="url" placeholder="https://example.com" />
+  </FormItem>
+</Form>`;
+
+const inlineCode = `<Form layout="inline">
+  <FormItem label="First name" required>
+    <Input placeholder="Jane" />
+  </FormItem>
+  <FormItem label="Role">
+    <Dropdown options={roleOptions} value={role} onChange={setRole} />
+  </FormItem>
+</Form>`;
+
+const validationCode = `<FormItem
+  label="Username"
+  required
+  validation={{ status: "error", message: "Username is already taken." }}
+>
+  <Input value="taken_user" readOnly state="error" />
+</FormItem>
+<FormItem
+  label="Email"
+  validation={{ status: "success", message: "Email address is available." }}
+>
+  <Input type="email" value="jane@example.com" readOnly />
+</FormItem>`;
+
+const sizesCode = `<Form size="sm" layout="inline">
+  <FormItem label="Name" required><Input placeholder="Jane Doe" inputSize="sm" /></FormItem>
+</Form>
+// Available sizes: "sm" | "md" | "lg"`;
+
+const cardCode = `<Form
+  intent="card"
+  title="Account settings"
+  description="Update your account information."
+  footer={<><Button intent="ghost" type="reset">Cancel</Button><Button type="submit">Save</Button></>}
+>
+  <FormItem label="Display name" required>
+    <Input placeholder="Your display name" />
+  </FormItem>
+</Form>`;
+
+const insetCode = `<Form intent="inset" title="Preferences" layout="inline">
+  <FormItem label="Notifications">
+    <Switch label="Email notifications" />
+  </FormItem>
+</Form>`;
+
+const formSectionCode = `<Form title="User profile">
+  <FormSection title="Personal information" description="Required">
+    <FormItem label="Full name" required><Input placeholder="Jane Doe" /></FormItem>
+    <FormItem label="Email" required><Input type="email" placeholder="jane@example.com" /></FormItem>
+  </FormSection>
+  <FormSection title="Account settings">
+    <FormItem label="Username"><Input placeholder="jane_doe" /></FormItem>
+  </FormSection>
+</Form>`;
+
+const responsiveCode = `{/* layout="inline" stacks on mobile (< md), side-by-side on larger screens */}
+<Form layout="inline" intent="card">
+  <FormItem label="City" required><Input placeholder="San Francisco" /></FormItem>
+  <FormItem label="State"><Input placeholder="CA" /></FormItem>
+  <FormItem label="Postal code"><Input placeholder="94105" /></FormItem>
+</Form>`;
+
+const onValuesCode = `<Form
+  intent="card"
+  onValues={async (values, e) => {
+    e.preventDefault();
+    // Validate and return error map
+    const errors = {};
+    if (values.username === "admin")
+      errors.username = { result: false, reason: "Already taken." };
+    if (Object.keys(errors).length) return errors;
+  }}
+  footer={<Button type="submit">Submit</Button>}
+>
+  <FormItem label="Username" name="username" required>
+    <Input placeholder="Try 'admin'" />
+  </FormItem>
+</Form>`;
+
+const onValidateCode = `<FormItem
+  label="Email"
+  required
+  onValidate={(val) => {
+    const v = String(val ?? "");
+    if (!v) return { result: false, reason: "Email is required." };
+    return /^[^@]+@[^@]+\\.[^@]+$/.test(v)
+      ? { result: true, reason: "Valid email." }
+      : { result: false, reason: "Enter a valid email address." };
+  }}
+>
+  <Input type="email" placeholder="jane@example.com" />
+</FormItem>`;
 
 export default function FormPage() {
   const [username, setUsername] = useState("");
@@ -29,7 +134,8 @@ export default function FormPage() {
               <Input type="url" placeholder="https://example.com" />
             </FormItem>
           </Form>
-        </div>
+        </div>{" "}
+        <CodeExample code={stackedCode} />{" "}
       </Section>
 
       {/* ── Inline layout ─────────────────────────────────── */}
@@ -72,7 +178,8 @@ export default function FormPage() {
               </div>
             </FormItem>
           </Form>
-        </div>
+        </div>{" "}
+        <CodeExample code={inlineCode} />{" "}
       </Section>
 
       {/* ── Validation states ──────────────────────────────── */}
@@ -108,6 +215,7 @@ export default function FormPage() {
             </FormItem>
           </Form>
         </div>
+        <CodeExample code={validationCode} />
       </Section>
 
       {/* ── Size variants ─────────────────────────────────── */}
@@ -128,7 +236,8 @@ export default function FormPage() {
               </Form>
             </div>
           ))}
-        </div>
+        </div>{" "}
+        <CodeExample code={sizesCode} />{" "}
       </Section>
 
       {/* ── Card intent ───────────────────────────────────── */}
@@ -171,7 +280,8 @@ export default function FormPage() {
               />
             </FormItem>
           </Form>
-        </div>
+        </div>{" "}
+        <CodeExample code={cardCode} />{" "}
       </Section>
 
       {/* ── Inset intent ──────────────────────────────────── */}
@@ -199,6 +309,7 @@ export default function FormPage() {
             </FormItem>
           </Form>
         </div>
+        <CodeExample code={insetCode} />
       </Section>
 
       {/* ── FormSection grouping ──────────────────────────── */}
@@ -255,7 +366,8 @@ export default function FormPage() {
               </FormItem>
             </FormSection>
           </Form>
-        </div>
+        </div>{" "}
+        <CodeExample code={formSectionCode} />{" "}
       </Section>
 
       {/* ── Responsive note ───────────────────────────────── */}
@@ -282,6 +394,7 @@ export default function FormPage() {
             </FormItem>
           </Form>
         </div>
+        <CodeExample code={responsiveCode} />
       </Section>
 
       {/* ── onValues — data collection + bulk validation ─── */}
@@ -333,7 +446,8 @@ export default function FormPage() {
               {JSON.stringify(submittedValues, null, 2)}
             </pre>
           )}
-        </div>
+        </div>{" "}
+        <CodeExample code={onValuesCode} />{" "}
       </Section>
 
       {/* ── onValidate ────────────────────────────────────── */}
@@ -384,6 +498,7 @@ export default function FormPage() {
             </FormItem>
           </Form>
         </div>
+        <CodeExample code={onValidateCode} />
       </Section>
     </div>
   );

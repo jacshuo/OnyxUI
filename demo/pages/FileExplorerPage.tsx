@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { FileExplorer, type FileExplorerItem, type FileExplorerAction } from "../../src";
 import { Download, Clipboard, Trash2, Share2 } from "lucide-react";
+import { CodeExample } from "./helpers";
 
 /* ── Sample file tree ──────────────────────────────────── */
 const sampleFiles: FileExplorerItem[] = [
@@ -277,6 +278,25 @@ export default function FileExplorerPage() {
             onClick: (f) => addLog(`🗑 Delete: ${f.name}`),
           },
         ]}
+      />
+
+      {/* ── Usage example ───────────────────────────── */}
+      <CodeExample
+        code={`<FileExplorer
+  files={files}
+  title="Project Files"
+  accent="#8b5cf6"
+  defaultView="list"
+  dockable
+  visible={visible}
+  onFileOpen={(f) => console.log("open", f.path)}
+  onSelectionChange={(items) => console.log("selected", items)}
+  onClose={() => setVisible(false)}
+  onDelete={(items) => console.log("delete", items)}
+  actions={[
+    { key: "download", label: "Download", icon: Download, onClick: (f) => download(f) },
+  ]}
+/>`}
       />
 
       {/* ── Event log ───────────────────── */}

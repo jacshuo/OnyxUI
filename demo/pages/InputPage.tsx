@@ -1,5 +1,39 @@
 import { Input, Label } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const typesCode = `<Input type="email" placeholder="you@example.com" />
+<Input type="password" placeholder="Enter password" />
+<Input type="number" placeholder="0" min={0} max={100} />
+<Input type="search" placeholder="Search…" />
+<Input type="date" />
+<Input type="time" />`;
+
+const errorCode = `<Input state="error" placeholder="Enter username" defaultValue="ab" />
+// Available states: "default" | "error" | "success" | "warning"`;
+
+const sizesCode = `<Input inputSize="sm" placeholder="Small input" />
+<Input inputSize="md" placeholder="Medium input (default)" />
+<Input inputSize="lg" placeholder="Large input" />`;
+
+const prefixCode = `<Input
+  prefix={<><Globe /> https://&lt;/&gt;}
+  type="url"
+  placeholder="example.com"
+/>
+<Input prefix={<DollarSign />} type="number" placeholder="0.00" />`;
+
+const suffixCode = `<Input suffix={<Search />} type="search" placeholder="Search…" />
+<Input suffix={<Eye />} type="password" placeholder="Password" />`;
+
+const actionCode = `<Input
+  action={{
+    icon: <Search />,
+    onClick: () => handleSearch(),
+    "aria-label": "Search",
+  }}
+  type="search"
+  placeholder="Type and click search…"
+/>`;
 import {
   Mail,
   User,
@@ -73,6 +107,7 @@ export default function InputPage() {
             <Input type="time" />
           </div>
         </div>
+        <CodeExample code={typesCode} />
       </Section>
 
       <Section title="Error state">
@@ -85,6 +120,7 @@ export default function InputPage() {
             Minimum 3 characters.
           </Label>
         </div>
+        <CodeExample code={errorCode} />
       </Section>
 
       <Section title="Sizes">
@@ -93,6 +129,7 @@ export default function InputPage() {
           <Input inputSize="md" type="email" placeholder="Medium email input" />
           <Input inputSize="lg" type="email" placeholder="Large email input" />
         </div>
+        <CodeExample code={sizesCode} />
       </Section>
 
       <Section title="Prefix — highlighted label / icon">
@@ -127,6 +164,7 @@ export default function InputPage() {
             inputSize="lg"
           />
         </div>
+        <CodeExample code={prefixCode} />
       </Section>
 
       <Section title="Suffix — decorative icon">
@@ -134,6 +172,7 @@ export default function InputPage() {
           <Input suffix={<Search />} type="search" placeholder="Search…" />
           <Input suffix={<Eye />} type="password" placeholder="Password" />
         </div>
+        <CodeExample code={suffixCode} />
       </Section>
 
       <Section title="Action — clickable icon button">
@@ -166,6 +205,7 @@ export default function InputPage() {
             prefix={<Globe />}
           />
         </div>
+        <CodeExample code={actionCode} />
       </Section>
     </div>
   );

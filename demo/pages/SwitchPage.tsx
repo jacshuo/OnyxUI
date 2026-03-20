@@ -14,7 +14,54 @@ import {
   BellOff,
 } from "lucide-react";
 import { Switch } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const defaultCode = `<Switch label="Notifications" />
+<Switch defaultChecked label="Dark mode" />
+<Switch disabled label="Disabled off" />
+<Switch disabled defaultChecked label="Disabled on" />`;
+
+const sizesCode = `<Switch size="sm" defaultChecked label="Small" />
+<Switch size="md" defaultChecked label="Medium" />
+<Switch size="lg" defaultChecked label="Large" />`;
+
+const intentsCode = `<Switch intent="primary"   defaultChecked label="Primary"   />
+<Switch intent="secondary" defaultChecked label="Secondary" />
+<Switch intent="success"   defaultChecked label="Success"   />
+<Switch intent="warning"   defaultChecked label="Warning"   />
+<Switch intent="danger"    defaultChecked label="Danger"    />`;
+
+const textCode = `<Switch
+  size="lg" intent="primary"
+  checkedContent="ON" uncheckedContent="OFF"
+  defaultChecked label="Power"
+/>`;
+
+const longTextCode = `<Switch
+  size="lg" intent="success"
+  checkedContent="Enabled" uncheckedContent="Disabled"
+  defaultChecked label="Feature toggle"
+/>`;
+
+const iconsCode = `<Switch
+  size="lg" intent="primary"
+  checkedContent={<Sun />} uncheckedContent={<Moon />}
+  defaultChecked label="Theme"
+/>
+<Switch
+  size="lg" intent="success"
+  checkedContent={<Volume2 />} uncheckedContent={<VolumeX />}
+  defaultChecked label="Sound"
+/>`;
+
+const controlledCode = `const [checked, setChecked] = useState(false);
+
+<Switch
+  size="lg" intent="success"
+  checked={checked} onCheckedChange={setChecked}
+  checkedContent={<Check />} uncheckedContent={<X />}
+  label={checked ? "Active" : "Inactive"}
+/>`;
 
 export default function SwitchPage() {
   const [checked, setChecked] = useState(false);
@@ -30,7 +77,8 @@ export default function SwitchPage() {
           <Switch defaultChecked label="Dark mode" />
           <Switch disabled label="Disabled off" />
           <Switch disabled defaultChecked label="Disabled on" />
-        </div>
+        </div>{" "}
+        <CodeExample code={defaultCode} />{" "}
       </Section>
 
       {/* ── Sizes ────────────────────────────────────── */}
@@ -40,9 +88,8 @@ export default function SwitchPage() {
           <Switch size="md" defaultChecked label="Medium" />
           <Switch size="lg" defaultChecked label="Large" />
         </div>
+        <CodeExample code={sizesCode} />
       </Section>
-
-      {/* ── Colors / Intents ─────────────────────────── */}
       <Section title="Colors (intents)">
         <div className="flex flex-wrap items-center gap-6">
           <Switch intent="primary" defaultChecked label="Primary" />
@@ -51,9 +98,8 @@ export default function SwitchPage() {
           <Switch intent="warning" defaultChecked label="Warning" />
           <Switch intent="danger" defaultChecked label="Danger" />
         </div>
+        <CodeExample code={intentsCode} />
       </Section>
-
-      {/* ── With text ────────────────────────────────── */}
       <Section title="With text inside">
         <div className="flex flex-wrap items-center gap-6">
           <Switch
@@ -80,9 +126,8 @@ export default function SwitchPage() {
             label="状态"
           />
         </div>
+        <CodeExample code={textCode} />
       </Section>
-
-      {/* ── Long text (auto-width) ───────────────────── */}
       <Section title="Long text — auto-sizing track">
         <div className="flex flex-wrap items-center gap-6">
           <Switch
@@ -109,6 +154,7 @@ export default function SwitchPage() {
             label="Visibility"
           />
         </div>
+        <CodeExample code={longTextCode} />
       </Section>
 
       {/* ── With icons ───────────────────────────────── */}
@@ -161,6 +207,7 @@ export default function SwitchPage() {
             label="Alerts"
           />
         </div>
+        <CodeExample code={iconsCode} />
       </Section>
 
       {/* ── Controlled ───────────────────────────────── */}
@@ -183,6 +230,7 @@ export default function SwitchPage() {
             Toggle externally
           </button>
         </div>
+        <CodeExample code={controlledCode} />
       </Section>
 
       {/* ── All intents with icons ────────────────────── */}

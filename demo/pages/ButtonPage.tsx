@@ -1,7 +1,49 @@
 import { useState } from "react";
 import { Button, DropdownButton, type DropdownItem } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import { Plus, Save, Trash2, Download, Tags, ListChecks } from "lucide-react";
+
+const intentCode = `<Button intent="primary"><Plus /> Primary</Button>
+<Button intent="secondary"><Save /> Secondary</Button>
+<Button intent="danger"><Trash2 /> Danger</Button>
+<Button intent="warning">Warning</Button>
+<Button intent="ghost">Ghost</Button>
+<Button intent="outline"><Download /> Outline</Button>`;
+
+const sizesCode = `<Button size="sm"><Plus /> Small</Button>
+<Button size="md"><Plus /> Medium</Button>
+<Button size="lg"><Plus /> Large</Button>`;
+
+const disabledCode = `<Button disabled><Save /> Disabled</Button>
+<Button intent="outline" disabled><Download /> Disabled Outline</Button>`;
+
+const dropdownButtonCode = `<DropdownButton label="Actions" items={menuItems} intent="primary" />
+<DropdownButton label="Options" items={menuItems} intent="outline" />
+<DropdownButton label="Disabled" items={menuItems} intent="secondary" disabled />`;
+
+const multiSelectCode = `<DropdownButton
+  label="Labels"
+  items={tags}
+  intent="outline"
+  multiple
+  selected={selectedTags}
+  onSelectionChange={setSelectedTags}
+/>`;
+
+const editableCode = `<DropdownButton
+  label="Labels"
+  items={tags}
+  intent="outline"
+  editable
+  multiple
+  selected={selectedTags}
+  onSelectionChange={setSelectedTags}
+  onAddItem={(value) => {
+    const key = value.toLowerCase().replace(/\\s+/g, "-");
+    setTags((prev) => [...prev, { key, label: value }]);
+    setSelectedTags((prev) => [...prev, key]);
+  }}
+/>`;
 
 const menuItems: DropdownItem[] = [
   { label: "Edit", onClick: () => console.log("Edit") },
@@ -49,6 +91,7 @@ export default function ButtonPage() {
             <Download /> Outline
           </Button>
         </div>
+        <CodeExample code={intentCode} />
       </Section>
 
       <Section title="Sizes">
@@ -63,6 +106,7 @@ export default function ButtonPage() {
             <Plus /> Large
           </Button>
         </div>
+        <CodeExample code={sizesCode} />
       </Section>
 
       <Section title="Disabled">
@@ -74,6 +118,7 @@ export default function ButtonPage() {
             <Download /> Disabled Outline
           </Button>
         </div>
+        <CodeExample code={disabledCode} />
       </Section>
 
       <Section title="Dropdown Button">
@@ -83,6 +128,7 @@ export default function ButtonPage() {
           <DropdownButton label="Danger" items={menuItems} intent="danger" />
           <DropdownButton label="Disabled" items={menuItems} intent="secondary" disabled />
         </div>
+        <CodeExample code={dropdownButtonCode} />
       </Section>
 
       <Section title="Multi-select with checkboxes">
@@ -117,7 +163,8 @@ export default function ButtonPage() {
           <p>
             Assignees: {selectedAssignees.length ? selectedAssignees.join(", ") : <em>none</em>}
           </p>
-        </div>
+        </div>{" "}
+        <CodeExample code={multiSelectCode} />{" "}
       </Section>
 
       <Section title="Editable — filter & add items">
@@ -162,6 +209,7 @@ export default function ButtonPage() {
         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
           Type a name not in the list and press Enter to add it.
         </p>
+        <CodeExample code={editableCode} />
       </Section>
     </div>
   );

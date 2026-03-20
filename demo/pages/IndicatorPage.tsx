@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Indicator, Button, Badge } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
 import { Bell, Mail, ShoppingCart, User } from "lucide-react";
 
 function Avatar({ label }: { label: string }) {
@@ -10,6 +10,44 @@ function Avatar({ label }: { label: string }) {
     </div>
   );
 }
+
+const intentsCode = `<Indicator intent="danger" content={3}>
+  <Avatar />
+</Indicator>
+<Indicator intent="success" content={7}><Avatar /></Indicator>
+<Indicator intent="warning" content={12}><Avatar /></Indicator>
+// Available intents: "danger" | "success" | "warning" | "info" | "primary"`;
+
+const dotCode = `<Indicator dot intent="danger">
+  <Button><Bell /> Alerts</Button>
+</Indicator>
+<Indicator dot intent="success"><Avatar /></Indicator>`;
+
+const largeCode = `<Indicator content={100}><Button>Inbox</Button></Indicator>
+{/* Numbers >= 100 display as "99+" */}`;
+
+const sizesCode = `<Indicator size="sm" content={3}><Avatar /></Indicator>
+<Indicator size="md" content={3}><Avatar /></Indicator>
+<Indicator size="lg" content={3}><Avatar /></Indicator>`;
+
+const placementsCode = `<Indicator placement="top-right" content={1}><Avatar /></Indicator>
+<Indicator placement="top-left" content={1}><Avatar /></Indicator>
+<Indicator placement="bottom-right" content={1}><Avatar /></Indicator>
+<Indicator placement="bottom-left" content={1}><Avatar /></Indicator>`;
+
+const pulseCode = `<Indicator dot pulse intent="danger">
+  <Button>Live alerts</Button>
+</Indicator>
+<Indicator pulse content={4} intent="danger">
+  <Button intent="outline">Messages</Button>
+</Indicator>`;
+
+const showHideCode = `const [show, setShow] = useState(true);
+const [count, setCount] = useState(5);
+
+<Indicator show={show} content={count} intent="danger">
+  <Button>Notifications</Button>
+</Indicator>`;
 
 export default function IndicatorPage() {
   const [show, setShow] = useState(true);
@@ -37,6 +75,7 @@ export default function IndicatorPage() {
             <Avatar label="P" />
           </Indicator>
         </div>
+        <CodeExample code={intentsCode} />
       </Section>
 
       <Section title="Dot only">
@@ -56,6 +95,7 @@ export default function IndicatorPage() {
             <Avatar label="I" />
           </Indicator>
         </div>
+        <CodeExample code={dotCode} />
       </Section>
 
       <Section title="Large numbers (capped at 99+)">
@@ -74,6 +114,7 @@ export default function IndicatorPage() {
             <Avatar label="0" />
           </Indicator>
         </div>
+        <CodeExample code={largeCode} />
       </Section>
 
       <Section title="Sizes">
@@ -97,6 +138,7 @@ export default function IndicatorPage() {
             <span className="text-xs text-primary-500">lg</span>
           </div>
         </div>
+        <CodeExample code={sizesCode} />
       </Section>
 
       <Section title="Placements">
@@ -110,6 +152,7 @@ export default function IndicatorPage() {
             </div>
           ))}
         </div>
+        <CodeExample code={placementsCode} />
       </Section>
 
       <Section title="Pulse animation">
@@ -130,6 +173,7 @@ export default function IndicatorPage() {
             </Button>
           </Indicator>
         </div>
+        <CodeExample code={pulseCode} />
       </Section>
 
       <Section title="Show / hide">
@@ -146,6 +190,7 @@ export default function IndicatorPage() {
             </Button>
           </Indicator>
         </div>
+        <CodeExample code={showHideCode} language="typescript" />
       </Section>
 
       <Section title="On various elements">
@@ -162,6 +207,9 @@ export default function IndicatorPage() {
             </Button>
           </Indicator>
         </div>
+        <CodeExample
+          code={`<Indicator content={3}>\n  <Badge intent="info">Info badge</Badge>\n</Indicator>\n<Indicator dot intent="success" placement="bottom-right">\n  <div className="h-12 w-12 rounded-lg bg-primary-100 dark:bg-primary-800" />\n</Indicator>`}
+        />
       </Section>
     </div>
   );

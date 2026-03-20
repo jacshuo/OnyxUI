@@ -1,6 +1,49 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { ProgressBar } from "../../src";
-import { Section, PageTitle } from "./helpers";
+import { Section, PageTitle, CodeExample } from "./helpers";
+
+const sizesCode = `<ProgressBar value={75} size="xs" />
+<ProgressBar value={75} size="sm" />
+<ProgressBar value={75} size="md" />
+<ProgressBar value={75} size="lg" />`;
+
+const intentsCode = `<ProgressBar value={60} intent="primary" />
+<ProgressBar value={60} intent="success" />
+<ProgressBar value={60} intent="warning" />
+<ProgressBar value={60} intent="danger" />`;
+
+const showLabelCode = `<ProgressBar value={72} size="lg" intent="success" showLabel />
+<ProgressBar value={45} size="md" intent="primary" showLabel />`;
+
+const animatedCode = `<ProgressBar value={72} size="lg" intent="primary" animated />
+<ProgressBar value={50} size="lg" intent="success" animated />`;
+
+const indeterminateCode = `<ProgressBar indeterminate intent="primary" />
+<ProgressBar indeterminate intent="warning" size="sm" />
+<ProgressBar indeterminate intent="danger" size="lg" />`;
+
+const edgeCode = `{/* Fixed to top/bottom of viewport — use outside any scroll containers */}
+<ProgressBar value={progress} edge="top" size="xs" intent="success" />
+<ProgressBar value={progress} edge="bottom" size="xs" intent="danger" />`;
+
+const interactiveCode = `const [manual, setManual] = useState(45);
+
+<ProgressBar value={manual} size="lg" intent="primary" showLabel duration={100} />
+<input
+  type="range"
+  min={0} max={100} value={manual}
+  onChange={(e) => setManual(Number(e.target.value))}
+/>`;
+
+const simulatedCode = `const [task, setTask] = useState(0);
+const [taskRunning, setTaskRunning] = useState(false);
+
+<ProgressBar
+  value={Math.min(task, 100)}
+  intent={task >= 100 ? "success" : "primary"}
+  showLabel
+  animated={taskRunning}
+/>`;
 
 export default function ProgressBarPage() {
   /* ── animated value that loops 0→100 ─────────────── */
@@ -53,7 +96,8 @@ export default function ProgressBarPage() {
               <ProgressBar value={auto} size={s} />
             </div>
           ))}
-        </div>
+        </div>{" "}
+        <CodeExample code={sizesCode} />{" "}
       </Section>
 
       {/* ── Intents ───────────────────────────────────── */}
@@ -68,14 +112,16 @@ export default function ProgressBarPage() {
             </div>
           ))}
         </div>
+        <CodeExample code={intentsCode} />
       </Section>
 
-      {/* ── With label ────────────────────────────────── */}
+      {/* ── With label ─────────────────────────────────────────────── */}
       <Section title="With percentage label">
         <div className="max-w-lg space-y-4">
           <ProgressBar value={auto} size="lg" intent="success" showLabel />
           <ProgressBar value={auto} size="md" intent="primary" showLabel />
         </div>
+        <CodeExample code={showLabelCode} />
       </Section>
 
       {/* ── Animated (shine) ──────────────────────────── */}
@@ -85,6 +131,7 @@ export default function ProgressBarPage() {
           <ProgressBar value={50} size="lg" intent="success" animated />
           <ProgressBar value={88} size="lg" intent="warning" animated />
         </div>
+        <CodeExample code={animatedCode} />
       </Section>
 
       {/* ── Indeterminate ─────────────────────────────── */}
@@ -94,6 +141,7 @@ export default function ProgressBarPage() {
           <ProgressBar indeterminate intent="warning" size="sm" />
           <ProgressBar indeterminate intent="danger" size="lg" />
         </div>
+        <CodeExample code={indeterminateCode} />
       </Section>
 
       {/* ── Edge-to-edge ──────────────────────────────── */}
@@ -103,6 +151,7 @@ export default function ProgressBarPage() {
         </p>
         <ProgressBar value={auto} edge="top" size="xs" intent="success" />
         <ProgressBar value={auto} edge="bottom" size="xs" intent="danger" />
+        <CodeExample code={edgeCode} />
       </Section>
 
       {/* ── Manual slider ─────────────────────────────── */}
@@ -118,6 +167,7 @@ export default function ProgressBarPage() {
             className="w-full"
           />
         </div>
+        <CodeExample code={interactiveCode} />
       </Section>
 
       {/* ── Simulated task ────────────────────────────── */}
@@ -138,7 +188,8 @@ export default function ProgressBarPage() {
           >
             {taskRunning ? "Running…" : task >= 100 ? "Run again" : "Start task"}
           </button>
-        </div>
+        </div>{" "}
+        <CodeExample code={simulatedCode} />{" "}
       </Section>
     </div>
   );
