@@ -270,13 +270,21 @@ export function FileExplorer({
   const [internalVisible, setInternalVisible] = useState(visibleProp);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
 
-  // Position & size – default to viewport center
-  const defaultSize = initialSize ?? { width: 720, height: 520 };
+  // Position & size – default to viewport center (mobile-aware)
+  const isMobileViewport = window.innerWidth < 640;
+  const defaultSize =
+    initialSize ??
+    (isMobileViewport
+      ? { width: window.innerWidth - 16, height: window.innerHeight - 48 }
+      : { width: 720, height: 520 });
   const [pos, setPos] = useState(
-    initialPosition ?? {
-      x: Math.max(0, Math.round((window.innerWidth - defaultSize.width) / 2)),
-      y: Math.max(0, Math.round((window.innerHeight - defaultSize.height) / 2)),
-    },
+    initialPosition ??
+      (isMobileViewport
+        ? { x: 8, y: 24 }
+        : {
+            x: Math.max(0, Math.round((window.innerWidth - defaultSize.width) / 2)),
+            y: Math.max(0, Math.round((window.innerHeight - defaultSize.height) / 2)),
+          }),
   );
   const [size, setSize] = useState(defaultSize);
   const [preMaxState, setPreMaxState] = useState<{
@@ -363,6 +371,17 @@ export function FileExplorer({
     [pos, maximized],
   );
 
+  const handleTouchDragStart = useCallback(
+    (e: React.TouchEvent) => {
+      if (maximized) return;
+      if ((e.target as HTMLElement).closest("button")) return;
+      const touch = e.touches[0];
+      dragging.current = true;
+      dragOffset.current = { x: touch.clientX - pos.x, y: touch.clientY - pos.y };
+    },
+    [pos, maximized],
+  );
+
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       if (!dragging.current) return;
@@ -373,6 +392,17 @@ export function FileExplorer({
         y: clamp(e.clientY - dragOffset.current.y, 0, maxY),
       });
     };
+    const onTouchMove = (e: TouchEvent) => {
+      if (!dragging.current) return;
+      e.preventDefault();
+      const touch = e.touches[0];
+      const maxX = window.innerWidth - 100;
+      const maxY = window.innerHeight - 40;
+      setPos({
+        x: clamp(touch.clientX - dragOffset.current.x, 0, maxX),
+        y: clamp(touch.clientY - dragOffset.current.y, 0, maxY),
+      });
+    };
     const onUp = () => {
       dragging.current = false;
       resizing.current = false;
@@ -381,9 +411,13 @@ export function FileExplorer({
     };
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", onUp);
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onUp);
     };
   }, []);
 
@@ -547,6 +581,9 @@ export function FileExplorer({
 
   if (!visible) return null;
 
+  /* narrow: properties panel overlays content instead of shrinking file list */
+  const panelNarrow = size.width < 500;
+
   /* ═══════════════════════════════════════
      Main window
      ═══════════════════════════════════════ */
@@ -574,6 +611,7 @@ export function FileExplorer({
       <div
         className="fe-titlebar group/titlebar flex h-10 shrink-0 cursor-grab items-center justify-between px-3 select-none active:cursor-grabbing"
         onMouseDown={handleDragStart}
+        onTouchStart={handleTouchDragStart}
         onDoubleClick={toggleMaximize}
       >
         {/* Left: icon + title */}
@@ -699,7 +737,7 @@ export function FileExplorer({
       </div>
 
       {/* ── Content area ───────────────── */}
-      <div className="flex flex-1 min-h-0">
+      <div className="relative flex flex-1 min-h-0">
         {/* File list/grid */}
         <div
           className="flex-1 overflow-y-auto overflow-x-hidden p-1.5"
@@ -804,12 +842,34 @@ export function FileExplorer({
         {/* ── Properties panel ──────────── */}
         <div
           className={cn(
-            "shrink-0 overflow-hidden transition-[width] duration-300 ease-out",
-            inspectedFile ? "w-56" : "w-0",
+            "overflow-hidden transition-[width,opacity] duration-300 ease-out",
+            panelNarrow
+              ? cn(
+                  "absolute right-0 top-0 bottom-0 z-10",
+                  inspectedFile ? "w-44 opacity-100" : "w-0 opacity-0 pointer-events-none",
+                )
+              : cn("shrink-0", inspectedFile ? "w-56" : "w-0"),
           )}
         >
           {inspectedFile && (
-            <div className="fe-panel flex h-full w-56 flex-col border-l border-(--fe-border) p-4">
+            <div
+              className={cn(
+                "fe-panel flex h-full flex-col border-l border-(--fe-border) p-4",
+                panelNarrow ? "w-44" : "w-56",
+              )}
+            >
+              {panelNarrow && (
+                <button
+                  className="fe-btn mb-2 self-end"
+                  onClick={() => {
+                    setInspectedIndex(null);
+                    setSelected(new Set());
+                  }}
+                  title="Close panel"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              )}
               {/* File icon large */}
               <div className="mb-3 flex flex-col items-center">
                 {React.createElement(getFileIcon(inspectedFile), {
