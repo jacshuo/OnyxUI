@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Form, FormItem, FormSection, Input, Button, Dropdown, Switch, TextBox } from "../../src";
 import { Section, PageTitle, CodeExample } from "./helpers";
 
+/* ── Code snippets ──────────────────────────────────────── */
+
 const stackedCode = `<Form>
   <FormItem label="Username" required>
     <Input placeholder="john_doe" />
@@ -18,8 +20,17 @@ const inlineCode = `<Form layout="inline">
   <FormItem label="First name" required>
     <Input placeholder="Jane" />
   </FormItem>
+  <FormItem label="Last name">
+    <Input placeholder="Doe" />
+  </FormItem>
   <FormItem label="Role">
-    <Dropdown options={roleOptions} value={role} onChange={setRole} />
+    <Dropdown options={roleOptions} placeholder="Select a role…" />
+  </FormItem>
+  <FormItem label="Bio" hint="Max 200 characters">
+    <TextBox placeholder="Tell us about yourself…" rows={3} />
+  </FormItem>
+  <FormItem label="Notifications">
+    <Switch label="Receive email notifications" />
   </FormItem>
 </Form>`;
 
@@ -28,13 +39,13 @@ const validationCode = `<FormItem
   required
   validation={{ status: "error", message: "Username is already taken." }}
 >
-  <Input value="taken_user" readOnly state="error" />
+  <Input defaultValue="taken_user" readOnly state="error" />
 </FormItem>
 <FormItem
   label="Email"
   validation={{ status: "success", message: "Email address is available." }}
 >
-  <Input type="email" value="jane@example.com" readOnly />
+  <Input type="email" defaultValue="jane@example.com" readOnly />
 </FormItem>`;
 
 const sizesCode = `<Form size="sm" layout="inline">
@@ -46,7 +57,12 @@ const cardCode = `<Form
   intent="card"
   title="Account settings"
   description="Update your account information."
-  footer={<><Button intent="ghost" type="reset">Cancel</Button><Button type="submit">Save</Button></>}
+  footer={
+    <>
+      <Button intent="ghost" type="reset">Cancel</Button>
+      <Button type="submit">Save</Button>
+    </>
+  }
 >
   <FormItem label="Display name" required>
     <Input placeholder="Your display name" />
@@ -80,7 +96,6 @@ const onValuesCode = `<Form
   intent="card"
   onValues={async (values, e) => {
     e.preventDefault();
-    // Validate and return error map
     const errors = {};
     if (values.username === "admin")
       errors.username = { result: false, reason: "Already taken." };
@@ -107,13 +122,19 @@ const onValidateCode = `<FormItem
   <Input type="email" placeholder="jane@example.com" />
 </FormItem>`;
 
+const roleOptions = [
+  { value: "admin", label: "Admin" },
+  { value: "editor", label: "Editor" },
+  { value: "viewer", label: "Viewer" },
+];
+
+const themeOptions = [
+  { value: "light", label: "Light" },
+  { value: "dark", label: "Dark" },
+  { value: "system", label: "System" },
+];
+
 export default function FormPage() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [bio, setBio] = useState("");
-  const [notifications, setNotifications] = useState(false);
-  const [role, setRole] = useState("");
   const [submittedValues, setSubmittedValues] = useState<Record<string, string> | null>(null);
 
   return (
@@ -134,8 +155,8 @@ export default function FormPage() {
               <Input type="url" placeholder="https://example.com" />
             </FormItem>
           </Form>
-        </div>{" "}
-        <CodeExample code={stackedCode} />{" "}
+        </div>
+        <CodeExample code={stackedCode} />
       </Section>
 
       {/* ── Inline layout ─────────────────────────────────── */}
@@ -149,37 +170,19 @@ export default function FormPage() {
               <Input placeholder="Doe" />
             </FormItem>
             <FormItem label="Role">
-              <Dropdown
-                options={[
-                  { value: "admin", label: "Admin" },
-                  { value: "editor", label: "Editor" },
-                  { value: "viewer", label: "Viewer" },
-                ]}
-                value={role}
-                onChange={setRole}
-                placeholder="Select a role…"
-              />
+              <Dropdown options={roleOptions} placeholder="Select a role…" />
             </FormItem>
             <FormItem label="Bio" hint="Max 200 characters">
-              <TextBox
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                placeholder="Tell us about yourself…"
-                rows={3}
-              />
+              <TextBox placeholder="Tell us about yourself…" rows={3} />
             </FormItem>
             <FormItem label="Notifications">
               <div className="pt-1">
-                <Switch
-                  checked={notifications}
-                  onCheckedChange={setNotifications}
-                  label="Receive email notifications"
-                />
+                <Switch label="Receive email notifications" />
               </div>
             </FormItem>
           </Form>
-        </div>{" "}
-        <CodeExample code={inlineCode} />{" "}
+        </div>
+        <CodeExample code={inlineCode} />
       </Section>
 
       {/* ── Validation states ──────────────────────────────── */}
@@ -191,26 +194,22 @@ export default function FormPage() {
               required
               validation={{ status: "error", message: "Username is already taken." }}
             >
-              <Input value="taken_user" readOnly state="error" />
+              <Input defaultValue="taken_user" readOnly state="error" />
             </FormItem>
             <FormItem
               label="Password"
               required
               validation={{ status: "warning", message: "Weak password — add symbols or numbers." }}
             >
-              <Input type="password" value="password" readOnly />
+              <Input type="password" defaultValue="password" readOnly />
             </FormItem>
             <FormItem
               label="Email"
               validation={{ status: "success", message: "Email address is available." }}
             >
-              <Input type="email" value="jane@example.com" readOnly />
+              <Input type="email" defaultValue="jane@example.com" readOnly />
             </FormItem>
-            <FormItem
-              label="Website"
-              hint="We'll display this on your public profile."
-              validation={undefined}
-            >
+            <FormItem label="Website" hint="We'll display this on your public profile.">
               <Input type="url" placeholder="https://example.com" />
             </FormItem>
           </Form>
@@ -236,8 +235,8 @@ export default function FormPage() {
               </Form>
             </div>
           ))}
-        </div>{" "}
-        <CodeExample code={sizesCode} />{" "}
+        </div>
+        <CodeExample code={sizesCode} />
       </Section>
 
       {/* ── Card intent ───────────────────────────────────── */}
@@ -257,31 +256,17 @@ export default function FormPage() {
             }
           >
             <FormItem label="Display name" required>
-              <Input
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Your display name"
-              />
+              <Input placeholder="Your display name" />
             </FormItem>
             <FormItem label="Email" required>
-              <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-              />
+              <Input type="email" placeholder="you@example.com" />
             </FormItem>
             <FormItem label="New password" hint="Leave blank to keep your current password.">
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-              />
+              <Input type="password" placeholder="••••••••" />
             </FormItem>
           </Form>
-        </div>{" "}
-        <CodeExample code={cardCode} />{" "}
+        </div>
+        <CodeExample code={cardCode} />
       </Section>
 
       {/* ── Inset intent ──────────────────────────────────── */}
@@ -290,22 +275,11 @@ export default function FormPage() {
           <Form intent="inset" title="Preferences" layout="inline">
             <FormItem label="Notifications">
               <div className="pt-1">
-                <Switch
-                  checked={notifications}
-                  onCheckedChange={setNotifications}
-                  label="Email notifications"
-                />
+                <Switch label="Email notifications" />
               </div>
             </FormItem>
             <FormItem label="Theme">
-              <Dropdown
-                options={[
-                  { value: "light", label: "Light" },
-                  { value: "dark", label: "Dark" },
-                  { value: "system", label: "System" },
-                ]}
-                placeholder="Choose theme…"
-              />
+              <Dropdown options={themeOptions} placeholder="Choose theme…" />
             </FormItem>
           </Form>
         </div>
@@ -338,26 +312,17 @@ export default function FormPage() {
                 <Input type="tel" placeholder="+1 555 000 0000" />
               </FormItem>
             </FormSection>
-
             <FormSection title="Account settings">
               <FormItem label="Username" required>
                 <Input placeholder="jane_doe" />
               </FormItem>
               <FormItem label="Role">
-                <Dropdown
-                  options={[
-                    { value: "admin", label: "Admin" },
-                    { value: "editor", label: "Editor" },
-                    { value: "viewer", label: "Viewer" },
-                  ]}
-                  placeholder="Select a role…"
-                />
+                <Dropdown options={roleOptions} placeholder="Select a role…" />
               </FormItem>
               <FormItem label="Bio" hint="Max 200 characters">
                 <TextBox placeholder="Tell us about yourself…" rows={3} />
               </FormItem>
             </FormSection>
-
             <FormSection title="Notifications">
               <FormItem label="Email alerts">
                 <div className="pt-1">
@@ -366,19 +331,16 @@ export default function FormPage() {
               </FormItem>
             </FormSection>
           </Form>
-        </div>{" "}
-        <CodeExample code={formSectionCode} />{" "}
+        </div>
+        <CodeExample code={formSectionCode} />
       </Section>
 
-      {/* ── Responsive note ───────────────────────────────── */}
+      {/* ── Responsive behavior ───────────────────────────── */}
       <Section title="Responsive behavior">
         <p className="max-w-2xl text-sm text-primary-500 dark:text-primary-400">
-          FormItems with{" "}
           <code className="text-primary-700 dark:text-primary-300">layout=&quot;inline&quot;</code>{" "}
-          (or inside a <code className="text-primary-700 dark:text-primary-300">Form</code> with{" "}
-          <code className="text-primary-700 dark:text-primary-300">layout=&quot;inline&quot;</code>)
-          automatically stack on small viewports (below{" "}
-          <code className="text-primary-700 dark:text-primary-300">md</code>) and switch to a
+          automatically stacks on small viewports (below{" "}
+          <code className="text-primary-700 dark:text-primary-300">md</code>) and switches to a
           fixed-width label column on wider screens.
         </p>
         <div className="max-w-2xl">
@@ -397,13 +359,13 @@ export default function FormPage() {
         <CodeExample code={responsiveCode} />
       </Section>
 
-      {/* ── onValues — data collection + bulk validation ─── */}
+      {/* ── onValues — FormData collection + async validation */}
       <Section title="onValues — collect FormData + async bulk validation">
         <div className="max-w-2xl">
           <Form
             intent="card"
             title="Sign up"
-            description="Username 'admin' and email 'taken@example.com' are simulated as already taken."
+            description="Username 'admin' and email 'taken@example.com' are simulated as taken."
             onValues={async (values, e) => {
               e.preventDefault();
               setSubmittedValues(values as Record<string, string>);
@@ -431,14 +393,7 @@ export default function FormPage() {
               <Input type="email" placeholder="Try 'taken@example.com'" />
             </FormItem>
             <FormItem label="Role" name="role">
-              <Dropdown
-                options={[
-                  { value: "admin", label: "Admin" },
-                  { value: "editor", label: "Editor" },
-                  { value: "viewer", label: "Viewer" },
-                ]}
-                placeholder="Select a role…"
-              />
+              <Dropdown options={roleOptions} placeholder="Select a role…" />
             </FormItem>
           </Form>
           {submittedValues && (
@@ -446,11 +401,11 @@ export default function FormPage() {
               {JSON.stringify(submittedValues, null, 2)}
             </pre>
           )}
-        </div>{" "}
-        <CodeExample code={onValuesCode} />{" "}
+        </div>
+        <CodeExample code={onValuesCode} />
       </Section>
 
-      {/* ── onValidate ────────────────────────────────────── */}
+      {/* ── onValidate — inline field validation ───────────── */}
       <Section title="onValidate — inline validation callback">
         <div className="max-w-2xl">
           <Form>

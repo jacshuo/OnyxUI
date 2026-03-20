@@ -199,146 +199,37 @@ function useTheme() {
   return { dark, toggle };
 }
 
-/* ── iOS visual-viewport height fix ─────────────────── */
+/* ── iOS keyboard fix ───────────────────────────────── */
 /**
- * On iOS Safari, `100vh` equals the *layout* viewport and never updates when
- * the virtual keyboard opens. When the keyboard closes, iOS leaves <main>'s
- * scrollTop at whatever value it set while the keyboard was open, producing
- * apparent white-space at the bottom of the page.
+ * On iOS Safari/Chrome, focusing an input inside a <form> causes the browser
+ * to scroll the *window* (document level) to bring the input into view.
+ * This produces a visible dark gap below the app content.
  *
- * Strategy:
- *  1. Set `--app-height` once and only grow it (keyboard open never shrinks it,
- *     so no gap appears between content and keyboard).
- *  2. On `focusin` for any form field, capture <main>.scrollTop BEFORE the
- *     browser auto-scrolls to bring the input into view.
- *  3. On `focusout` (debounced) OR on `visualViewport resize` growing back to
- *     near-full height (= keyboard closed), restore the saved scrollTop.
+ * Fix: the app shell uses `position: fixed; inset: 0` so it's completely
+ * immune to document-level scrolling.  As a safety net, we also listen for
+ * any stray window scroll and immediately reset it to (0,0).
  *
- * The dual-trigger (focusout + resize) is needed because Chrome iOS dismisses
- * the keyboard via the "Done" button WITHOUT blurring the focused element, so
- * focusout never fires. Safari reliably fires focusout; Chrome does not.
+ * Scrolling within <main> (overflow-y: auto) still works normally — iOS
+ * identifies <main> as the scroll container and scrolls within it to bring
+ * the focused input above the keyboard.
  */
-function useVisualViewportHeight() {
+function useIOSKeyboardFix() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const getMain = () => document.querySelector<HTMLElement>("main");
-    let savedScrollTop: number | null = null;
-    let dismissTimer: ReturnType<typeof setTimeout> | null = null;
-    // Tracks whether a virtual keyboard is likely open (height shrank > 100px).
-    let keyboardMayBeOpen = false;
-
-    // Set initial height
-    document.documentElement.style.setProperty(
-      "--app-height",
-      `${window.visualViewport?.height ?? window.innerHeight}px`,
-    );
-
-    // Shared restore: resets any stray window scroll and restores <main>.scrollTop.
-    // Idempotent — clears savedScrollTop on first call so double-invocations are no-ops.
-    const restoreScroll = () => {
-      if (savedScrollTop === null) return;
-      const top = savedScrollTop;
-      savedScrollTop = null;
-      if (dismissTimer !== null) {
-        clearTimeout(dismissTimer);
-        dismissTimer = null;
-      }
-      window.scrollTo(0, 0);
-      requestAnimationFrame(() => {
-        const main = getMain();
-        if (main) main.scrollTop = top;
-      });
-    };
-
-    // Only grow --app-height (desktop resize, landscape→portrait).
-    // Never shrink: keeps the container full-height when keyboard opens,
-    // preventing the gap between content and keyboard.
-    // ALSO: detect keyboard open/close via height delta to trigger scroll
-    // restoration for browsers that don't fire focusout on keyboard dismiss
-    // (e.g. Chrome iOS "Done" button).
-    const onResize = () => {
-      const next = window.visualViewport?.height ?? window.innerHeight;
-      const cur = parseFloat(
-        document.documentElement.style.getPropertyValue("--app-height") || "0",
-      );
-
-      if (cur > 0 && next < cur - 100) {
-        // Height shrank > 100px → keyboard opened.
-        keyboardMayBeOpen = true;
-      } else if (keyboardMayBeOpen && next >= cur - 50) {
-        // Height grew back to near-full → keyboard closed.
-        // Restore scroll here for Chrome iOS which may not fire focusout.
-        keyboardMayBeOpen = false;
-        restoreScroll();
-      }
-
-      if (next > cur || cur === 0) {
-        document.documentElement.style.setProperty("--app-height", `${next}px`);
+    const resetScroll = () => {
+      if (window.scrollY !== 0 || window.scrollX !== 0) {
+        window.scrollTo(0, 0);
       }
     };
 
-    const isFormField = (el: Element | null): boolean => {
-      const t = el?.tagName?.toUpperCase();
-      return t === "INPUT" || t === "TEXTAREA" || t === "SELECT";
-    };
-
-    // Save <main>.scrollTop the moment any input is focused — this is BEFORE
-    // the browser auto-scrolls to bring the input above the keyboard.
-    const onFocusIn = (e: FocusEvent) => {
-      if (!isFormField(e.target as Element)) return;
-      if (dismissTimer !== null) {
-        clearTimeout(dismissTimer);
-        dismissTimer = null;
-      }
-      // Keep the FIRST saved value (pre-keyboard); don't overwrite mid-session.
-      if (savedScrollTop === null) {
-        savedScrollTop = getMain()?.scrollTop ?? 0;
-      }
-    };
-
-    // When focus leaves a form field, debounce to distinguish "keyboard closed"
-    // from "focus moved to the next input".
-    // This path handles Safari iOS which reliably fires focusout.
-    const onFocusOut = (e: FocusEvent) => {
-      if (!isFormField(e.target as Element)) return;
-      dismissTimer = setTimeout(() => {
-        dismissTimer = null;
-        // Still focused on another input → keyboard is still open, do nothing.
-        if (isFormField(document.activeElement)) return;
-        restoreScroll();
-      }, 150);
-    };
-
-    const onOrientationChange = () => {
-      keyboardMayBeOpen = false;
-      savedScrollTop = null;
-      if (dismissTimer !== null) {
-        clearTimeout(dismissTimer);
-        dismissTimer = null;
-      }
-      // Always reset after rotation (portrait↔landscape both directions).
-      setTimeout(() => {
-        document.documentElement.style.setProperty(
-          "--app-height",
-          `${window.visualViewport?.height ?? window.innerHeight}px`,
-        );
-      }, 300);
-    };
-
-    window.visualViewport?.addEventListener("resize", onResize);
-    window.addEventListener("resize", onResize);
-    window.addEventListener("orientationchange", onOrientationChange);
-    document.addEventListener("focusin", onFocusIn as EventListener);
-    document.addEventListener("focusout", onFocusOut as EventListener);
+    // visualViewport 'scroll' fires when iOS shifts the viewport origin.
+    window.visualViewport?.addEventListener("scroll", resetScroll);
+    window.addEventListener("scroll", resetScroll);
 
     return () => {
-      window.visualViewport?.removeEventListener("resize", onResize);
-      window.removeEventListener("resize", onResize);
-      window.removeEventListener("orientationchange", onOrientationChange);
-      document.removeEventListener("focusin", onFocusIn as EventListener);
-      document.removeEventListener("focusout", onFocusOut as EventListener);
-      if (dismissTimer !== null) clearTimeout(dismissTimer);
+      window.visualViewport?.removeEventListener("scroll", resetScroll);
+      window.removeEventListener("scroll", resetScroll);
     };
   }, []);
 }
@@ -346,7 +237,7 @@ function useVisualViewportHeight() {
 /* ── App Shell ───────────────────────────────────────── */
 
 export default function App() {
-  useVisualViewportHeight();
+  useIOSKeyboardFix();
   const { dark, toggle } = useTheme();
   const [sideNavMode, setSideNavMode] = useState<SideNavCollapseMode>("expanded");
   const location = useLocation();
@@ -354,7 +245,7 @@ export default function App() {
   const isDocsPage = location.pathname.startsWith("/docs");
 
   return (
-    <div className="flex flex-col" style={{ height: "var(--app-height, 100svh)" }}>
+    <div className="fixed inset-0 flex flex-col">
       {/* ── Top bar ──────────────────────── */}
       <Header
         brand={

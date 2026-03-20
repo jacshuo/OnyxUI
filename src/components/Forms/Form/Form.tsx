@@ -106,6 +106,9 @@ export function Form({
 
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
+      // Always prevent native form navigation in an SPA context.
+      // Consumers who want native submission should use a plain <form> instead.
+      e.preventDefault();
       (onSubmit as React.FormEventHandler<HTMLFormElement> | undefined)?.(e);
       if (onValues) {
         const data = Object.fromEntries(new FormData(e.currentTarget).entries());
