@@ -47,10 +47,29 @@ Your job is to keep package dependencies secure, healthy, and build-safe with mi
    - patch/minor upgrades first
    - targeted major upgrades only after explicit text approval
    - re-run audit after each change set
-4. Validate each fix set:
-   - `npm run test`
-   - `npm run build`
-   - `npm run typecheck`
+4. Validate each fix set — **Mandatory Completion Gate (hard — no exceptions)**:
+
+   All of the following must pass after each batch of dependency changes. Failure in any step is a blocker — revert or fix and rerun:
+
+   **Step A — Unit tests must be green**
+   - Run `npm test` — ALL tests must pass.
+   - If a dependency change breaks tests, investigate and fix (update mocks/APIs/types as needed) before proceeding.
+
+   **Step B — Library build must pass**
+   - Run `npm run build`.
+   - Zero errors. Dependency changes must not break the library bundle or typedefs.
+
+   **Step C — TypeScript must pass**
+   - Run `npm run typecheck`.
+   - Zero type errors.
+
+   **Step D — Demo must compile and render**
+   - Run `npm run dev` and verify the demo site starts without webpack compile errors.
+   - Open any one component's demo page in the VS Code built-in browser and confirm it renders without errors.
+   - Stop the dev server after verification.
+   - Treat any compile overlay or startup crash as a blocker.
+
+   Do NOT report completion and do NOT prompt for CHANGELOG until all four gates pass.
 5. Report clearly:
    - fixed vulnerabilities and versions
    - remaining vulnerabilities (if any) and reasons

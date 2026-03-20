@@ -50,13 +50,25 @@ Your job is to **maintain and evolve existing components** and **iterate the dem
    - Heavy/complex components belong in the `Extras` demo category.
    - Do not move components between categories unless explicitly requested.
 
-6. **Quality gate is mandatory**
-   Before concluding any session involving component source changes, run all three checks and fix failures:
-   - `npm run build` — library compile
-   - `npm test` — vitest unit tests
-   - `npm run dev` — local demo sanity check (start, verify in browser, stop)
+6. **Mandatory Completion Gate (hard — no exceptions)**
+   Before concluding ANY session, ALL of the following gates must pass. Failure in any step is a blocker — fix and rerun:
 
-   Pure demo-only changes (no `src/` edits) only require a `npm run dev` sanity check.
+   **Step A — Unit tests must cover the change**
+   - For every modified component/module, locate the corresponding test file in `src/__tests__/`.
+   - Add or modify test cases to cover any new prop, changed behavior, or removed behavior.
+   - Run `npm test` — ALL tests must be green. Fix failures (including in unrelated tests broken by the change) before proceeding.
+
+   **Step B — Library build must pass**
+   - Run `npm run build`.
+   - Zero errors or warnings that indicate broken output. Fix any type or bundle errors before proceeding.
+
+   **Step C — Demo must compile and render**
+   - Run `npm run dev` and open the affected demo page in the VS Code built-in browser.
+   - Confirm: no webpack overlay errors, no white screen, no console errors related to the change.
+   - If a compile error overlay appears, treat it as a blocker and fix immediately.
+   - Stop the dev server after verification.
+
+   Pure demo-only changes (no `src/` edits) require Steps B and C only (skip Step A).
 
 ## Working Method
 

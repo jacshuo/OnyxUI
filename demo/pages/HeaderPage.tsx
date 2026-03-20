@@ -81,13 +81,13 @@ export default function HeaderPage() {
               {
                 key: "theme",
                 icon: dark ? <SunDim /> : <MoonStar />,
-                "aria-label": "Toggle theme",
+                ariaLabel: "Toggle theme",
                 onClick: () => setDark((d) => !d),
               },
               {
                 key: "login",
                 icon: <KeyRound />,
-                "aria-label": "Login",
+                ariaLabel: "Login",
                 onClick: () => alert("Login clicked"),
               },
             ]}
@@ -115,11 +115,11 @@ export default function HeaderPage() {
               {
                 key: "search",
                 icon: <ScanSearch />,
-                "aria-label": "Search",
+                ariaLabel: "Search",
                 onClick: () => alert("Search"),
               },
-              { key: "bell", icon: <BellDot />, "aria-label": "Notifications" },
-              { key: "user", icon: <CircleUser />, "aria-label": "Profile" },
+              { key: "bell", icon: <BellDot />, ariaLabel: "Notifications" },
+              { key: "user", icon: <CircleUser />, ariaLabel: "Profile" },
             ]}
             mobileMenu
           />
@@ -137,26 +137,26 @@ export default function HeaderPage() {
               {
                 key: "lang",
                 icon: <Languages />,
-                "aria-label": `Language: ${lang}`,
+                ariaLabel: `Language: ${lang}`,
                 onClick: () => setLang((l) => (l === "EN" ? "中文" : "EN")),
               },
               {
                 key: "github",
                 icon: <Github />,
-                "aria-label": "GitHub",
+                ariaLabel: "GitHub",
                 href: "https://github.com/jacshuo",
                 external: true,
               },
               {
                 key: "theme",
                 icon: dark ? <SunDim /> : <MoonStar />,
-                "aria-label": "Toggle theme",
+                ariaLabel: "Toggle theme",
                 onClick: () => setDark((d) => !d),
               },
               {
                 key: "login",
                 icon: <KeyRound />,
-                "aria-label": "Login",
+                ariaLabel: "Login",
                 onClick: () => alert("Login clicked"),
               },
             ]}
@@ -174,7 +174,7 @@ export default function HeaderPage() {
               {
                 key: "menu",
                 icon: <Grip />,
-                "aria-label": "Menu",
+                ariaLabel: "Menu",
                 onClick: () => alert("Open mobile menu"),
               },
             ]}
@@ -199,12 +199,12 @@ export default function HeaderPage() {
               { label: "Issues", href: "#" },
             ]}
             actions={[
-              { key: "bell", icon: <BellDot />, "aria-label": "Notifications" },
-              { key: "user", icon: <CircleUser />, "aria-label": "Profile" },
+              { key: "bell", icon: <BellDot />, ariaLabel: "Notifications" },
+              { key: "user", icon: <CircleUser />, ariaLabel: "Profile" },
               {
                 key: "logout",
                 icon: <Power />,
-                "aria-label": "Logout",
+                ariaLabel: "Logout",
                 onClick: () => alert("Logged out"),
               },
             ]}
@@ -231,8 +231,8 @@ export default function HeaderPage() {
               { label: "Docs", href: "#" },
             ]}
             actions={[
-              { key: "bell", icon: <BellDot />, "aria-label": "Notifications" },
-              { key: "user", icon: <CircleUser />, "aria-label": "Profile" },
+              { key: "bell", icon: <BellDot />, ariaLabel: "Notifications" },
+              { key: "user", icon: <CircleUser />, ariaLabel: "Profile" },
             ]}
             mobileMenu
           />

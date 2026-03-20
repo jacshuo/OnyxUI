@@ -22,7 +22,7 @@ export interface HeaderAction {
   /** Icon or element to render. */
   icon: React.ReactNode;
   /** Accessible label for the button. */
-  "aria-label": string;
+  ariaLabel?: string;
   /** Click handler. */
   onClick?: (e: React.MouseEvent) => void;
   /** Render as a link instead of a button. */
@@ -133,7 +133,7 @@ export function Header({
     label: (
       <span className="flex items-center gap-2 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0">
         {action.icon}
-        <span>{action["aria-label"]}</span>
+        <span>{action.ariaLabel}</span>
       </span>
     ),
     onClick: () => {
@@ -247,7 +247,7 @@ export function Header({
                     target={action.external ? "_blank" : undefined}
                     rel={action.external ? "noopener noreferrer" : undefined}
                     className={iconBtnCls}
-                    aria-label={action["aria-label"]}
+                    aria-label={action.ariaLabel}
                     onClick={action.onClick}
                   >
                     {action.icon}
@@ -259,7 +259,7 @@ export function Header({
                   key={action.key ?? i}
                   type="button"
                   className={iconBtnCls}
-                  aria-label={action["aria-label"]}
+                  aria-label={action.ariaLabel}
                   onClick={action.onClick}
                 >
                   {action.icon}

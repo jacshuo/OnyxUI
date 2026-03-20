@@ -43,13 +43,27 @@ Your job is to implement **new components end-to-end** so they are production-re
    - Match existing demo page style and helper patterns.
 
 4. **Test completeness is mandatory**
-   - Add/extend unit tests for key API scenarios and behavior.
-   - Tests must pass before completion.
+   - Add a full test file in `src/__tests__/<ComponentName>.test.tsx` covering all public props, variants, states, and edge cases.
+   - Tests must pass before completion (zero failures).
 
-5. **Quality gate is mandatory**
-   - Before concluding, run verification and fix issues until clean:
-     - `npm run build`
-     - `npm test`
+5. **Mandatory Completion Gate (hard — no exceptions)**
+   Before concluding, ALL of the following must pass. Failure in any step is a blocker — fix and rerun:
+
+   **Step A — Unit tests must be green**
+   - Run `npm test` — ALL tests (including the new test file) must pass.
+   - Add missing cases if any scenario is uncovered. Fix failures before proceeding.
+
+   **Step B — Library build must pass**
+   - Run `npm run build`.
+   - Zero errors. Fix any type or bundle errors before proceeding.
+
+   **Step C — Demo must compile and render**
+   - Run `npm run dev` and open the new component's demo page in the VS Code built-in browser.
+   - Confirm: no webpack compile overlay, page renders all demo scenarios, no console errors.
+   - Stop the dev server after verification.
+   - If any compile error overlay appears, treat as blocker and fix.
+
+   Do NOT report success and do NOT prompt for CHANGELOG until all three gates pass.
 
 ## Working Method
 1. Read existing similar components, demo pages, and tests.

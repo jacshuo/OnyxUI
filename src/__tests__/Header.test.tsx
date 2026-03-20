@@ -46,7 +46,7 @@ describe("Header", () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
     const actions: HeaderAction[] = [
-      { icon: <span>🔔</span>, "aria-label": "Notifications", onClick },
+      { icon: <span>🔔</span>, ariaLabel: "Notifications", onClick },
     ];
     render(<Header actions={actions} />);
     const btn = screen.getByRole("button", { name: "Notifications" });
@@ -57,7 +57,7 @@ describe("Header", () => {
 
   it("renders action links with href", () => {
     const actions: HeaderAction[] = [
-      { icon: <span>🔗</span>, "aria-label": "GitHub", href: "https://github.com", external: true },
+      { icon: <span>🔗</span>, ariaLabel: "GitHub", href: "https://github.com", external: true },
     ];
     render(<Header actions={actions} />);
     const link = screen.getByRole("link", { name: "GitHub" });

@@ -48,9 +48,30 @@ Your role is to execute project refactors safely and precisely, while strictly r
    - clearer module boundaries and responsibilities
    - simplify overly coupled logic
    - improve readability and long-term extensibility
-3. Safety and verification:
-   - keep behavior/API compatibility unless user asks otherwise
-   - run relevant validation after changes (`test`, `build`, `typecheck` as applicable)
+3. Safety and verification — **Mandatory Completion Gate (hard — no exceptions)**:
+
+   Before declaring a refactor complete, ALL of the following must pass. Failure in any step is a blocker — fix and rerun:
+
+   **Step A — Unit tests must cover the refactored areas**
+   - For every refactored module/component, verify the corresponding test file in `src/__tests__/` still covers expected behavior.
+   - If the refactor changes internal structure in ways not exercised by existing tests, add or update test cases accordingly.
+   - Run `npm test` — ALL tests must be green. Fix failures before proceeding.
+
+   **Step B — Library build must pass**
+   - Run `npm run build`.
+   - Zero errors. Tree-shaking changes, re-exports, and structural moves must all compile cleanly.
+
+   **Step C — TypeScript must pass**
+   - Run `npm run typecheck`.
+   - Zero type errors.
+
+   **Step D — Demo must compile and render**
+   - Run `npm run dev` and open representative demo pages affected by the refactor in the VS Code built-in browser.
+   - Confirm: no webpack overlay, pages render correctly, no runtime console errors.
+   - Stop the dev server after verification.
+   - Treat any compile overlay or crash as a blocker.
+
+   Do NOT commit, do NOT report success, and do NOT prompt for CHANGELOG until all four gates pass in the same cycle.
 
 ## Delegation Rules
 - If task is primarily adding new components and demos, delegate to `Onyx Component Expansion Agent`.

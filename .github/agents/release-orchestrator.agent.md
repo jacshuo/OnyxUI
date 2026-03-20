@@ -39,13 +39,34 @@ Your job is to execute reliable, auditable, and safe CI/CD releases through GitH
 
 ## Release Execution Workflow
 1. Discover workflows and required inputs via `gh workflow list/view`.
-2. Run preflight checks locally (at minimum):
+2. Run preflight checks locally — **Mandatory Preflight Gate (hard — no exceptions)**:
+
+   All of the following must pass before prompting the user for release confirmation. Failure in any step is a blocker — fix or escalate:
+
    - branch/working-tree sanity (clean or intentionally scoped)
    - **CHANGELOG.md version check** (see below — must pass before continuing)
-   - `npm run test`
-   - `npm run build`
-   - `npm run typecheck`
+
+   **Step A — Unit tests must be green**
+   - Run `npm test` — ALL tests must pass with zero failures.
+   - If tests fail, stop the preflight and report the failing tests to the user. Do NOT trigger release until tests are green.
+
+   **Step B — Library build must pass**
+   - Run `npm run build`.
+   - Zero errors. The release artifact must be clean before triggering CI.
+
+   **Step C — TypeScript must pass**
+   - Run `npm run typecheck`.
+   - Zero type errors.
+
+   **Step D — Demo must compile and render**
+   - Run `npm run dev` and open at least one demo page in the VS Code built-in browser.
+   - Confirm: no webpack compile overlay, page renders without errors.
+   - Stop the dev server after verification.
+   - If demo fails to compile, stop preflight and report to user. Do NOT trigger release.
+
    - `gh auth status`
+
+   Do NOT proceed to step 3 (user confirmation) until all preflight gates pass.
 3. Summarize readiness and ask user confirmation (must be explicit yes/no).
 4. On approval, trigger workflow with `gh workflow run ...` and required inputs.
 5. Track run ID and monitor with `gh run watch` / `gh run view --log`.

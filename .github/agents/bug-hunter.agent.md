@@ -19,6 +19,27 @@ Your only job is to find and fix application bugs with verified root cause and s
 - Run and pass strict verification before completion (`npm test`, `npm run build`, `npm run typecheck`).
 - Commit changes locally with high-quality commit messages (do **not** push).
 
+## Mandatory Completion Gate (hard — no exceptions)
+
+Before declaring any task complete, ALL of the following must pass. Failure in any step is a blocker — fix and rerun:
+
+1. **Unit tests — must cover the fix**
+   - Identify which test file(s) in `src/__tests__/` correspond to the modified component/module.
+   - Add or modify test cases that directly exercise the fixed code path (edge cases, regression case for the specific bug).
+   - Run `npm test` — ALL tests must be green. Fix failures before proceeding.
+
+2. **Library build — must pass**
+   - Run `npm run build`.
+   - Zero errors allowed. Fix any type or bundle errors before proceeding.
+
+3. **Demo site — must compile and render**
+   - Start `npm run dev` and open the demo page affected by the fix in the VS Code built-in browser.
+   - Confirm the page renders without white-screen, console errors, or visible regressions.
+   - Stop the dev server after verification.
+   - If any compile error appears in the browser overlay, treat it as a blocker and fix it.
+
+Do NOT commit, do NOT report success, and do NOT prompt for CHANGELOG until all three gates pass in the same run.
+
 ## Constraints
 - DO NOT skip reproduction when a bug is reproducible.
 - DO NOT batch-fix multiple unrelated errors in one step; resolve issues one by one.

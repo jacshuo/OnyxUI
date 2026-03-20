@@ -226,14 +226,14 @@ export default function App() {
                 <path d={siGithub.path} />
               </svg>
             ),
-            "aria-label": "GitHub",
+            ariaLabel: "GitHub",
             href: "https://github.com/jacshuo",
             external: true,
           },
           {
             key: "theme",
             icon: dark ? <Sun /> : <Moon />,
-            "aria-label": "Toggle theme",
+            ariaLabel: "Toggle theme",
             onClick: toggle,
           },
         ]}
