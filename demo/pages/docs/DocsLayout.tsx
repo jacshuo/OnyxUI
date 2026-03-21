@@ -70,6 +70,7 @@ const MetricCardDoc = lazy(() => import("./MetricCardDoc"));
 const TimelineDoc = lazy(() => import("./TimelineDoc"));
 const ContextMenuDoc = lazy(() => import("./ContextMenuDoc"));
 const RibbonBarDoc = lazy(() => import("./RibbonBarDoc"));
+const DateTimePickerDoc = lazy(() => import("./DateTimePickerDoc"));
 
 /* ── Docs nav items ───────────────────────────────────── */
 
@@ -177,6 +178,7 @@ const docsNavItems: SideNavItem[] = [
       { label: "CinePlayer", path: "cine-player" },
       { label: "FileExplorer", path: "file-explorer" },
       { label: "Timeline", path: "timeline" },
+      { label: "DateTimePicker", path: "date-time-picker" },
     ],
   },
   {
@@ -913,6 +915,36 @@ const componentSearchIndex: Record<string, string[]> = {
     "office",
     "groups",
   ],
+  "date-time-picker": [
+    "value",
+    "defaultValue",
+    "onChange",
+    "mode",
+    "date",
+    "time",
+    "datetime",
+    "minDate",
+    "maxDate",
+    "disabled",
+    "placeholder",
+    "format",
+    "use24Hour",
+    "showSeconds",
+    "locale",
+    "onOpen",
+    "onClose",
+    "drum",
+    "scroll",
+    "calendar",
+    "frosted",
+    "glass",
+    "OffsetUnit",
+    "OffsetDirection",
+    "DateTimePickerProps",
+    "DateTimeMode",
+    "picker",
+    "wheel",
+  ],
   "typewriter-text": [
     "text",
     "mode",
@@ -1082,6 +1114,7 @@ export default function DocsLayout() {
             <Route path="timeline" element={<TimelineDoc />} />
             <Route path="context-menu" element={<ContextMenuDoc />} />
             <Route path="ribbon-bar" element={<RibbonBarDoc />} />
+            <Route path="date-time-picker" element={<DateTimePickerDoc />} />
             <Route path="*" element={<Navigate to="button" replace />} />
           </Routes>
         </Suspense>

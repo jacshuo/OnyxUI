@@ -15,6 +15,14 @@ export {
   type TimelineStatus,
 } from "./Timeline";
 
+export { DateTimePicker } from "./DateTimePicker";
+export type {
+  DateTimePickerProps,
+  DateTimeMode,
+  OffsetUnit,
+  OffsetDirection,
+} from "./DateTimePicker";
+
 import { FilmReel } from "./FilmReel";
 import { MiniPlayer } from "./MiniPlayer";
 import { CinePlayer } from "./CinePlayer";
@@ -23,6 +31,7 @@ import { Masonry } from "./Masonry";
 import { TypewriterText } from "./TypewriterText";
 import { CommandPalette } from "./CommandPalette";
 import { Timeline } from "./Timeline";
+import { DateTimePicker } from "./DateTimePicker";
 
 export const Extras = {
   FilmReel,
@@ -33,6 +42,7 @@ export const Extras = {
   TypewriterText,
   CommandPalette,
   Timeline,
+  DateTimePicker,
 };
 
 export default Extras;

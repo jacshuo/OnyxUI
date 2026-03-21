@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - **Tag**: new Primitives component — inline lozenge tag with intent variants, close button, and `onRemove` callback
 - **Timeline**: new Extras component — vertical/horizontal event timeline with `active` holo spinning border animation, `complete`/`error` ambient glow, image banner/sidebar (`imagePosition`), mosaic gallery (`images[]`), action buttons (`actions` / `TimelineAction`), and entrance animations via IntersectionObserver
 - **Toast**: new Feedback component — imperative toast via `useToast()`, supporting `success|warning|error|info` intents, configurable position (6 positions), duration, dismiss, and stacking
+- **DateTimePicker**: new Extras component — iOS/Android drum-roll scroll picker with `date` / `time` / `datetime` modes, calendar grid view, quick-offset input (`n day/week/month/year from now`), frosted-glass popover (`backdrop-blur`), mobile bottom-sheet, accent-color highlight band, AM/PM support, locale via `Intl`, min/max constraints, no external date-library dependency, full `--dtp-*` CSS token overrides
 
 ### Changed
 

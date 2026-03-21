@@ -78,6 +78,7 @@ const MetricCardPage = lazy(() => import("./pages/MetricCardPage"));
 const TimelinePage = lazy(() => import("./pages/TimelinePage"));
 const ContextMenuPage = lazy(() => import("./pages/ContextMenuPage"));
 const RibbonBarPage = lazy(() => import("./pages/RibbonBarPage"));
+const DateTimePickerPage = lazy(() => import("./pages/DateTimePickerPage"));
 
 /* ── Sidebar nav items ───────────────────────────────── */
 
@@ -177,6 +178,7 @@ const navItems: SideNavItem[] = [
       { label: "TypewriterText", path: "typewriter-text" },
       { label: "CommandPalette", path: "command-palette" },
       { label: "Timeline", path: "timeline" },
+      { label: "DateTimePicker", path: "date-time-picker" },
     ],
   },
   {
@@ -440,6 +442,7 @@ export default function App() {
                 <Route path="/timeline" element={<TimelinePage />} />
                 <Route path="/context-menu" element={<ContextMenuPage />} />
                 <Route path="/ribbon-bar" element={<RibbonBarPage />} />
+                <Route path="/date-time-picker" element={<DateTimePickerPage />} />
                 <Route path="/docs" element={<Navigate to="/docs/button" replace />} />
                 <Route path="/docs/*" element={<DocsLayout />} />
               </Routes>

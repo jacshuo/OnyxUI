@@ -27,6 +27,7 @@
 @import "./components/Masonry.css";
 
 @import "../components/Extras/CommandPalette/CommandPalette.css";
+@import "../components/Extras/DateTimePicker/DateTimePicker.css";
 @import "../components/Primitives/Slider/Slider.css";
 @import "../components/Overlay/Drawer/Drawer.css";
 @import "../components/Chart/LineChart/LineChart.css";

@@ -1,0 +1,566 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   DateTimePicker (dtp) — component-scoped styles
+   All custom properties are prefixed with --dtp- for easy consumer override.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* ── Design tokens ───────────────────────────────────────────────────────── */
+
+:root {
+  --dtp-panel-bg: rgba(255, 255, 255, 0.9);
+  --dtp-panel-border: var(--color-primary-200);
+  --dtp-blur: 16px;
+  --dtp-accent: var(--color-primary-500);
+  --dtp-accent-bg: var(--color-primary-100);
+  --dtp-text-selected: var(--color-primary-800);
+  --dtp-text-muted: var(--color-secondary-400);
+  --dtp-text-primary: var(--color-primary-700);
+  --dtp-item-h: 40px;
+  --dtp-radius: 16px;
+  --dtp-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+:root:where(.dark, .dark *),
+.dark {
+  --dtp-panel-bg: rgba(15, 23, 42, 0.9);
+  --dtp-panel-border: var(--color-primary-700);
+  --dtp-accent-bg: rgba(100, 116, 139, 0.25);
+  --dtp-text-selected: var(--color-primary-100);
+  --dtp-text-muted: var(--color-secondary-500);
+  --dtp-text-primary: var(--color-primary-300);
+  --dtp-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Root wrapper ────────────────────────────────────────────────────────── */
+
+.dtp-root {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── Trigger wrapper (positions <button> trigger + sibling clear button) ─── */
+
+.dtp-trigger-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── Trigger button ──────────────────────────────────────────────────────── */
+
+.dtp-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-primary-300);
+  background: var(--color-primary-50);
+  color: var(--color-primary-700);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  min-width: 180px;
+  text-align: left;
+}
+
+/* Extra padding on the right when clear button is visible */
+.dtp-trigger--has-clear {
+  padding-right: 2rem;
+}
+
+:where(.dark, .dark *) .dtp-trigger {
+  border-color: var(--color-primary-600);
+  background: var(--color-primary-800);
+  color: var(--color-primary-200);
+}
+
+.dtp-trigger:hover:not(:disabled) {
+  border-color: var(--color-primary-400);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+:where(.dark, .dark *) .dtp-trigger:hover:not(:disabled) {
+  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.2);
+}
+
+.dtp-trigger--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dtp-trigger-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-primary-400);
+  flex-shrink: 0;
+}
+
+.dtp-trigger-text {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dtp-trigger-placeholder {
+  color: var(--color-secondary-400);
+}
+
+.dtp-trigger-clear {
+  position: absolute;
+  right: 0.375rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.125rem;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: var(--color-secondary-400);
+  cursor: pointer;
+  transition: background 100ms ease, color 100ms ease;
+}
+
+.dtp-trigger-clear:hover {
+  background: var(--color-primary-200);
+  color: var(--color-primary-600);
+}
+
+/* ── Panel (frosted glass popup) ─────────────────────────────────────────── */
+
+.dtp-panel {
+  position: fixed;
+  z-index: 9999;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  border-radius: var(--dtp-radius);
+  border: 1px solid var(--dtp-panel-border);
+  background: var(--dtp-panel-bg);
+  -webkit-backdrop-filter: blur(var(--dtp-blur));
+  backdrop-filter: blur(var(--dtp-blur));
+  box-shadow: var(--dtp-shadow);
+  overflow: hidden;
+  animation: dtp-panel-in 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  /* Default desktop position — overwritten by usePositioning */
+  top: 60px;
+  left: 0;
+}
+
+@keyframes dtp-panel-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Mobile: bottom sheet ─────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .dtp-panel {
+    position: fixed !important;
+    top: auto !important;
+    left: 0 !important;
+    bottom: 0;
+    width: 100vw;
+    max-width: 100vw;
+    border-radius: var(--dtp-radius) var(--dtp-radius) 0 0;
+    animation: dtp-panel-slide-up 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes dtp-panel-slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ── Panel header ────────────────────────────────────────────────────────── */
+
+.dtp-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1rem 0.625rem;
+  border-bottom: 1px solid var(--dtp-panel-border);
+}
+
+.dtp-panel-preview {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--dtp-text-primary);
+  letter-spacing: -0.01em;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dtp-panel-actions {
+  display: flex;
+  gap: 0.375rem;
+  margin-left: 0.5rem;
+}
+
+.dtp-view-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--dtp-text-muted);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.dtp-view-btn:hover {
+  background: var(--dtp-accent-bg);
+  color: var(--dtp-text-selected);
+}
+
+.dtp-view-btn--active {
+  background: var(--dtp-accent-bg);
+  color: var(--dtp-accent);
+  border-color: var(--dtp-panel-border);
+}
+
+/* ── Panel body ──────────────────────────────────────────────────────────── */
+
+.dtp-panel-body {
+  padding: 0.625rem 0.5rem;
+}
+
+/* ── Drum-roll layout ────────────────────────────────────────────────────── */
+
+.dtp-drum {
+  display: flex;
+  align-items: stretch;
+}
+
+.dtp-drum-date,
+.dtp-drum-time {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.dtp-drum-sep {
+  width: 1px;
+  background: var(--dtp-panel-border);
+  margin: 0.5rem 0.25rem;
+}
+
+/* ── Scroll column ───────────────────────────────────────────────────────── */
+
+.dtp-column {
+  position: relative;
+  flex: 1;
+  /* 5 visible rows */
+  height: calc(var(--dtp-item-h) * 5);
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Accent highlight band — centred over the selected item */
+.dtp-column-highlight {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: var(--dtp-item-h);
+  background: var(--dtp-accent-bg);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scrollable track */
+.dtp-column-list {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* Top + bottom padding allows first/last item to centre in the 5-item window */
+  padding-top: calc(var(--dtp-item-h) * 2);
+  padding-bottom: calc(var(--dtp-item-h) * 2);
+}
+
+.dtp-column-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual drum-roll item */
+.dtp-item {
+  position: relative;
+  z-index: 1;
+  height: var(--dtp-item-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: var(--dtp-text-muted);
+  transition: color 100ms ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.dtp-item:hover {
+  color: var(--dtp-text-primary);
+}
+
+.dtp-item--selected {
+  color: var(--dtp-text-selected);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Gradient fades — blend items into panel background */
+.dtp-fade-top,
+.dtp-fade-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: calc(var(--dtp-item-h) * 2);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.dtp-fade-top {
+  top: 0;
+  background: linear-gradient(to bottom, var(--dtp-panel-bg) 10%, transparent 100%);
+}
+
+.dtp-fade-bottom {
+  bottom: 0;
+  background: linear-gradient(to top, var(--dtp-panel-bg) 10%, transparent 100%);
+}
+
+/* ── Calendar grid ───────────────────────────────────────────────────────── */
+
+.dtp-calendar {
+  padding: 0 0.25rem;
+  min-height: 230px;
+}
+
+.dtp-cal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.dtp-cal-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--dtp-text-muted);
+  cursor: pointer;
+  transition: background 100ms ease, color 100ms ease;
+}
+
+.dtp-cal-nav-btn:hover {
+  background: var(--dtp-accent-bg);
+  color: var(--dtp-text-selected);
+}
+
+.dtp-cal-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dtp-text-primary);
+}
+
+.dtp-cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 0.125rem;
+}
+
+.dtp-cal-weekday {
+  text-align: center;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--dtp-text-muted);
+  padding: 0.25rem 0;
+}
+
+.dtp-cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.dtp-cal-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  border-radius: 0.375rem;
+  border: none;
+  background: transparent;
+  font-size: 0.8125rem;
+  color: var(--dtp-text-primary);
+  cursor: pointer;
+  transition: background 80ms ease, color 80ms ease;
+  width: 100%;
+}
+
+.dtp-cal-day:hover:not(:disabled):not(.dtp-cal-day--selected) {
+  background: var(--dtp-accent-bg);
+}
+
+.dtp-cal-day--other {
+  color: var(--dtp-text-muted);
+  opacity: 0.45;
+}
+
+.dtp-cal-day--selected {
+  background: var(--dtp-accent) !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.dtp-cal-day--today:not(.dtp-cal-day--selected) {
+  font-weight: 600;
+  color: var(--dtp-accent);
+  box-shadow: inset 0 0 0 1px var(--dtp-accent);
+}
+
+.dtp-cal-day--disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Quick offset row ────────────────────────────────────────────────────── */
+
+.dtp-panel-offset {
+  padding: 0.375rem 0.75rem 0.5rem;
+  border-top: 1px solid var(--dtp-panel-border);
+}
+
+.dtp-quick-offset {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  padding: 0.25rem 0;
+}
+
+.dtp-offset-input {
+  width: 3.25rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--dtp-panel-border);
+  background: transparent;
+  color: var(--dtp-text-primary);
+  font-size: 0.8125rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 100ms ease;
+}
+
+.dtp-offset-input:focus {
+  border-color: var(--dtp-accent);
+}
+
+.dtp-offset-select {
+  padding: 0.25rem 0.3rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--dtp-panel-border);
+  background: transparent;
+  color: var(--dtp-text-primary);
+  font-size: 0.8125rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 100ms ease;
+}
+
+.dtp-offset-select:focus {
+  border-color: var(--dtp-accent);
+}
+
+.dtp-offset-apply {
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.375rem;
+  border: none;
+  background: var(--dtp-accent);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+
+.dtp-offset-apply:hover {
+  opacity: 0.85;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+
+.dtp-panel-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  border-top: 1px solid var(--dtp-panel-border);
+}
+
+.dtp-btn-cancel {
+  padding: 0.4375rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--dtp-panel-border);
+  background: transparent;
+  color: var(--dtp-text-muted);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 100ms ease, color 100ms ease;
+}
+
+.dtp-btn-cancel:hover {
+  background: var(--dtp-accent-bg);
+  color: var(--dtp-text-primary);
+}
+
+.dtp-btn-confirm {
+  padding: 0.4375rem 1.25rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: var(--dtp-accent);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 120ms ease, transform 100ms ease;
+}
+
+.dtp-btn-confirm:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.dtp-btn-confirm:active {
+  transform: translateY(0);
+}

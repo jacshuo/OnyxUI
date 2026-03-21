@@ -31,7 +31,7 @@ Born from a passion for **polished cross-platform experiences**, Onyx delivers a
 
 ## Features
 
-- 🎨 **30+ components** — from Button → DataTable → CinePlayer → CodeBlock
+- 🎨 **50+ components** — from Button → DataTable → CinePlayer → CodeBlock
 - 📱 **Responsive by default** — built-in breakpoint layouts, touch-friendly tap targets, and adaptive component modes (hamburger nav, drawer sidebar, bottom-sheet dialog)
 - 🌗 **Dark / Light mode** — class-based, works out of the box
 - 🎯 **CSS variable design tokens** — override any design decision via CSS custom properties, including at media query breakpoints
