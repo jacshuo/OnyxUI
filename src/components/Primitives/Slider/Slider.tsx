@@ -126,13 +126,15 @@ export function Slider({
   formatValue = String,
   label,
   className,
+  id: propId,
   ...props
 }: SliderProps) {
   const [internal, setInternal] = useState(defaultValue);
   const controlled = valueProp !== undefined;
   const value = controlled ? valueProp! : internal;
 
-  const id = useId();
+  const autoId = useId();
+  const id = propId ?? autoId;
   const trackRef = useRef<HTMLDivElement>(null);
 
   const set = useCallback(
@@ -174,6 +176,20 @@ export function Slider({
 
   return (
     <div className={cn("slider-root flex flex-col gap-1", className)}>
+      {/* sr-only range input — labelable native element for htmlFor / FormItem wiring */}
+      <input
+        type="range"
+        id={id}
+        className="sr-only"
+        tabIndex={-1}
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        disabled={disabled}
+        readOnly
+        onChange={() => {}}
+      />
       {(label || showValue) && (
         <div className="flex items-center justify-between">
           {label && (
@@ -213,7 +229,6 @@ export function Slider({
           />
           {/* Thumb */}
           <div
-            id={id}
             role="slider"
             tabIndex={disabled ? -1 : 0}
             aria-valuemin={min}
@@ -251,6 +266,7 @@ export function SliderRange({
   formatValue = String,
   label,
   className,
+  id: propId,
   ...props
 }: SliderRangeProps) {
   const [internal, setInternal] = useState<[number, number]>(defaultValue);
@@ -315,6 +331,22 @@ export function SliderRange({
 
   return (
     <div className={cn("slider-root flex flex-col gap-1", className)}>
+      {/* sr-only range input — labelable native element for htmlFor / FormItem wiring */}
+      {propId && (
+        <input
+          type="range"
+          id={propId}
+          className="sr-only"
+          tabIndex={-1}
+          min={min}
+          max={max}
+          step={step}
+          value={lo}
+          disabled={disabled}
+          readOnly
+          onChange={() => {}}
+        />
+      )}
       {(label || showValue) && (
         <div className="flex items-center justify-between">
           {label && (
