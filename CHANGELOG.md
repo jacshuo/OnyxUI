@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [2.2.0] — 2026-03-21
+
+### Fixed
+
+- **Slider / SliderRange**: resolve WCAG label-for mismatch — extract `id` from spread props onto a sr-only `<input type="range">` so `htmlFor` on `<label>` targets a real labelable element; remove stray `id` from thumb `<div role="slider">`
+- **Dropdown**: resolve WCAG label-for mismatch when used inside `FormItem` — sr-only `<input type="text">` added before the trigger div in non-editable mode so the injected `id` reaches a native labelable element
+- **FormPage**: remove `<div>` wrappers around `<Switch>` inside `<FormItem>` — wrappers were interceting the injected `id`, preventing it from reaching Switch's native `<input>`
+
+### Changed
+
+- **SideNav**: fix mobile drawer drag reliability — migrate drag listeners from element to `window` level; add `swallowClick` guard to prevent accidental nav-link activations immediately after a drag release; correct `mobileDrawerSlot` prop passthrough
+- **README**: comprehensive rewrite — correct component count (55+), add Chart category section, update dev port to 3001, correct build commands, add Forms & Accessibility wiring guide, add SideNav mobile drawer documentation, add Charts / CommandPalette usage examples, refresh all component tables
+
+---
+
 ## [2.1.0] — 2026-03-21
 
 ### Added
