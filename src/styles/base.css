@@ -16,4 +16,52 @@
       font-size: 16px !important;
     }
   }
+
+  /* ── Slim, quiet scrollbars ──────────────────────────────────────────────
+   * Scrollbar thumb is invisible at rest and fades in on hover.
+   * Dark mode is triggered by the .dark class on any ancestor element.
+   * ─────────────────────────────────────────────────────────────────────── */
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  :hover {
+    scrollbar-color: rgba(156, 163, 175, 0.4) transparent;
+  }
+  .dark :hover {
+    scrollbar-color: rgba(75, 85, 99, 0.5) transparent;
+  }
+
+  /* Webkit (Chrome, Edge, Safari) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 9999px;
+    transition: background 0.2s;
+  }
+  :hover::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.4);
+  }
+  :hover::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 163, 175, 0.6);
+  }
+
+  /* Dark mode — webkit */
+  .dark ::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+  .dark :hover::-webkit-scrollbar-thumb {
+    background: rgba(75, 85, 99, 0.5);
+  }
+  .dark :hover::-webkit-scrollbar-thumb:hover {
+    background: rgba(75, 85, 99, 0.7);
+  }
 }
