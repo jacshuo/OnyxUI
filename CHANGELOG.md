@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [2.3.0] — 2026-03-22
+
+### Added
+
+- **RichTextEditor**: full WYSIWYG / Markdown rich-text editor — ribbon bar (Home / Insert / Format tabs), table editing with context toolbar (add/delete rows & columns, merge/split cells, column drag-resize), multi-platform video & embed support (YouTube, Vimeo, Bilibili, Dailymotion, Twitch clips, direct `.mp4`/`.webm`/`.mov` files), `onSave` callback with `Cmd/Ctrl+S` shortcut, Save ribbon button, `getContent()` / `getMode()` imperative ref methods, full i18n via `labels` prop (47 keys), and ribbon extensibility via `extraRibbonGroups` / `extraRibbonTabs`
+- **Rating**: star / heart / emoji rating input — supports half-star precision, read-only mode, custom icons, and size variants
+- **Kbd**: keyboard shortcut display — renders `<kbd>` sequences with configurable separator and size
+- **OTPInput**: one-time password input — configurable digit count, auto-advance, paste-split, and masked mode
+- **SplitPanel**: resizable split-panel layout — horizontal/vertical orientation, min/max constraints, keyboard-nudge support, collapsible panels, and controlled/uncontrolled sizes
+- **VirtualList**: virtualized list for large datasets — fixed or variable item heights, horizontal axis, infinite scroll via `onReachEnd`, multi-select, `scrollToIndex`, and `onVisibleRangeChange` callback
+- **LoginPanel**: pre-built authentication panel — email/password and social OAuth button slots, remember-me, forgot-password link, and dark-mode aware
+
+---
+
 ## [2.2.0] — 2026-03-21
 
 ### Fixed
