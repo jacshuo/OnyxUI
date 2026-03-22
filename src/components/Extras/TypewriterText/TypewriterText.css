@@ -145,16 +145,20 @@
   border-radius: 0.25rem;
   font-size: 0.8125em;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  border: 1px solid var(--color-primary-200);
 }
 
 .dark .tw-rich-prose :not(pre) > code {
-  background-color: var(--color-primary-800);
+  /* primary-900 is darker than the AI bubble's primary-800 — creates visible contrast */
+  background-color: var(--color-primary-900);
   color: var(--color-primary-200);
+  border-color: var(--color-primary-700);
 }
 
 /* ── Fenced code blocks ──────────────────────────────────── */
 .tw-rich-prose pre {
   background-color: var(--color-primary-100);
+  border: 1px solid var(--color-primary-200);
   border-radius: 0.5rem;
   padding: 0.875rem 1rem;
   overflow-x: auto;
@@ -165,7 +169,9 @@
 }
 
 .dark .tw-rich-prose pre {
-  background-color: var(--color-primary-800);
+  /* primary-900 (#0f172a) is darker than the AI bubble's primary-800 (#1e293b) */
+  background-color: var(--color-primary-900);
+  border-color: var(--color-primary-700);
 }
 
 .tw-rich-prose pre > code {

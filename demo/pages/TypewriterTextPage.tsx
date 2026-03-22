@@ -197,8 +197,8 @@ function AIChatDemo() {
                 cursor
                 thinking={thinking}
                 streaming={streaming}
-                as="div"
-                className="whitespace-pre-wrap text-sm leading-relaxed text-primary-800 dark:text-primary-200"
+                rich
+                className="text-sm leading-relaxed text-primary-800 dark:text-primary-200"
               />
             </div>
           </div>
