@@ -77,6 +77,9 @@ export {
   toastVariants,
   avatarVariants,
   sliderVariants,
+  ratingVariants,
+  kbdVariants,
+  otpInputVariants,
 } from "./styles/theme";
 
 // ─── Primitives
@@ -119,6 +122,20 @@ export {
   type SliderProps,
   type SliderRangeProps,
 } from "./components/Primitives/Slider/index";
+export {
+  Rating,
+  type RatingProps,
+  type RatingSize,
+  type RatingIntent,
+} from "./components/Primitives/Rating/index";
+export {
+  Kbd,
+  KbdGroup,
+  type KbdProps,
+  type KbdGroupProps,
+  type KbdSize,
+  type KbdVariant,
+} from "./components/Primitives/Kbd/index";
 
 // ─── Layout
 export {
@@ -138,6 +155,11 @@ export {
   ImageCardActions,
 } from "./components/Layout/ImageCard/index";
 export { Panel, PanelHeader, PanelContent } from "./components/Layout/Panel/index";
+export {
+  SplitPanel,
+  type SplitPanelPane,
+  type SplitPanelProps,
+} from "./components/Layout/SplitPanel/index";
 
 // ─── Data Display
 export {
@@ -166,6 +188,13 @@ export {
   type CodeBlockProps,
 } from "./components/DataDisplay/CodeBlock/index";
 export { Stat, type StatProps, type StatTrend } from "./components/DataDisplay/Stat/index";
+export {
+  VirtualList,
+  type VirtualListHandle,
+  type VirtualListProps,
+  type VirtualListAlign,
+  type VirtualListDirection,
+} from "./components/DataDisplay/VirtualList/index";
 export {
   MetricCard,
   type MetricCardProps,
@@ -337,6 +366,21 @@ export {
   type OffsetUnit,
   type OffsetDirection,
 } from "./components/Extras/DateTimePicker/index";
+export {
+  LoginPanel,
+  type LoginPanelProps,
+  type LoginPanelMode,
+} from "./components/Extras/LoginPanel/index";
+
+export {
+  RichTextEditor,
+  type RichTextEditorProps,
+  type RichTextEditorHandle,
+  type RichEditorMode,
+  type RichTextEditorLabels,
+  type RichEditorBuiltInTabKey,
+  type RichTextEditorRibbonProps,
+} from "./components/Extras/RichTextEditor/index";
 
 // ─── Form
 export {
@@ -353,6 +397,12 @@ export {
   type ValidationResult,
   type ValidateCallback,
 } from "./components/Forms/Form/index";
+export {
+  OTPInput,
+  type OTPInputProps,
+  type OTPInputSize,
+  type OTPInputVariant,
+} from "./components/Forms/OTPInput/index";
 
 // ─── Chart
 export { LineChart, type LineChartProps } from "./components/Chart/LineChart";

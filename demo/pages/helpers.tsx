@@ -74,6 +74,8 @@ const KNOWN_DOC_SLUGS = new Set([
   "skeleton",
   "slider",
   "spin",
+  "split-panel",
+  "virtual-list",
   "stat",
   "switch",
   "table",
@@ -85,6 +87,11 @@ const KNOWN_DOC_SLUGS = new Set([
   "tooltip",
   "tree",
   "typewriter-text",
+  "rating",
+  "kbd",
+  "otp-input",
+  "login-panel",
+  "rich-text-editor",
 ]);
 
 const KNOWN_DEMO_SLUGS = new Set([
@@ -131,6 +138,8 @@ const KNOWN_DEMO_SLUGS = new Set([
   "skeleton",
   "slider",
   "spin",
+  "split-panel",
+  "virtual-list",
   "stat",
   "switch",
   "table",
@@ -142,6 +151,11 @@ const KNOWN_DEMO_SLUGS = new Set([
   "tooltip",
   "tree",
   "typewriter-text",
+  "rating",
+  "kbd",
+  "otp-input",
+  "login-panel",
+  "rich-text-editor",
 ]);
 
 function useCrossLink(): { href: string; label: string } | null {

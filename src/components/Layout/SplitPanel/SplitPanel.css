@@ -1,0 +1,15 @@
+/* SplitPanel component styles.
+   The component uses Tailwind v4 utilities directly; this file holds only
+   CSS that cannot be expressed as utilities (e.g. transition on data-* state).
+*/
+
+/* Enforces that the panel container fills its parent when used without
+   an explicit width/height — matching the "100%" defaults in the props. */
+[data-split-panel] {
+  box-sizing: border-box;
+}
+
+/* Ensure all pane children respect the flex layout. */
+[data-split-pane-id] {
+  box-sizing: border-box;
+}

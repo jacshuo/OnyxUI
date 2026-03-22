@@ -1,0 +1,16 @@
+/* LoginPanel component styles */
+
+.login-panel-slide-enter {
+  animation: login-slide-in 0.22s ease-out forwards;
+}
+
+@keyframes login-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

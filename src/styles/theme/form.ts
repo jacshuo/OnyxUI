@@ -1,5 +1,31 @@
 import { cva } from "class-variance-authority";
 
+export const otpInputVariants = cva(
+  "w-full rounded-md font-mono text-center transition-all focus:outline-none focus:ring-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      size: {
+        sm: "h-9 w-9 text-sm",
+        md: "h-12 w-12 text-base",
+        lg: "h-14 w-14 text-lg",
+      },
+      variant: {
+        outline:
+          "border border-secondary-300 bg-transparent focus:border-primary-500 focus:ring-primary-500/20 dark:border-secondary-600 dark:bg-transparent dark:focus:border-primary-400",
+        filled:
+          "border border-transparent bg-secondary-100 focus:border-primary-500 focus:ring-primary-500/20 dark:bg-secondary-800 dark:focus:border-primary-400",
+        underline:
+          "rounded-none border-0 border-b-2 border-secondary-300 bg-transparent px-0 focus:border-primary-500 focus:ring-0 dark:border-secondary-600 dark:focus:border-primary-400",
+      },
+      invalid: {
+        true: "border-danger-400 focus:border-danger-500 focus:ring-danger-500/20",
+        false: "",
+      },
+    },
+    defaultVariants: { size: "md", variant: "outline", invalid: false },
+  },
+);
+
 export const formVariants = cva("w-full", {
   variants: {
     intent: {

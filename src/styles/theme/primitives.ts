@@ -282,6 +282,39 @@ export const avatarVariants = cva(
   },
 );
 
+export const ratingVariants = cva("inline-flex items-center", {
+  variants: {
+    size: {
+      sm: "gap-0.5 [&_.rating-icon]:h-4 [&_.rating-icon]:w-4",
+      md: "gap-1 [&_.rating-icon]:h-6 [&_.rating-icon]:w-6",
+      lg: "gap-1.5 [&_.rating-icon]:h-8 [&_.rating-icon]:w-8",
+    },
+  },
+  defaultVariants: { size: "md" },
+});
+
+export const kbdVariants = cva(
+  "inline-flex items-center justify-center rounded font-mono font-medium select-none",
+  {
+    variants: {
+      size: {
+        xs: "h-4 min-w-4 px-1 text-[0.6rem]",
+        sm: "h-5 min-w-5 px-1.5 text-xs",
+        md: "h-6 min-w-6 px-2 text-sm",
+        lg: "h-8 min-w-8 px-2.5 text-base",
+      },
+      variant: {
+        default:
+          "border border-secondary-300 bg-secondary-100 text-secondary-700 shadow-[0_2px_0_0_var(--color-secondary-300)] dark:border-secondary-600 dark:bg-secondary-800 dark:text-secondary-300 dark:shadow-[0_2px_0_0_var(--color-secondary-600)]",
+        outline:
+          "border border-secondary-400 bg-transparent text-secondary-700 dark:border-secondary-500 dark:text-secondary-300",
+        ghost: "text-secondary-600 dark:text-secondary-400",
+      },
+    },
+    defaultVariants: { size: "sm", variant: "default" },
+  },
+);
+
 export const sliderVariants = cva("relative flex w-full touch-none select-none items-center", {
   variants: {
     intent: {

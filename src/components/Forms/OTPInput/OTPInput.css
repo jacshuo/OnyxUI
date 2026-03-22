@@ -1,0 +1,11 @@
+/* OTPInput component styles */
+
+@keyframes otp-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.otp-pop {
+  animation: otp-pop 0.18s ease-out forwards;
+}

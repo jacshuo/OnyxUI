@@ -23,6 +23,11 @@ export type {
   OffsetDirection,
 } from "./DateTimePicker";
 
+export { LoginPanel, type LoginPanelProps, type LoginPanelMode } from "./LoginPanel";
+
+export { RichTextEditor } from "./RichTextEditor";
+export type { RichTextEditorProps, RichTextEditorHandle, RichEditorMode } from "./RichTextEditor";
+
 import { FilmReel } from "./FilmReel";
 import { MiniPlayer } from "./MiniPlayer";
 import { CinePlayer } from "./CinePlayer";
@@ -32,6 +37,8 @@ import { TypewriterText } from "./TypewriterText";
 import { CommandPalette } from "./CommandPalette";
 import { Timeline } from "./Timeline";
 import { DateTimePicker } from "./DateTimePicker";
+import { LoginPanel } from "./LoginPanel";
+import { RichTextEditor } from "./RichTextEditor";
 
 export const Extras = {
   FilmReel,
@@ -43,6 +50,8 @@ export const Extras = {
   CommandPalette,
   Timeline,
   DateTimePicker,
+  LoginPanel,
+  RichTextEditor,
 };
 
 export default Extras;

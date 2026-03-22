@@ -12,6 +12,15 @@ export { Checkbox } from "./Checkbox";
 export { Radio, RadioGroup } from "./Radio";
 export { Avatar, AvatarGroup } from "./Avatar";
 export { Slider, SliderRange } from "./Slider";
+export { Rating, type RatingProps, type RatingSize, type RatingIntent } from "./Rating";
+export {
+  Kbd,
+  KbdGroup,
+  type KbdProps,
+  type KbdGroupProps,
+  type KbdSize,
+  type KbdVariant,
+} from "./Kbd";
 
 import { Button } from "./Button";
 import { Dropdown } from "./Dropdown";
@@ -27,6 +36,8 @@ import { Checkbox } from "./Checkbox";
 import { Radio, RadioGroup } from "./Radio";
 import { Avatar, AvatarGroup } from "./Avatar";
 import { Slider, SliderRange } from "./Slider";
+import { Rating } from "./Rating";
+import { Kbd, KbdGroup } from "./Kbd";
 
 export const Primitives = {
   Button,
@@ -46,6 +57,9 @@ export const Primitives = {
   AvatarGroup,
   Slider,
   SliderRange,
+  Rating,
+  Kbd,
+  KbdGroup,
 };
 
 export default Primitives;

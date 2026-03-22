@@ -10,6 +10,8 @@ export {
   switchTrackVariants,
   avatarVariants,
   sliderVariants,
+  ratingVariants,
+  kbdVariants,
 } from "./theme/primitives";
 
 export { cardVariants, panelVariants } from "./theme/layout";
@@ -44,6 +46,11 @@ export {
   toastVariants,
 } from "./theme/feedback";
 
-export { formVariants, formItemVariants, formValidationVariants } from "./theme/form";
+export {
+  formVariants,
+  formItemVariants,
+  formValidationVariants,
+  otpInputVariants,
+} from "./theme/form";
 
 export { chartContainerVariants, chartLegendVariants, chartTooltipVariants } from "./theme/chart";

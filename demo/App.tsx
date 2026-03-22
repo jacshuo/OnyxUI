@@ -82,6 +82,13 @@ const TimelinePage = lazy(() => import("./pages/TimelinePage"));
 const ContextMenuPage = lazy(() => import("./pages/ContextMenuPage"));
 const RibbonBarPage = lazy(() => import("./pages/RibbonBarPage"));
 const DateTimePickerPage = lazy(() => import("./pages/DateTimePickerPage"));
+const SplitPanelPage = lazy(() => import("./pages/SplitPanelPage"));
+const VirtualListPage = lazy(() => import("./pages/VirtualListPage"));
+const RatingPage = lazy(() => import("./pages/RatingPage"));
+const KbdPage = lazy(() => import("./pages/KbdPage"));
+const OTPInputPage = lazy(() => import("./pages/OTPInputPage"));
+const LoginPanelPage = lazy(() => import("./pages/LoginPanelPage"));
+const RichTextEditorPage = lazy(() => import("./pages/RichTextEditorPage"));
 
 /* ── Sidebar nav items ───────────────────────────────── */
 
@@ -104,6 +111,9 @@ const navItems: SideNavItem[] = [
       { label: "Form", path: "form" },
       { label: "Avatar", path: "avatar" },
       { label: "Slider", path: "slider" },
+      { label: "Rating", path: "rating" },
+      { label: "Kbd", path: "kbd" },
+      { label: "OTPInput", path: "otp-input" },
     ],
   },
   {
@@ -113,6 +123,7 @@ const navItems: SideNavItem[] = [
       { label: "Card", path: "card" },
       { label: "Image Card", path: "image-card" },
       { label: "Panel", path: "panel" },
+      { label: "SplitPanel", path: "split-panel" },
     ],
   },
   {
@@ -121,6 +132,7 @@ const navItems: SideNavItem[] = [
     children: [
       { label: "Table", path: "table" },
       { label: "List", path: "list" },
+      { label: "VirtualList", path: "virtual-list" },
       { label: "Tree", path: "tree" },
       { label: "Chat", path: "chat" },
       { label: "CodeBlock", path: "code-block" },
@@ -182,6 +194,8 @@ const navItems: SideNavItem[] = [
       { label: "CommandPalette", path: "command-palette" },
       { label: "Timeline", path: "timeline" },
       { label: "DateTimePicker", path: "date-time-picker" },
+      { label: "LoginPanel", path: "login-panel" },
+      { label: "Rich Text Editor", path: "rich-text-editor" },
     ],
   },
   {
@@ -240,6 +254,40 @@ const componentSearchIndex: Record<string, string[]> = {
   card: ["container", "shadow", "border", "layout", "header", "footer"],
   "image-card": ["photo", "thumbnail", "cover", "aspect", "overlay", "media"],
   panel: ["container", "section", "box", "surface", "padding"],
+  "virtual-list": [
+    "virtual",
+    "list",
+    "window",
+    "windowing",
+    "scroll",
+    "performance",
+    "large",
+    "dataset",
+    "infinite",
+    "rows",
+    "virtualization",
+    "recycle",
+    "fixed",
+    "variable",
+    "height",
+    "horizontal",
+  ],
+  "split-panel": [
+    "split",
+    "pane",
+    "resize",
+    "divider",
+    "desktop",
+    "vscode",
+    "layout",
+    "sidebar",
+    "drag",
+    "horizontal",
+    "vertical",
+    "visibility",
+    "collapsible",
+    "persist",
+  ],
   table: ["data", "rows", "columns", "sort", "pagination", "selectable", "striped"],
   list: ["items", "ordered", "unordered", "avatar", "icon", "divider"],
   tree: ["hierarchy", "nested", "expand", "collapse", "folder", "node"],
@@ -287,6 +335,50 @@ const componentSearchIndex: Record<string, string[]> = {
     "hour",
     "minute",
     "second",
+  ],
+  rating: ["star", "rate", "review", "score", "half", "precision", "intent", "fill", "icon"],
+  kbd: ["keyboard", "shortcut", "key", "symbol", "group", "press", "hotkey", "combo"],
+  "otp-input": [
+    "one-time",
+    "code",
+    "verification",
+    "pin",
+    "digit",
+    "slot",
+    "paste",
+    "mask",
+    "alphanumeric",
+    "2fa",
+    "two-factor",
+  ],
+  "login-panel": [
+    "login",
+    "register",
+    "auth",
+    "authentication",
+    "sign in",
+    "sign up",
+    "otp",
+    "forgot",
+    "password",
+    "social",
+    "form",
+    "panel",
+  ],
+  "rich-text-editor": [
+    "rich text",
+    "editor",
+    "wysiwyg",
+    "markdown",
+    "tiptap",
+    "formatting",
+    "richtext",
+    "toolbar",
+    "ribbon",
+    "bold",
+    "italic",
+    "heading",
+    "preview",
   ],
   linechart: ["chart", "graph", "line", "trend", "data", "recharts"],
   barchart: ["chart", "graph", "bar", "histogram", "data", "recharts"],
@@ -575,6 +667,8 @@ export default function App() {
                 <Route path="/card" element={<CardPage />} />
                 <Route path="/image-card" element={<ImageCardPage />} />
                 <Route path="/panel" element={<PanelPage />} />
+                <Route path="/split-panel" element={<SplitPanelPage />} />
+                <Route path="/virtual-list" element={<VirtualListPage />} />
                 <Route path="/table" element={<TablePage />} />
                 <Route path="/list" element={<ListPage />} />
                 <Route path="/tree" element={<TreePage />} />
@@ -618,6 +712,11 @@ export default function App() {
                 <Route path="/context-menu" element={<ContextMenuPage />} />
                 <Route path="/ribbon-bar" element={<RibbonBarPage />} />
                 <Route path="/date-time-picker" element={<DateTimePickerPage />} />
+                <Route path="/rating" element={<RatingPage />} />
+                <Route path="/kbd" element={<KbdPage />} />
+                <Route path="/otp-input" element={<OTPInputPage />} />
+                <Route path="/login-panel" element={<LoginPanelPage />} />
+                <Route path="/rich-text-editor" element={<RichTextEditorPage />} />
                 <Route path="/docs" element={<Navigate to="/docs/button" replace />} />
                 <Route path="/docs/*" element={<DocsLayout />} />
               </Routes>

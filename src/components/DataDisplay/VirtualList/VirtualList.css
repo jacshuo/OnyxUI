@@ -1,0 +1,35 @@
+/* VirtualList — component-scoped styles */
+
+/* Smooth momentum scrolling on iOS / macOS trackpads */
+[data-virtual-list] {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: auto; /* programmatic smooth scroll is handled per-call */
+  outline: none;
+}
+
+/* Prevent sub-pixel layout jitter on high-DPI screens */
+.onyx-vlist-item {
+  will-change: transform;
+  contain: layout style;
+}
+
+/* Horizontal-list drag affordance */
+[data-virtual-list][data-direction="horizontal"] {
+  cursor: grab;
+}
+
+/* Default scroll-bar thinning on Webkit */
+[data-virtual-list]::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+[data-virtual-list]::-webkit-scrollbar-track {
+  background: transparent;
+}
+[data-virtual-list]::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: color-mix(in srgb, currentColor 25%, transparent);
+}
+[data-virtual-list]::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, currentColor 40%, transparent);
+}

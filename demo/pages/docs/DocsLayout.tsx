@@ -71,6 +71,13 @@ const TimelineDoc = lazy(() => import("./TimelineDoc"));
 const ContextMenuDoc = lazy(() => import("./ContextMenuDoc"));
 const RibbonBarDoc = lazy(() => import("./RibbonBarDoc"));
 const DateTimePickerDoc = lazy(() => import("./DateTimePickerDoc"));
+const SplitPanelDoc = lazy(() => import("./SplitPanelDoc"));
+const VirtualListDoc = lazy(() => import("./VirtualListDoc"));
+const RatingDoc = lazy(() => import("./RatingDoc"));
+const KbdDoc = lazy(() => import("./KbdDoc"));
+const OTPInputDoc = lazy(() => import("./OTPInputDoc"));
+const LoginPanelDoc = lazy(() => import("./LoginPanelDoc"));
+const RichTextEditorDoc = lazy(() => import("./RichTextEditorDoc"));
 
 /* ── Docs nav items ───────────────────────────────────── */
 
@@ -94,6 +101,9 @@ const docsNavItems: SideNavItem[] = [
       { label: "Avatar", path: "avatar" },
       { label: "Slider", path: "slider" },
       { label: "Tag / Chip", path: "tag" },
+      { label: "Rating", path: "rating" },
+      { label: "Kbd", path: "kbd" },
+      { label: "OTPInput", path: "otp-input" },
     ],
   },
   {
@@ -104,6 +114,7 @@ const docsNavItems: SideNavItem[] = [
       { label: "Card", path: "card" },
       { label: "ImageCard", path: "image-card" },
       { label: "Panel", path: "panel" },
+      { label: "SplitPanel", path: "split-panel" },
       { label: "Masonry", path: "masonry" },
     ],
   },
@@ -114,6 +125,7 @@ const docsNavItems: SideNavItem[] = [
     children: [
       { label: "Table", path: "table" },
       { label: "List", path: "list" },
+      { label: "VirtualList", path: "virtual-list" },
       { label: "Tree", path: "tree" },
       { label: "Chat", path: "chat" },
       { label: "CodeBlock", path: "code-block" },
@@ -179,6 +191,8 @@ const docsNavItems: SideNavItem[] = [
       { label: "FileExplorer", path: "file-explorer" },
       { label: "Timeline", path: "timeline" },
       { label: "DateTimePicker", path: "date-time-picker" },
+      { label: "LoginPanel", path: "login-panel" },
+      { label: "RichTextEditor", path: "rich-text-editor" },
     ],
   },
   {
@@ -1100,6 +1114,8 @@ export default function DocsLayout() {
             <Route path="card" element={<CardDoc />} />
             <Route path="image-card" element={<ImageCardDoc />} />
             <Route path="panel" element={<PanelDoc />} />
+            <Route path="split-panel" element={<SplitPanelDoc />} />
+            <Route path="virtual-list" element={<VirtualListDoc />} />
             <Route path="masonry" element={<MasonryDoc />} />
             <Route path="table" element={<TableDoc />} />
             <Route path="list" element={<ListDoc />} />
@@ -1140,6 +1156,11 @@ export default function DocsLayout() {
             <Route path="context-menu" element={<ContextMenuDoc />} />
             <Route path="ribbon-bar" element={<RibbonBarDoc />} />
             <Route path="date-time-picker" element={<DateTimePickerDoc />} />
+            <Route path="rating" element={<RatingDoc />} />
+            <Route path="kbd" element={<KbdDoc />} />
+            <Route path="otp-input" element={<OTPInputDoc />} />
+            <Route path="login-panel" element={<LoginPanelDoc />} />
+            <Route path="rich-text-editor" element={<RichTextEditorDoc />} />
             <Route path="*" element={<Navigate to="button" replace />} />
           </Routes>
         </Suspense>

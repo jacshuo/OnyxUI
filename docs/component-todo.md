@@ -35,12 +35,12 @@ Components recommended for future addition to the library, grouped by priority.
 
 | Component | Category | Rationale |
 |---|---|---|
-| `VirtualList` | Extras | Windowed rendering for large datasets; pairs with Tree and List |
+| `VirtualList` | Extras | Windowed rendering for large datasets; pairs with Tree and List | ✅ 2026-03-22 |
 | `RichTextEditor` | Extras | Complements CodeBlock for user-editable content |
-| `OTPInput` | Forms | Segmented code entry for auth UX |
-| `Kbd` | Primitives | `<kbd>` shortcut display — small but polished |
+| `OTPInput` | Forms | Segmented code entry for auth UX | ✅ 2026-03-22 |
+| `Kbd` | Primitives | `<kbd>` shortcut display — small but polished | ✅ 2026-03-22 |
 | `ResizablePanels` | Layout | SplitPane — natural extension of Panel for IDE-like UIs |
-| `Rating` | Primitives | Star/icon rating input |
+| `Rating` | Primitives | Star/icon rating input | ✅ 2026-03-22 |
 | `HoverCard` | Overlay | Rich preview on hover (e.g. user profile, link preview) |
 
 ---
@@ -52,3 +52,8 @@ Components recommended for future addition to the library, grouped by priority.
 | `Skeleton` | Feedback | 2026-03-21 |
 | `Toast` | Feedback | 2026-03-21 |
 | `CommandPalette` | Extras | 2026-03-21 |
+| `VirtualList` | DataDisplay | 2026-03-22 |
+| `Rating` | Primitives | 2026-03-22 |
+| `Kbd` | Primitives | 2026-03-22 |
+| `OTPInput` | Forms | 2026-03-22 |
+| `LoginPanel` | Extras | 2026-03-22 |
